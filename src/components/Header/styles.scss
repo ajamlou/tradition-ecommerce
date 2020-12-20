@@ -1,0 +1,32 @@
+.header {
+  height: 6.5rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+
+  .wrap {
+    max-width: 1450px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    // display: flex;
+    // flex-direction: row;
+    // justify-content: center;
+    // align-items: center;
+
+    .logo {
+      position: absolute;
+      width: 19rem;
+      height: auto;
+      top: 50%;
+      left: 10px;
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      transform: translateY(-50%);
+
+      img {
+        display: block;
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}
