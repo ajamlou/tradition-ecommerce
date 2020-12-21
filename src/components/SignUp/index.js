@@ -4,6 +4,7 @@ import Button from "../forms/Button";
 import "./styles.scss";
 import { auth, handleUserProfile } from "./../../firebase/utils";
 import AuthWrapper from "../AuthWrapper";
+import { Link } from "react-router-dom";
 
 const initialState = {
   displayName: "",
@@ -120,6 +121,9 @@ class SignUp extends Component {
               onChange={this.handleChange}
             />
             <Button type="submit">Registrera</Button>
+            <div className="links">
+              <Link to="/login">Tillbaka</Link>
+            </div>
           </form>
         </div>
       </AuthWrapper>

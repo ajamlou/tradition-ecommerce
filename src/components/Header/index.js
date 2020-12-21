@@ -20,6 +20,7 @@ const Header = (props) => {
           {currentUser && (
             <ul>
               <li>
+                <Link to={"/about"}>Om</Link>
                 <span onClick={() => auth.signOut()}>Logga ut</span>
               </li>
             </ul>
@@ -29,7 +30,6 @@ const Header = (props) => {
             <ul>
               <li>
                 <Link to={"/about"}>Om</Link>
-                <Link to={"/register"}>Skapa konto</Link>
                 <Link to={"/login"}>Logga in</Link>
               </li>
             </ul>

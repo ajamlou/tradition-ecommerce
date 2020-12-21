@@ -76,6 +76,11 @@ class SignIn extends Component {
             <div className="links">
               <Link to="/reset">Glömt lösenord?</Link>
             </div>
+
+            <div className="create">
+              <h3>Har du inte ett konto?</h3>
+              <Link to="/register">Skapa konto</Link>
+            </div>
           </form>
         </div>
       </AuthWrapper>
