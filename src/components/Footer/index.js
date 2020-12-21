@@ -6,7 +6,7 @@ const Footer = (props) => {
     <header className="footer">
       <div className="wrap">
         <div>
-          <a>© EREE Woodcraft 2021</a>
+          <p>© EREE Woodcraft 2021</p>
         </div>
       </div>
     </header>

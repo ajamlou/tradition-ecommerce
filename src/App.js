@@ -7,6 +7,7 @@ import Homepage from "./pages/Homepage";
 import About from "./pages/About";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Recovery from "./pages/Recovery";
 
 const initialState = {
   currentUser: null,
@@ -91,6 +92,14 @@ class App extends Component {
                 </MainLayout>
               )
             }
+          />
+          <Route
+            path="/reset"
+            render={() => (
+              <MainLayout currentUser={currentUser}>
+                <Recovery />
+              </MainLayout>
+            )}
           />
         </Switch>
       </div>

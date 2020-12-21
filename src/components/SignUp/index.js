@@ -3,6 +3,7 @@ import FormInput from "../forms/FormInput";
 import Button from "../forms/Button";
 import "./styles.scss";
 import { auth, handleUserProfile } from "./../../firebase/utils";
+import AuthWrapper from "../AuthWrapper";
 
 const initialState = {
   displayName: "",
@@ -72,57 +73,56 @@ class SignUp extends Component {
       confirmPassword,
       errors,
     } = this.state;
+
+    const configAuthWrapper = {
+      headline: "Skapa konto",
+      text: "Skapa ett konto om du vill kunna se dina ordar och få nyhetsbrev",
+    };
+
     return (
-      <div className="signUp">
-        <div className="wrap">
-          <h2>Skapa konto</h2>
-          <p>
-            Skapa ett konto om du vill kunna se dina ordar och få nyhetsbrev
-          </p>
+      <AuthWrapper {...configAuthWrapper}>
+        {errors.length > 0 && (
+          <ul>
+            {errors.map((err, index) => {
+              return <li key={index}>{err}</li>;
+            })}
+          </ul>
+        )}
 
-          {errors.length > 0 && (
-            <ul>
-              {errors.map((err, index) => {
-                return <li key={index}>{err}</li>;
-              })}
-            </ul>
-          )}
-
-          <div className="formWrap">
-            <form onSubmit={this.handleFormSubmit}>
-              <FormInput
-                type="text"
-                name="displayName"
-                value={displayName}
-                placeholder="För- och efternamn"
-                onChange={this.handleChange}
-              />
-              <FormInput
-                type="text"
-                name="email"
-                value={email}
-                placeholder="Email"
-                onChange={this.handleChange}
-              />
-              <FormInput
-                type="password"
-                name="password"
-                value={password}
-                placeholder="Lösenord"
-                onChange={this.handleChange}
-              />
-              <FormInput
-                type="password"
-                name="confirmPassword"
-                value={confirmPassword}
-                placeholder="Bekräfta lösenord"
-                onChange={this.handleChange}
-              />
-              <Button type="submit">Registrera</Button>
-            </form>
-          </div>
+        <div className="formWrap">
+          <form onSubmit={this.handleFormSubmit}>
+            <FormInput
+              type="text"
+              name="displayName"
+              value={displayName}
+              placeholder="För- och efternamn"
+              onChange={this.handleChange}
+            />
+            <FormInput
+              type="text"
+              name="email"
+              value={email}
+              placeholder="Email"
+              onChange={this.handleChange}
+            />
+            <FormInput
+              type="password"
+              name="password"
+              value={password}
+              placeholder="Lösenord"
+              onChange={this.handleChange}
+            />
+            <FormInput
+              type="password"
+              name="confirmPassword"
+              value={confirmPassword}
+              placeholder="Bekräfta lösenord"
+              onChange={this.handleChange}
+            />
+            <Button type="submit">Registrera</Button>
+          </form>
         </div>
-      </div>
+      </AuthWrapper>
     );
   }
 }
