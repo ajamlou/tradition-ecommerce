@@ -1,134 +1,123 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import FormInput from "../forms/FormInput";
 import Button from "../forms/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import "./styles.scss";
 import { auth, handleUserProfile } from "./../../firebase/utils";
 import AuthWrapper from "../AuthWrapper";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
-const initialState = {
-  displayName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  errors: [],
-};
+const SignUp = (props) => {
+  const [displayName, setDisplayName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-class SignUp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...initialState,
-    };
+  const REGISTER = "Registrera";
 
-    this.handleChange = this.handleChange.bind(this);
-  }
+  const resetForm = () => {
+    setLoading(false);
+    setDisplayName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setErrors([]);
+  };
 
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  handleFormSubmit = async (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const { displayName, email, password, confirmPassword } = this.state;
-
     if (password !== confirmPassword) {
-      const err = ["Lösenorden stämmer inte överens"];
-      this.setState({
-        errors: err,
-      });
+      setErrors(["Lösenorden stämmer inte överens"]);
+      resetForm();
+      return;
+    }
+    if (password.length < 6) {
+      setErrors(["Lösenordet måste vara längre än sex tecken"]);
+      resetForm();
       return;
     }
     if (!re.test(String(email).toLowerCase())) {
-      const err = ["Ange en giltig email-adress"];
-      this.setState({
-        errors: err,
-      });
+      setErrors(["Du måste ange en giltig mailadress"]);
+      resetForm();
     }
 
     try {
+      setLoading(true);
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
-
       await handleUserProfile(user, { displayName });
-
-      this.setState({
-        ...initialState,
-      });
+      props.history.push("/");
+      resetForm();
     } catch (err) {
       console.log(err);
     }
   };
 
-  render() {
-    const {
-      displayName,
-      email,
-      password,
-      confirmPassword,
-      errors,
-    } = this.state;
+  const configAuthWrapper = {
+    headline: "Skapa konto",
+    text: "Skapa ett konto om du vill kunna se dina ordar och få nyhetsbrev",
+  };
 
-    const configAuthWrapper = {
-      headline: "Skapa konto",
-      text: "Skapa ett konto om du vill kunna se dina ordar och få nyhetsbrev",
-    };
+  return (
+    <AuthWrapper {...configAuthWrapper}>
+      {errors.length > 0 && (
+        <ul>
+          {errors.map((err, index) => {
+            return <li key={index}>{err}</li>;
+          })}
+        </ul>
+      )}
 
-    return (
-      <AuthWrapper {...configAuthWrapper}>
-        {errors.length > 0 && (
-          <ul>
-            {errors.map((err, index) => {
-              return <li key={index}>{err}</li>;
-            })}
-          </ul>
-        )}
+      <div className="formWrap">
+        <form onSubmit={handleFormSubmit}>
+          <FormInput
+            type="text"
+            name="displayName"
+            value={displayName}
+            placeholder="För- och efternamn"
+            handleChange={(e) => setDisplayName(e.target.value)}
+          />
+          <FormInput
+            type="text"
+            name="email"
+            value={email}
+            placeholder="Email"
+            handleChange={(e) => setEmail(e.target.value)}
+          />
+          <FormInput
+            type="password"
+            name="password"
+            value={password}
+            placeholder="Lösenord"
+            handleChange={(e) => setPassword(e.target.value)}
+          />
+          <FormInput
+            type="password"
+            name="confirmPassword"
+            value={confirmPassword}
+            placeholder="Bekräfta lösenord"
+            handleChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <Button type="submit">
+            {loading ? (
+              <CircularProgress size={20} style={{ color: "white" }} />
+            ) : (
+              REGISTER
+            )}
+          </Button>
+          <div className="links">
+            <Link to="/login">Tillbaka</Link>
+          </div>
+        </form>
+      </div>
+    </AuthWrapper>
+  );
+};
 
-        <div className="formWrap">
-          <form onSubmit={this.handleFormSubmit}>
-            <FormInput
-              type="text"
-              name="displayName"
-              value={displayName}
-              placeholder="För- och efternamn"
-              onChange={this.handleChange}
-            />
-            <FormInput
-              type="text"
-              name="email"
-              value={email}
-              placeholder="Email"
-              onChange={this.handleChange}
-            />
-            <FormInput
-              type="password"
-              name="password"
-              value={password}
-              placeholder="Lösenord"
-              onChange={this.handleChange}
-            />
-            <FormInput
-              type="password"
-              name="confirmPassword"
-              value={confirmPassword}
-              placeholder="Bekräfta lösenord"
-              onChange={this.handleChange}
-            />
-            <Button type="submit">Registrera</Button>
-            <div className="links">
-              <Link to="/login">Tillbaka</Link>
-            </div>
-          </form>
-        </div>
-      </AuthWrapper>
-    );
-  }
-}
-
-export default SignUp;
+export default withRouter(SignUp);
