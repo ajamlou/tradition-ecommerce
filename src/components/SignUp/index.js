@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import FormInput from "../forms/FormInput";
 import { useDispatch, useSelector } from "react-redux";
-import { signUpUser, resetAllAuthForms } from "./../../redux/User/user.actions";
+import {
+  signUpUserStart,
+  resetErrorMessages,
+} from "./../../redux/User/user.actions";
 import Button from "../forms/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./styles.scss";
 import AuthWrapper from "../AuthWrapper";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const mapState = ({ user }) => ({
-  signUpSuccess: user.signUpSuccess,
-  signUpError: user.signUpError,
+  currentUser: user.currentUser,
+  userErr: user.userErr,
 });
 
 const SignUp = (props) => {
-  const { signUpSuccess, signUpError } = useSelector(mapState);
+  const { currentUser, userErr } = useSelector(mapState);
   const dispatch = useDispatch();
+  const history = useHistory();
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,20 +30,18 @@ const SignUp = (props) => {
   const REGISTER = "Registrera";
 
   useEffect(() => {
-    if (signUpSuccess) {
-      dispatch(resetAllAuthForms());
+    if (currentUser) {
       resetForm();
-      props.history.push("/");
+      history.push("/");
     }
-  }, [signUpSuccess, props.history, dispatch]);
+  }, [currentUser, history]);
 
   useEffect(() => {
-    console.log(signUpError);
-    if (Array.isArray(signUpError) && signUpError.length > 0) {
-      setErrors(signUpError);
+    if (Array.isArray(userErr) && userErr.length > 0) {
+      setErrors(userErr);
       setLoading(false);
     }
-  }, [signUpError]);
+  }, [userErr]);
 
   const resetForm = () => {
     setLoading(false);
@@ -55,13 +56,17 @@ const SignUp = (props) => {
     event.preventDefault();
     setLoading(true);
     dispatch(
-      signUpUser({
+      signUpUserStart({
         displayName,
         email,
         password,
         confirmPassword,
       })
     );
+  };
+
+  const goBack = () => {
+    dispatch(resetErrorMessages());
   };
 
   const configAuthWrapper = {
@@ -117,7 +122,9 @@ const SignUp = (props) => {
             )}
           </Button>
           <div className="links">
-            <Link to="/login">Tillbaka</Link>
+            <Link to="/login" onClick={() => goBack()}>
+              Tillbaka
+            </Link>
           </div>
         </form>
       </div>
@@ -125,4 +132,4 @@ const SignUp = (props) => {
   );
 };
 
-export default withRouter(SignUp);
+export default SignUp;

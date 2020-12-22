@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import AuthWrapper from "../AuthWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  resetPassword,
-  resetAllAuthForms,
+  resetPasswordStart,
+  resetUserState,
+  resetErrorMessages,
 } from "./../../redux/User/user.actions";
-import { withRouter, Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import Button from "../forms/Button";
 import FormInput from "../forms/FormInput";
 import "./styles.scss";
@@ -13,12 +14,13 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const mapState = ({ user }) => ({
   resetPasswordSuccess: user.resetPasswordSuccess,
-  resetPasswordError: user.resetPasswordError,
+  userErr: user.userErr,
 });
 
 const ResetPassword = (props) => {
-  const { resetPasswordSuccess, resetPasswordError } = useSelector(mapState);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { resetPasswordSuccess, userErr } = useSelector(mapState);
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -27,29 +29,33 @@ const ResetPassword = (props) => {
 
   useEffect(() => {
     if (resetPasswordSuccess) {
-      dispatch(resetAllAuthForms());
-      props.history.push("/login");
+      dispatch(resetUserState());
+      history.push("/login");
       resetForm();
     }
-  }, [resetPasswordSuccess, props.history, dispatch]);
+  }, [resetPasswordSuccess]);
 
   useEffect(() => {
-    if (Array.isArray(resetPasswordError) && resetPasswordError.length > 0) {
-      setErrors(resetPasswordError);
+    if (Array.isArray(userErr) && userErr.length > 0) {
+      setErrors(userErr);
       setLoading(false);
     }
-  }, [resetPasswordError]);
+  }, [userErr]);
 
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-    dispatch(resetPassword({ email }));
+    dispatch(resetPasswordStart({ email }));
   };
 
   const resetForm = () => {
     setLoading(false);
     setEmail("");
     setErrors([]);
+  };
+
+  const goBack = () => {
+    dispatch(resetErrorMessages());
   };
 
   const configAuthWrapper = {
@@ -83,7 +89,7 @@ const ResetPassword = (props) => {
           )}
         </Button>
         <div className="links">
-          <Link to="/login" onClick={() => resetForm()}>
+          <Link to="/login" onClick={() => goBack()}>
             Tillbaka
           </Link>
         </div>
@@ -92,4 +98,4 @@ const ResetPassword = (props) => {
   );
 };
 
-export default withRouter(ResetPassword);
+export default ResetPassword;

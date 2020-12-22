@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  signInUser,
-  signInWithGoogle,
-  resetAllAuthForms,
+  emailSignInStart,
+  googleSignInStart,
+  resetErrorMessages,
 } from "./../../redux/User/user.actions";
 import Button from "../forms/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -13,13 +13,14 @@ import FormInput from "../forms/FormInput";
 import AuthWrapper from "../AuthWrapper";
 
 const mapState = ({ user }) => ({
-  signInSuccess: user.signInSuccess,
-  signInError: user.signInError,
+  currentUser: user.currentUser,
+  userErr: user.userErr,
 });
 
 const SignIn = (props) => {
-  const { signInSuccess, signInError } = useSelector(mapState);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { currentUser, userErr } = useSelector(mapState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,19 +29,18 @@ const SignIn = (props) => {
   const LOGIN = "Logga in";
 
   useEffect(() => {
-    if (signInSuccess) {
-      dispatch(resetAllAuthForms());
-      props.history.push("/");
+    if (currentUser) {
+      history.push("/");
       resetForm();
     }
-  }, [signInSuccess, props.history, dispatch]);
+  }, [currentUser, history]);
 
   useEffect(() => {
-    if (Array.isArray(signInError) && signInError.length > 0) {
-      setErrors(signInError);
+    if (Array.isArray(userErr) && userErr.length > 0) {
+      setErrors(userErr);
       setLoading(false);
     }
-  }, [signInError]);
+  }, [userErr]);
 
   const resetForm = () => {
     setLoading(false);
@@ -51,11 +51,15 @@ const SignIn = (props) => {
   const handleSubmit = (e) => {
     setLoading(true);
     e.preventDefault();
-    dispatch(signInUser({ email, password }));
+    dispatch(emailSignInStart({ email, password }));
   };
 
   const handleGoogleSignIn = () => {
-    dispatch(signInWithGoogle());
+    dispatch(googleSignInStart());
+  };
+
+  const resetErrors = () => {
+    dispatch(resetErrorMessages());
   };
 
   const configAuthWrapper = {
@@ -100,11 +104,15 @@ const SignIn = (props) => {
             </div>
           </div>
           <div className="links">
-            <Link to="/reset">Glömt lösenord?</Link>
+            <Link to="/reset" onClick={() => resetErrors()}>
+              Glömt lösenord?
+            </Link>
           </div>
           <div className="create">
             <h3>Har du inte ett konto?</h3>
-            <Link to="/register">Skapa konto</Link>
+            <Link to="/register" onClick={() => resetErrors()}>
+              Skapa konto
+            </Link>
           </div>
         </form>
       </div>
@@ -112,4 +120,4 @@ const SignIn = (props) => {
   );
 };
 
-export default withRouter(SignIn);
+export default SignIn;
