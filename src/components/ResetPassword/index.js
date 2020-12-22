@@ -1,44 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthWrapper from "../AuthWrapper";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  resetPassword,
+  resetAllAuthForms,
+} from "./../../redux/User/user.actions";
 import { withRouter, Link } from "react-router-dom";
 import Button from "../forms/Button";
 import FormInput from "../forms/FormInput";
 import "./styles.scss";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { auth } from "./../../firebase/utils";
+
+const mapState = ({ user }) => ({
+  resetPasswordSuccess: user.resetPasswordSuccess,
+  resetPasswordError: user.resetPasswordError,
+});
 
 const ResetPassword = (props) => {
+  const { resetPasswordSuccess, resetPasswordError } = useSelector(mapState);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const SUBMIT = "Återställ";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const config = {
-      url: "http://localhost:3000/login",
-    };
-
-    const resetForm = () => {
-      setLoading(false);
-      setEmail("");
-    };
-
-    try {
-      setLoading(true);
-      await auth
-        .sendPasswordResetEmail(email, config)
-        .then(() => {
-          props.history.push("/login");
-        })
-        .catch(() => {
-          props.history.push("/login");
-        });
+  useEffect(() => {
+    if (resetPasswordSuccess) {
+      dispatch(resetAllAuthForms());
+      props.history.push("/login");
       resetForm();
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
     }
+  }, [resetPasswordSuccess, props.history, dispatch]);
+
+  useEffect(() => {
+    if (Array.isArray(resetPasswordError) && resetPasswordError.length > 0) {
+      setErrors(resetPasswordError);
+      setLoading(false);
+    }
+  }, [resetPasswordError]);
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    dispatch(resetPassword({ email }));
+  };
+
+  const resetForm = () => {
+    setLoading(false);
+    setEmail("");
+    setErrors([]);
   };
 
   const configAuthWrapper = {
@@ -49,6 +60,13 @@ const ResetPassword = (props) => {
 
   return (
     <AuthWrapper {...configAuthWrapper}>
+      {errors.length > 0 && (
+        <ul>
+          {errors.map((err, index) => {
+            return <li key={index}>{err}</li>;
+          })}
+        </ul>
+      )}
       <form onSubmit={handleSubmit}>
         <FormInput
           type="email"
@@ -65,7 +83,9 @@ const ResetPassword = (props) => {
           )}
         </Button>
         <div className="links">
-          <Link to="/login">Tillbaka</Link>
+          <Link to="/login" onClick={() => resetForm()}>
+            Tillbaka
+          </Link>
         </div>
       </form>
     </AuthWrapper>

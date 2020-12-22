@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormInput from "../forms/FormInput";
+import { useDispatch, useSelector } from "react-redux";
+import { signUpUser, resetAllAuthForms } from "./../../redux/User/user.actions";
 import Button from "../forms/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./styles.scss";
-import { auth, handleUserProfile } from "./../../firebase/utils";
 import AuthWrapper from "../AuthWrapper";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
+const mapState = ({ user }) => ({
+  signUpSuccess: user.signUpSuccess,
+  signUpError: user.signUpError,
+});
+
 const SignUp = (props) => {
+  const { signUpSuccess, signUpError } = useSelector(mapState);
+  const dispatch = useDispatch();
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +25,22 @@ const SignUp = (props) => {
   const [loading, setLoading] = useState(false);
 
   const REGISTER = "Registrera";
+
+  useEffect(() => {
+    if (signUpSuccess) {
+      dispatch(resetAllAuthForms());
+      resetForm();
+      props.history.push("/");
+    }
+  }, [signUpSuccess, props.history, dispatch]);
+
+  useEffect(() => {
+    console.log(signUpError);
+    if (Array.isArray(signUpError) && signUpError.length > 0) {
+      setErrors(signUpError);
+      setLoading(false);
+    }
+  }, [signUpError]);
 
   const resetForm = () => {
     setLoading(false);
@@ -29,34 +53,15 @@ const SignUp = (props) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (password !== confirmPassword) {
-      setErrors(["Lösenorden stämmer inte överens"]);
-      resetForm();
-      return;
-    }
-    if (password.length < 6) {
-      setErrors(["Lösenordet måste vara längre än sex tecken"]);
-      resetForm();
-      return;
-    }
-    if (!re.test(String(email).toLowerCase())) {
-      setErrors(["Du måste ange en giltig mailadress"]);
-      resetForm();
-    }
-
-    try {
-      setLoading(true);
-      const { user } = await auth.createUserWithEmailAndPassword(
+    setLoading(true);
+    dispatch(
+      signUpUser({
+        displayName,
         email,
-        password
-      );
-      await handleUserProfile(user, { displayName });
-      props.history.push("/");
-      resetForm();
-    } catch (err) {
-      console.log(err);
-    }
+        password,
+        confirmPassword,
+      })
+    );
   };
 
   const configAuthWrapper = {
