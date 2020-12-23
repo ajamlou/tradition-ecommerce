@@ -1,5 +1,5 @@
-import React from "react";
-import "./styles.scss";
+import React from 'react';
+import './styles.scss';
 
 const Button = ({ children, ...otherProps }) => {
   return (
@@ -7,6 +7,6 @@ const Button = ({ children, ...otherProps }) => {
       {children}
     </button>
   );
-};
+}
 
-export default Button;
+export default Button

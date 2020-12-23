@@ -1,6 +1,6 @@
 import React from "react";
-import LeftImg from "./../../assets/left.png";
-import RightImg from "./../../assets/right.png";
+import Wallpaper from "./../../assets/wallpaper.jpg";
+import { Link } from "react-router-dom";
 import "./styles.scss";
 
 const Directory = (props) => {
@@ -10,18 +10,10 @@ const Directory = (props) => {
         <div
           className="item"
           style={{
-            backgroundImage: `url(${LeftImg})`,
+            backgroundImage: `url(${Wallpaper})`,
           }}
         >
-          <a>Shop</a>
-        </div>
-        <div
-          className="item"
-          style={{
-            backgroundImage: `url(${RightImg})`,
-          }}
-        >
-          <a>About us</a>
+          <Link to="/search">Gå till våra produkter</Link>
         </div>
       </div>
     </div>

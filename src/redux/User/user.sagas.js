@@ -1,4 +1,10 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
+import {
+  auth,
+  handleUserProfile,
+  getCurrentUser,
+  GoogleProvider,
+} from "./../../firebase/utils";
 import userTypes from "./user.types";
 import {
   signInSuccess,
@@ -6,12 +12,6 @@ import {
   resetPasswordSuccess,
   userError,
 } from "./user.actions";
-import {
-  auth,
-  handleUserProfile,
-  getCurrentUser,
-  GoogleProvider,
-} from "./../../firebase/utils";
 import { handleResetPasswordAPI } from "./user.helpers";
 
 export function* getSnapshotFromUserAuth(user, additionalData = {}) {
@@ -27,8 +27,8 @@ export function* getSnapshotFromUserAuth(user, additionalData = {}) {
         ...snapshot.data(),
       })
     );
-  } catch (e) {
-    // console.log(e);
+  } catch (err) {
+    // console.log(err);
   }
 }
 
@@ -51,8 +51,8 @@ export function* isUserAuthenticated() {
     const userAuth = yield getCurrentUser();
     if (!userAuth) return;
     yield getSnapshotFromUserAuth(userAuth);
-  } catch (e) {
-    // console.log(e);
+  } catch (err) {
+    // console.log(err);
   }
 }
 
@@ -72,7 +72,6 @@ export function* signOutUser() {
 export function* onSignOutUserStart() {
   yield takeLatest(userTypes.SIGN_OUT_USER_START, signOutUser);
 }
-
 export function* signUpUser({
   payload: { displayName, email, password, confirmPassword },
 }) {
@@ -111,7 +110,6 @@ export function* resetPassword({ payload: { email } }) {
     yield put(resetPasswordSuccess());
   } catch (err) {
     yield put(userError(err));
-    // console.log(err);
   }
 }
 

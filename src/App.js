@@ -1,32 +1,41 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import "./default.scss";
 import { Switch, Route } from "react-router-dom";
 import { checkUserSession } from "./redux/User/user.actions";
 
-// layouts
-import MainLayout from "./layouts/MainLayout";
+// components
+import AdminToolbar from "./components/AdminToolbar";
 
 // hoc
-import WithAuth from "./hoc/WithAuth";
-import WithAdminAuth from "./hoc/WithAdminAuth";
+import WithAuth from "./hoc/withAuth";
+import WithAdminAuth from "./hoc/withAdminAuth";
+
+// layouts
+import MainLayout from "./layouts/MainLayout";
+import HomepageLayout from "./layouts/HomepageLayout";
+import AdminLayout from "./layouts/AdminLayout";
+import DashboardLayout from "./layouts/DashboardLayout";
 
 // pages
-import Dashboard from "./pages/Dashboard";
 import Homepage from "./pages/Homepage";
-import About from "./pages/About";
-import Register from "./pages/Register";
+import Search from "./pages/Search";
+import Registration from "./pages/Registration";
 import Login from "./pages/Login";
 import Recovery from "./pages/Recovery";
+import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
-import AdminToolbar from "./components/AdminToolbar";
+import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
+import Payment from "./pages/Payment";
+import Order from "./pages/Order";
+import "./default.scss";
 
 const App = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkUserSession());
-  });
+  }, []);
 
   return (
     <div className="App">
@@ -36,24 +45,59 @@ const App = (props) => {
           exact
           path="/"
           render={() => (
-            <MainLayout>
+            <HomepageLayout>
               <Homepage />
+            </HomepageLayout>
+          )}
+        />
+        <Route
+          exact
+          path="/search"
+          render={() => (
+            <MainLayout>
+              <Search />
             </MainLayout>
           )}
         />
         <Route
-          path="/about"
+          path="/search/:filterType"
           render={() => (
             <MainLayout>
-              <About />
+              <Search />
             </MainLayout>
+          )}
+        />
+        <Route
+          path="/product/:productID"
+          render={() => (
+            <MainLayout>
+              <ProductDetails />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/cart"
+          render={() => (
+            <MainLayout>
+              <Cart />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/payment"
+          render={() => (
+            <WithAuth>
+              <MainLayout>
+                <Payment />
+              </MainLayout>
+            </WithAuth>
           )}
         />
         <Route
           path="/register"
           render={() => (
             <MainLayout>
-              <Register />
+              <Registration />
             </MainLayout>
           )}
         />
@@ -77,9 +121,19 @@ const App = (props) => {
           path="/dashboard"
           render={() => (
             <WithAuth>
-              <MainLayout>
+              <DashboardLayout>
                 <Dashboard />
-              </MainLayout>
+              </DashboardLayout>
+            </WithAuth>
+          )}
+        />
+        <Route
+          path="/order/:orderID"
+          render={() => (
+            <WithAuth>
+              <DashboardLayout>
+                <Order />
+              </DashboardLayout>
             </WithAuth>
           )}
         />
@@ -87,9 +141,9 @@ const App = (props) => {
           path="/admin"
           render={() => (
             <WithAdminAuth>
-              <MainLayout>
+              <AdminLayout>
                 <Admin />
-              </MainLayout>
+              </AdminLayout>
             </WithAdminAuth>
           )}
         />

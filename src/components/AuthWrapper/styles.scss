@@ -14,7 +14,6 @@
       font-size: 2.2rem;
       line-height: 1;
       font-weight: 400;
-      text-transform: uppercase;
       display: block;
       width: 100%;
       text-align: center;
@@ -43,6 +42,10 @@
       font-weight: 400;
       display: block;
       list-style-type: none;
+    }
+
+    p {
+      font-size: 1.5rem;
     }
   }
 }

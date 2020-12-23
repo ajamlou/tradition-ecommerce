@@ -12,15 +12,10 @@ export const handleResetPasswordAPI = (email) => {
         resolve();
       })
       .catch(() => {
-        if (!email) {
-          const err = ["Ange en mailadress"];
-          reject(err);
-        } else {
-          const err = [
-            "Det verkar som att din mailadress inte finns registrerad hos oss",
-          ];
-          reject(err);
-        }
+        const err = [
+          "Det verkar som att mailadressen inte finns registrerad hos oss.",
+        ];
+        reject(err);
       });
   });
 };
