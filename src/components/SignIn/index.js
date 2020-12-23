@@ -11,6 +11,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import "./styles.scss";
 import FormInput from "../forms/FormInput";
 import AuthWrapper from "../AuthWrapper";
+import globalStyles from "../../globalStyles";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
@@ -104,13 +105,21 @@ const SignIn = (props) => {
             </div>
           </div>
           <div className="links">
-            <Link to="/reset" onClick={() => resetErrors()}>
+            <Link
+              to="/reset"
+              onClick={() => resetErrors()}
+              style={{ color: globalStyles.secondary }}
+            >
               Glömt lösenord?
             </Link>
           </div>
           <div className="create">
-            <h3>Har du inte ett konto?</h3>
-            <Link to="/register" onClick={() => resetErrors()}>
+            <h2>Har du inte ett konto?</h2>
+            <Link
+              to="/register"
+              onClick={() => resetErrors()}
+              style={{ color: globalStyles.secondary }}
+            >
               Skapa konto
             </Link>
           </div>

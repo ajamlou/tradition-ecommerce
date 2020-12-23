@@ -6,6 +6,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import "./styles.scss";
 
 import Logo from "./../../assets/logo.png";
+import globalStyles from "../../globalStyles";
 
 const mapState = (state) => ({
   currentUser: state.user.currentUser,
@@ -28,10 +29,12 @@ const Header = (props) => {
         <nav>
           <ul>
             <li>
-              <Link to="/products">Produkter</Link>
+              <Link to="/products" style={{ color: globalStyles.primary }}>
+                Produkter
+              </Link>
             </li>
             <li>
-              <Link to="/cart">
+              <Link to="/cart" style={{ color: globalStyles.primary }}>
                 <div>
                   <ShoppingCartIcon style={{ height: 25, width: "auto" }} /> (
                   {totalNumCartItems})
@@ -45,19 +48,27 @@ const Header = (props) => {
           <ul>
             {currentUser && [
               <li key={1}>
-                <Link to="/about">Om oss</Link>
+                <Link to="/about" style={{ color: globalStyles.primary }}>
+                  Om oss
+                </Link>
               </li>,
               <li key={2}>
-                <Link to="/dashboard">Mitt konto</Link>
+                <Link to="/dashboard" style={{ color: globalStyles.primary }}>
+                  Mitt konto
+                </Link>
               </li>,
             ]}
 
             {!currentUser && [
               <li key={1}>
-                <Link to="/about">Om oss</Link>
+                <Link to="/about" style={{ color: globalStyles.primary }}>
+                  Om oss
+                </Link>
               </li>,
               <li key={2}>
-                <Link to="/login">Logga in</Link>
+                <Link to="/login" style={{ color: globalStyles.primary }}>
+                  Logga in
+                </Link>
               </li>,
             ]}
           </ul>

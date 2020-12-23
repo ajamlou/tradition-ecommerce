@@ -8,6 +8,7 @@ import {
 import { addProduct } from "./../../redux/Cart/cart.actions";
 import Button from "./../forms/Button";
 import "./styles.scss";
+import globalStyles from "../../globalStyles";
 
 const mapState = (state) => ({
   product: state.productsData.product,
@@ -47,7 +48,7 @@ const ProductCard = (props) => {
       <div className="productDetails">
         <ul>
           <li>
-            <h1>{productName}</h1>
+            <h1 style={{ color: globalStyles.secondary }}>{productName}</h1>
           </li>
           <li>
             <span className="price">{productPrice}:-</span>

@@ -10,6 +10,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import "./styles.scss";
 import AuthWrapper from "../AuthWrapper";
 import { Link, useHistory } from "react-router-dom";
+import globalStyles from "../../globalStyles";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
@@ -122,7 +123,11 @@ const SignUp = (props) => {
             )}
           </Button>
           <div className="links">
-            <Link to="/login" onClick={() => goBack()}>
+            <Link
+              to="/login"
+              onClick={() => goBack()}
+              style={{ color: globalStyles.secondary }}
+            >
               Tillbaka
             </Link>
           </div>

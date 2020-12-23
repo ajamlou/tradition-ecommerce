@@ -7,6 +7,7 @@ import {
   reduceCartItem,
 } from "./../../../redux/Cart/cart.actions";
 import DeleteIcon from "@material-ui/icons/Delete";
+import globalStyles from "./../../../globalStyles.js";
 
 const Item = (product) => {
   const dispatch = useDispatch();
@@ -59,7 +60,13 @@ const Item = (product) => {
               className="cartBtn"
               onClick={() => handleRemoveCartItem(documentID)}
             >
-              <DeleteIcon style={{ height: 25, width: "auto" }} />
+              <DeleteIcon
+                style={{
+                  height: 25,
+                  width: "auto",
+                  color: globalStyles.tertiary,
+                }}
+              />
             </span>
           </td>
         </tr>

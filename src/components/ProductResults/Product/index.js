@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import Button from "./../../forms/Button";
 import { useDispatch } from "react-redux";
 import { addProduct } from "./../../../redux/Cart/cart.actions";
+import globalStyles from "../../../globalStyles";
 
 const Product = (product) => {
   const dispatch = useDispatch();
@@ -38,7 +39,12 @@ const Product = (product) => {
         <ul>
           <li>
             <span className="name">
-              <Link to={`/product/${documentID}`}>{productName}</Link>
+              <Link
+                to={`/product/${documentID}`}
+                style={{ color: globalStyles.secondary }}
+              >
+                {productName}
+              </Link>
             </span>
           </li>
           <li>

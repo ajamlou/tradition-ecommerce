@@ -9,6 +9,7 @@ import {
 import Modal from "./../../components/Modal";
 import FormInput from "./../../components/forms/FormInput";
 import FormSelect from "./../../components/forms/FormSelect";
+import globalStyles from "./../../globalStyles.js";
 import Button from "./../../components/forms/Button";
 import LoadMore from "./../../components/LoadMore";
 import CKEditor from "ckeditor4-react";
@@ -192,7 +193,11 @@ const Admin = (props) => {
                             <td>{productPrice}:-</td>
                             <td>
                               <DeleteIcon
-                                style={{ height: 25, width: "auto" }}
+                                style={{
+                                  height: 25,
+                                  width: "auto",
+                                  color: globalStyles.tertiary,
+                                }}
                                 className="delete"
                                 onClick={() => {
                                   if (

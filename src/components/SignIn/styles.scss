@@ -6,10 +6,6 @@
   display: block;
   width: 100%;
   margin: 1.5rem auto 0;
-
-  a {
-    color: black;
-  }
 }
 .socialSignIn {
   margin: 1rem auto 0;
@@ -20,14 +16,10 @@
   font-size: 1.4rem;
   margin: 1.5rem auto 0;
   text-align: center;
-
-  a {
-    color: black;
-  }
 }
 
 .create {
-  padding-top: 3rem;
+  padding-top: 5rem;
   font-size: 1.8rem;
   font-weight: 400;
   display: block;
@@ -36,9 +28,4 @@
   width: 100%;
   text-align: center;
   padding-bottom: 1.5rem;
-
-  a {
-    font-size: 1.6rem;
-    color: black;
-  }
 }

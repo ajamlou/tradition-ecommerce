@@ -11,6 +11,7 @@ import Button from "../forms/Button";
 import FormInput from "../forms/FormInput";
 import "./styles.scss";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import globalStyles from "../../globalStyles";
 
 const mapState = ({ user }) => ({
   resetPasswordSuccess: user.resetPasswordSuccess,
@@ -89,7 +90,11 @@ const ResetPassword = (props) => {
           )}
         </Button>
         <div className="links">
-          <Link to="/login" onClick={() => goBack()}>
+          <Link
+            to="/login"
+            onClick={() => goBack()}
+            style={{ color: globalStyles.secondary }}
+          >
             Tillbaka
           </Link>
         </div>

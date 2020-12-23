@@ -1,12 +1,24 @@
 .about {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   width: 100%;
   padding: 0;
   margin: 2rem 0;
 
+  .desc {
+    font-size: 2.5rem;
+    line-height: 1.5;
+    text-align: justify;
+    margin: 0 10rem 0 10rem;
+  }
+
   @media screen and (max-width: 600px) {
     .desc {
       font-size: 1.5rem;
+      margin: 0 3rem 0 3rem;
     }
   }
 
@@ -14,20 +26,11 @@
     line-height: 1.5;
     text-align: center;
   }
-  h2 {
-    line-height: 1.5;
-    text-align: justify;
+
+  a:visited {
+    color: #474747;
   }
 
-  a {
-    color: black;
-  }
-  a:visited {
-    color: black;
-  }
-  a:hover {
-    color: #7e7e7e;
-  }
   .contact {
     padding-top: 3rem;
     text-align: center;
