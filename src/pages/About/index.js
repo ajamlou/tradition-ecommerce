@@ -16,7 +16,7 @@ const About = (props) => {
       <div className="contact">
         <h1>Kontakt</h1>
         <div>
-          <a href="https://instagram.com">
+          <a href="https://instagram.com/ereewoodcraft">
             <InstagramIcon style={{ height: 35, width: "auto" }} />
             <p>@ereewoodcraft</p>
           </a>

@@ -9,6 +9,7 @@ import { createStructuredSelector } from "reselect";
 import "./styles.scss";
 import Button from "./../forms/Button";
 import Item from "./Item";
+import Subheader from "../Subheader";
 
 const mapState = createStructuredSelector({
   cartItems: selectCartItems,
@@ -23,7 +24,7 @@ const Checkout = (props) => {
 
   return (
     <div className="checkout">
-      <h1>Varukorg</h1>
+      <Subheader title={"VARUKORG"} />
 
       <div className="cart">
         {cartItems.length > 0 ? (

@@ -5,6 +5,7 @@ import { fetchProductsStart } from "./../../redux/Products/products.actions";
 import Product from "./Product";
 import FormSelect from "./../forms/FormSelect";
 import LoadMore from "./../LoadMore";
+import Subheader from "./../Subheader";
 import "./styles.scss";
 
 const mapState = ({ productsData }) => ({
@@ -76,7 +77,7 @@ const ProductResults = (props) => {
 
   return (
     <div className="products">
-      <h1>Produkter</h1>
+      <Subheader title={"PRODUKTER"} />
 
       <FormSelect {...configFilters} />
 

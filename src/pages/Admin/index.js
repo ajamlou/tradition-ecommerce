@@ -194,9 +194,15 @@ const Admin = (props) => {
                               <DeleteIcon
                                 style={{ height: 25, width: "auto" }}
                                 className="delete"
-                                onClick={() =>
-                                  dispatch(deleteProductStart(documentID))
-                                }
+                                onClick={() => {
+                                  if (
+                                    window.confirm(
+                                      "Är du säker på att du vill ta bort den här produkten?"
+                                    )
+                                  ) {
+                                    dispatch(deleteProductStart(documentID));
+                                  }
+                                }}
                               />
                             </td>
                           </tr>
