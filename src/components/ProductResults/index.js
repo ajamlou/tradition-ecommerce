@@ -25,14 +25,14 @@ const ProductResults = (props) => {
 
   const handleFilter = (e) => {
     const nextFilter = e.target.value;
-    history.push(`/search/${nextFilter}`);
+    history.push(`/products/${nextFilter}`);
   };
 
   if (!Array.isArray(data)) return null;
   if (data.length < 1) {
     return (
       <div className="products">
-        <p>Inga träffar</p>
+        <p>Inga produkter</p>
       </div>
     );
   }

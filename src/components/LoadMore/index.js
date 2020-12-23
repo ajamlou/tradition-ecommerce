@@ -7,7 +7,7 @@ const LoadMore = ({ onLoadMoreEvt = () => {} }) => {
       style={{ backgroundColor: "white", color: "black" }}
       onClick={() => onLoadMoreEvt()}
     >
-      Ladda fler
+      Ladda fler produkter
     </Button>
   );
 };

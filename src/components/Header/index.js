@@ -28,7 +28,7 @@ const Header = (props) => {
         <nav>
           <ul>
             <li>
-              <Link to="/search">Produkter</Link>
+              <Link to="/products">Produkter</Link>
             </li>
             <li>
               <Link to="/cart">
@@ -54,6 +54,9 @@ const Header = (props) => {
 
             {!currentUser && [
               <li key={1}>
+                <Link to="/about">Om oss</Link>
+              </li>,
+              <li key={2}>
                 <Link to="/login">Logga in</Link>
               </li>,
             ]}

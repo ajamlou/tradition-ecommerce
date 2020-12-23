@@ -53,7 +53,7 @@ const App = (props) => {
         />
         <Route
           exact
-          path="/search"
+          path="/products"
           render={() => (
             <MainLayout>
               <Search />
@@ -61,7 +61,7 @@ const App = (props) => {
           )}
         />
         <Route
-          path="/search/:filterType"
+          path="/products/:filterType"
           render={() => (
             <MainLayout>
               <Search />

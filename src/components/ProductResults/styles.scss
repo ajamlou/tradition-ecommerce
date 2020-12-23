@@ -11,61 +11,134 @@
   }
 }
 
-.product {
-  width: 33.333333333333333%;
-  margin: 0 auto 2rem;
-  padding: 0 10px;
+@media screen and (min-width: 500px) {
+  .product {
+    width: 33.333333333%;
+    margin: 0 auto 2rem;
+    padding: 0 10px;
 
-  .thumb {
-    display: block;
-    width: 100%;
-
-    img {
+    .thumb {
       display: block;
       width: 100%;
-      margin: 0;
-      border-radius: 5px;
-    }
-  }
 
-  .details {
-    display: block;
-    width: 100%;
-    padding: 1rem 0;
-    margin: 0 auto;
+      &:hover {
+        opacity: 0.7;
+      }
 
-    ul,
-    ul li {
-      padding: 0;
-      margin: 0;
-    }
-
-    ul {
-      li {
+      img {
         display: block;
         width: 100%;
-        list-style-type: none;
-        text-align: left;
-        margin: 0 0 0.5rem;
+        margin: 0;
+        border-radius: 5px;
+      }
+    }
 
-        a {
-          color: black;
+    .details {
+      display: block;
+      width: 100%;
+      padding: 1rem 0;
+      margin: 0 auto;
+
+      ul,
+      ul li {
+        padding: 0;
+        margin: 0;
+      }
+
+      ul {
+        li {
+          display: block;
+          width: 100%;
+          list-style-type: none;
+          text-align: left;
+          margin: 0 0 0.5rem;
+
+          a {
+            color: black;
+          }
+
+          .name {
+            font-size: 2.2rem;
+            line-height: 1.2;
+            font-weight: 400;
+          }
+
+          .price {
+            font-size: 1.6rem;
+            line-height: 1;
+            font-weight: 400;
+          }
+
+          .addToCart {
+            margin: 2rem 0 0 0;
+          }
         }
+      }
+    }
+  }
+}
 
-        .name {
-          font-size: 2.2rem;
-          line-height: 1.2;
-          font-weight: 400;
-        }
+@media screen and (max-width: 500px) {
+  .product {
+    width: 50%;
+    margin: 0 auto 2rem;
+    padding: 0 10px;
 
-        .price {
-          font-size: 1.6rem;
-          line-height: 1;
-          font-weight: 400;
-        }
+    .thumb {
+      display: block;
+      width: 100%;
 
-        .addToCart {
-          margin: 2rem 0 0 0;
+      &:hover {
+        opacity: 0.7;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        margin: 0;
+        border-radius: 5px;
+      }
+    }
+
+    .details {
+      display: block;
+      width: 100%;
+      padding: 1rem 0;
+      margin: 0 auto;
+
+      ul,
+      ul li {
+        padding: 0;
+        margin: 0;
+      }
+
+      ul {
+        li {
+          display: block;
+          width: 100%;
+          list-style-type: none;
+          text-align: left;
+          margin: 0 0 0.5rem;
+
+          a {
+            color: black;
+          }
+
+          .name {
+            font-size: 2.2rem;
+            line-height: 1.2;
+            font-weight: 400;
+          }
+
+          .price {
+            font-size: 1.6rem;
+            line-height: 1;
+            font-weight: 400;
+          }
+
+          .addToCart {
+            margin: 2rem 0 0 0;
+          }
         }
       }
     }

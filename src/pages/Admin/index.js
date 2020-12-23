@@ -91,7 +91,7 @@ const Admin = (props) => {
         </ul>
       </div>
 
-      <Modal {...configModal}>
+      <Modal style={{ zIndex: 1000 }} {...configModal}>
         <div className="addNewProductForm">
           <form onSubmit={handleSubmit}>
             <h2>Skapa produkt</h2>

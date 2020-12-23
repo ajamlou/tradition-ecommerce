@@ -13,4 +13,8 @@
   border-radius: 10px;
   font-family: "Josefin Sans", sans-serif;
   cursor: pointer;
+
+  &:hover {
+    background-color: rgb(68, 68, 68);
+  }
 }
