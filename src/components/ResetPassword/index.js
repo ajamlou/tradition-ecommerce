@@ -33,7 +33,7 @@ const ResetPassword = (props) => {
       history.push("/login");
       resetForm();
     }
-  }, [resetPasswordSuccess]);
+  }, [resetPasswordSuccess, dispatch, history]);
 
   useEffect(() => {
     if (Array.isArray(userErr) && userErr.length > 0) {
