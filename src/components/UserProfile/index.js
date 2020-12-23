@@ -1,8 +1,8 @@
-import React from 'react';
-import './styles.scss';
-import userIMG from './../../assets/user.png';
+import React from "react";
+import "./styles.scss";
+import userIMG from "./../../assets/user.png";
 
-const UserProfile = props => {
+const UserProfile = (props) => {
   const { currentUser } = props;
   const { displayName } = currentUser;
 
@@ -11,17 +11,15 @@ const UserProfile = props => {
       <ul>
         <li>
           <div className="img">
-            <img src={userIMG} />
+            <img alt="userImg" src={userIMG} />
           </div>
         </li>
         <li>
-          <span className="displayName">
-            {displayName && displayName}
-          </span>
+          <span className="displayName">{displayName && displayName}</span>
         </li>
       </ul>
     </div>
   );
-}
+};
 
 export default UserProfile;

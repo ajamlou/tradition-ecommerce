@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   addProductStart,
   fetchProductsStart,
@@ -32,7 +33,7 @@ const Admin = (props) => {
 
   useEffect(() => {
     dispatch(fetchProductsStart());
-  }, []);
+  }, [dispatch]);
 
   const toggleModal = () => setHideModal(!hideModal);
 
@@ -175,7 +176,13 @@ const Admin = (props) => {
                         return (
                           <tr key={index}>
                             <td>
-                              <img className="thumb" src={productThumbnail} />
+                              <Link to={`/product/${documentID}`}>
+                                <img
+                                  className="thumb"
+                                  alt="thumb"
+                                  src={productThumbnail}
+                                />
+                              </Link>
                             </td>
                             <td>{productName}</td>
                             <td>{productPrice}:-</td>

@@ -15,7 +15,7 @@ const mapState = createStructuredSelector({
   total: selectCartTotal,
 });
 
-const Checkout = ({}) => {
+const Checkout = (props) => {
   const history = useHistory();
   const { cartItems, total } = useSelector(mapState);
 

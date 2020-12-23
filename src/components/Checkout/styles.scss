@@ -6,7 +6,8 @@
     width: 100%;
   }
 
-  h1, p {
+  h1,
+  p {
     text-align: center;
   }
 
@@ -15,7 +16,7 @@
   }
 
   .cart {
-    max-width: 100.0rem;
+    max-width: 100rem;
     margin: 0 auto;
 
     table {
@@ -30,6 +31,7 @@
 
     th,
     td {
+      font-size: 1.6rem;
       width: 22%;
     }
   }
@@ -49,5 +51,4 @@
   .cartBtn {
     cursor: pointer;
   }
-
 }

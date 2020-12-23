@@ -15,7 +15,7 @@ const Dashboard = (props) => {
 
   useEffect(() => {
     dispatch(getUserOrderHistory(currentUser.id));
-  }, []);
+  }, [currentUser, dispatch]);
 
   return (
     <div>

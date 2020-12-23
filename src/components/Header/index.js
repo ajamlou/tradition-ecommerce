@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { signOutUserStart } from "./../../redux/User/user.actions";
+import { useSelector } from "react-redux";
 import { selectCartItemsCount } from "./../../redux/Cart/cart.selectors";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import "./styles.scss";
@@ -14,12 +13,8 @@ const mapState = (state) => ({
 });
 
 const Header = (props) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { currentUser, totalNumCartItems } = useSelector(mapState);
-
-  const signOut = () => {
-    dispatch(signOutUserStart());
-  };
 
   return (
     <header className="header">
@@ -30,28 +25,29 @@ const Header = (props) => {
           </Link>
         </div>
 
-        {/* <nav>
-          <ul>
-            <li>
-              <Link to="/search">Produkter</Link>
-            </li>
-          </ul>
-        </nav> */}
-
-        <div className="callToActions">
+        <nav>
           <ul>
             <li>
               <Link to="/search">Produkter</Link>
             </li>
             <li>
               <Link to="/cart">
-                <ShoppingCartIcon style={{ height: 25, width: "auto" }} /> (
-                {totalNumCartItems})
+                <div>
+                  <ShoppingCartIcon style={{ height: 25, width: "auto" }} /> (
+                  {totalNumCartItems})
+                </div>
               </Link>
             </li>
+          </ul>
+        </nav>
 
+        <div className="callToActions">
+          <ul>
             {currentUser && [
               <li key={1}>
+                <Link to="/about">Om oss</Link>
+              </li>,
+              <li key={2}>
                 <Link to="/dashboard">Mitt konto</Link>
               </li>,
             ]}

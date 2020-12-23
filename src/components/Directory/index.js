@@ -13,7 +13,7 @@ const Directory = (props) => {
             backgroundImage: `url(${Wallpaper})`,
           }}
         >
-          <Link to="/search">Gå till våra produkter</Link>
+          <Link to="/search">Våra produkter</Link>
         </div>
       </div>
     </div>

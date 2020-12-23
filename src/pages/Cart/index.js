@@ -1,12 +1,12 @@
-import React from 'react';
-import Checkout from './../../components/Checkout';
+import React from "react";
+import Checkout from "./../../components/Checkout";
 
-const Cart = ({}) => {
+const Cart = (props) => {
   return (
     <div>
       <Checkout />
     </div>
   );
-}
+};
 
 export default Cart;

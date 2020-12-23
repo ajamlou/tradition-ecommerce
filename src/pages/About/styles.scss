@@ -1,0 +1,29 @@
+.about {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 2rem 0;
+
+  h1 {
+    line-height: 1.5;
+    text-align: center;
+  }
+  h2 {
+    line-height: 1.5;
+    text-align: justify;
+  }
+
+  a {
+    color: black;
+  }
+  a:visited {
+    color: black;
+  }
+  a:hover {
+    color: #7e7e7e;
+  }
+  .contact {
+    padding-top: 3rem;
+    text-align: center;
+  }
+}

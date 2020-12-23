@@ -41,12 +41,13 @@
         padding: 10px 15px;
         border: 1px solid rgba(0, 0, 0, 0.1);
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
+        height: auto;
         color: black;
         text-transform: uppercase;
 
         &:hover {
           background: rgba(255, 255, 255, 1);
+          font-size: 2.5rem;
         }
       }
     }

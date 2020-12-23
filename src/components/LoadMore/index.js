@@ -1,4 +1,3 @@
-import { withTheme } from "@material-ui/core";
 import React from "react";
 import Button from "./../forms/Button";
 

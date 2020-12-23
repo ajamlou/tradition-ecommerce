@@ -13,7 +13,7 @@ const mapState = (state) => ({
   product: state.productsData.product,
 });
 
-const ProductCard = ({}) => {
+const ProductCard = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { productID } = useParams();
@@ -27,7 +27,7 @@ const ProductCard = ({}) => {
     return () => {
       dispatch(setProduct({}));
     };
-  }, []);
+  }, [productID, dispatch]);
 
   const handleAddToCart = (product) => {
     if (!product) return;
@@ -42,7 +42,7 @@ const ProductCard = ({}) => {
   return (
     <div className="productCard">
       <div className="hero">
-        <img src={productThumbnail} />
+        <img alt="thumbnail" src={productThumbnail} />
       </div>
       <div className="productDetails">
         <ul>

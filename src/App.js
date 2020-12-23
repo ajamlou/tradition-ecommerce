@@ -29,13 +29,14 @@ import Cart from "./pages/Cart";
 import Payment from "./pages/Payment";
 import Order from "./pages/Order";
 import "./default.scss";
+import About from "./pages/About";
 
 const App = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkUserSession());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
@@ -80,6 +81,14 @@ const App = (props) => {
           render={() => (
             <MainLayout>
               <Cart />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/about"
+          render={() => (
+            <MainLayout>
+              <About />
             </MainLayout>
           )}
         />

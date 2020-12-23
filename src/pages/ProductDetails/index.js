@@ -1,12 +1,12 @@
-import React from 'react';
-import ProductCard from './../../components/ProductCard';
+import React from "react";
+import ProductCard from "./../../components/ProductCard";
 
-const ProductDetails = ({}) => {
+const ProductDetails = (props) => {
   return (
     <div>
       <ProductCard />
     </div>
   );
-}
+};
 
 export default ProductDetails;
