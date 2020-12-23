@@ -54,6 +54,7 @@ const Checkout = (props) => {
                   <table border="0" cellSpacing="0" cellPadding="0">
                     <tbody>
                       {cartItems.map((item, pos) => {
+                        console.log("hwjwjwhwhwhwhwh", item);
                         return (
                           <tr key={pos}>
                             <td>

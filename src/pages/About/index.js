@@ -7,7 +7,7 @@ const About = (props) => {
   return (
     <div className="about">
       <h1>Om oss</h1>
-      <h2>
+      <h2 className="desc">
         EREE Woodcraft erbjuder unika och handgjorda föremål helt i trä. Våra
         produkter är tillverkade med hjälp av traditionella slöjdtekniker där
         processen har hållbarhet, design och funktionalitet i fokus.

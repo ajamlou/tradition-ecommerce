@@ -50,7 +50,7 @@ const ProductCard = (props) => {
             <h1>{productName}</h1>
           </li>
           <li>
-            <span>{productPrice}:-</span>
+            <span className="price">{productPrice}:-</span>
           </li>
           <li>
             <div className="addToCart">

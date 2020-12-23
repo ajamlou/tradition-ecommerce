@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   removeCartItem,
   addProduct,
@@ -38,7 +39,9 @@ const Item = (product) => {
       <tbody>
         <tr>
           <td>
-            <img src={productThumbnail} alt={productName} />
+            <Link to={`/product/${documentID}`}>
+              <img src={productThumbnail} alt={productName} />
+            </Link>
           </td>
           <td>{productName}</td>
           <td>
