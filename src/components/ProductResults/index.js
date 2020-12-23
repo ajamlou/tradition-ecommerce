@@ -52,6 +52,10 @@ const ProductResults = (props) => {
         name: "Smycken",
         value: "smycken",
       },
+      {
+        name: "Lådor",
+        value: "lådor",
+      },
     ],
     handleChange: handleFilter,
   };

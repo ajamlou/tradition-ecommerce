@@ -107,6 +107,10 @@ const Admin = (props) => {
                   name: "Smycken",
                   value: "smycken",
                 },
+                {
+                  name: "Lådor",
+                  value: "lådor",
+                },
               ]}
               handleChange={(e) => setProductCategory(e.target.value)}
             />
