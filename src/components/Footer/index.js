@@ -7,7 +7,7 @@ const Footer = (props) => {
   return (
     <footer className="footer">
       <div className="wrap">
-        © EREE Woodcraft 2021
+        © Trädition 2021
         <div style={{ paddingTop: 15 }}>
           <a href="https://instagram.com/ereewoodcraft">
             <InstagramIcon

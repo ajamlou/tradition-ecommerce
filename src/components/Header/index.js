@@ -21,7 +21,7 @@ const Header = (props) => {
       <div className="wrap">
         <div className="logo">
           <Link to="/">
-            <img src={Logo} alt="EREE Woodcraft LOGO" />
+            <img src={Logo} alt="Trädition LOGO" />
           </Link>
         </div>
 

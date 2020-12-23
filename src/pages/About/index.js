@@ -8,7 +8,7 @@ const About = (props) => {
     <div className="about">
       <h1>Om oss</h1>
       <h2 className="desc">
-        EREE Woodcraft erbjuder unika och handgjorda föremål helt i trä. Våra
+        Trädition erbjuder unika och handgjorda föremål helt i trä. Våra
         produkter är tillverkade med hjälp av traditionella slöjdtekniker där
         processen har hållbarhet, design och funktionalitet i fokus.
       </h2>
@@ -18,13 +18,13 @@ const About = (props) => {
         <div>
           <a href="https://instagram.com/ereewoodcraft">
             <InstagramIcon style={{ height: 35, width: "auto" }} />
-            <p>@ereewoodcraft</p>
+            <p>@tradition</p>
           </a>
         </div>
         <div>
           <a href="mailto:info@ereewoodfract.com">
             <MailIcon style={{ height: 35, width: "auto" }} />
-            <p>info@ereewodcraft.com</p>
+            <p>info@tradition.com</p>
           </a>
         </div>
       </div>
