@@ -8,6 +8,10 @@
     max-width: 1450px;
     margin: 0 auto;
 
+    .mobile-menu {
+      display: none;
+    }
+
     .logo {
       position: absolute;
       width: 19rem;
@@ -90,5 +94,26 @@
         }
       }
     }
+    @media (max-width: 650px) {
+      .desktop {
+        display: none;
+      }
+      .mobile-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 5rem;
+        float: right;
+
+        .menu-icon {
+          height: 25;
+        }
+      }
+    }
   }
+}
+
+.span {
+  color: red;
 }
