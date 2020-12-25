@@ -98,22 +98,21 @@
       .desktop {
         display: none;
       }
+      .logo {
+        width: 12rem;
+      }
       .mobile-menu {
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: row;
         height: 100%;
-        width: 5rem;
         float: right;
 
-        .menu-icon {
-          height: 25;
+        .menu {
+          padding: 0 2rem 0 2rem;
         }
       }
     }
   }
-}
-
-.span {
-  color: red;
 }

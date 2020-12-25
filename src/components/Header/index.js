@@ -8,11 +8,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Badge from "@material-ui/core/Badge";
 import List from "@material-ui/core/List";
-import clsx from "clsx";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import "./styles.scss";
-
 import Logo from "./../../assets/logo.png";
 import globalStyles from "../../globalStyles";
 
@@ -23,10 +21,11 @@ const mapState = (state) => ({
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    width: 200,
   },
-  fullList: {
-    width: "auto",
+  text: {
+    color: globalStyles.primary,
+    fontSize: 16,
   },
 });
 
@@ -49,13 +48,11 @@ const Header = (props) => {
 
   const list = (anchor) => (
     <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
+      className={classes.list}
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List className="list">
+      <List>
         <ListItem
           button
           onClick={() => {
@@ -64,17 +61,7 @@ const Header = (props) => {
           }}
           key={"Produkter"}
         >
-          <ListItemText primary={"Produkter"} />
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => {
-            history.push("/cart");
-            toggleDrawer(anchor, false);
-          }}
-          key={"Varukorg"}
-        >
-          <ListItemText primary={"Varukorg"} />
+          <ListItemText className={classes.text} primary={"Produkter"} />
         </ListItem>
         <ListItem
           button
@@ -164,7 +151,22 @@ const Header = (props) => {
           </div>
         </div>
         <div className="mobile-menu">
-          <div>
+          <div className="mobile-cart">
+            <Link to="/cart" style={{ color: globalStyles.primary }}>
+              <div>
+                <Badge badgeContent={totalNumCartItems} color="secondary">
+                  <ShoppingCartIcon
+                    style={{
+                      height: 25,
+                      width: "auto",
+                      color: globalStyles.primary,
+                    }}
+                  />
+                </Badge>
+              </div>
+            </Link>
+          </div>
+          <div className="menu">
             <MenuIcon
               className="menu-icon"
               onClick={toggleDrawer("right", true)}
