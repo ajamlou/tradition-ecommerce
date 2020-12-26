@@ -1,4 +1,4 @@
-# ereewoodcraft
+# Trädition
 
 E-commerce site for © Trädition, a wood carving company, using React, Redux, GraphQL, Firebase and Stripe.
 
