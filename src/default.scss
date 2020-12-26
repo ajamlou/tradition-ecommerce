@@ -104,6 +104,9 @@ a:hover {
   padding: 3rem 0 6rem 25rem;
   border-bottom: 1px solid #d3d3d3;
 
+  @media screen and (max-width: 700px) {
+    padding: 3rem 0 6rem 8rem;
+  }
   .sidebar {
     position: absolute;
     top: 0;
@@ -112,6 +115,16 @@ a:hover {
     height: 100%;
     z-index: 1;
     border-right: 1px solid #d3d3d3;
+
+    @media screen and (max-width: 700px) {
+      width: 8rem;
+
+      // .signOut {
+      //   border: 2px solid red;
+      //   height: 3rem;
+      //   font-size: 0.9rem;
+      // }
+    }
   }
 
   .content {

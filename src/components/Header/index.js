@@ -10,6 +10,10 @@ import Badge from "@material-ui/core/Badge";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import StoreIcon from "@material-ui/icons/Store";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import InfoIcon from "@material-ui/icons/Info";
 import "./styles.scss";
 import Logo from "./../../assets/logo.png";
 import globalStyles from "../../globalStyles";
@@ -25,7 +29,7 @@ const useStyles = makeStyles({
   },
   text: {
     color: globalStyles.primary,
-    fontSize: 16,
+    fontSize: 22,
   },
 });
 
@@ -53,36 +57,143 @@ const Header = (props) => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItem
-          button
-          onClick={() => {
-            history.push("/products");
-            toggleDrawer(anchor, false);
-          }}
-          key={"Produkter"}
-        >
-          <ListItemText className={classes.text} primary={"Produkter"} />
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => {
-            history.push("/dashboard");
-            toggleDrawer(anchor, false);
-          }}
-          key={"Mitt konto"}
-        >
-          <ListItemText primary={"Mitt konto"} />
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => {
-            history.push("/about");
-            toggleDrawer(anchor, false);
-          }}
-          key={"Om oss"}
-        >
-          <ListItemText primary={"Om oss"} />
-        </ListItem>
+        {currentUser && [
+          <ListItem
+            button
+            onClick={() => {
+              history.push("/products");
+              toggleDrawer(anchor, false);
+            }}
+            key={"Produkter"}
+          >
+            <ListItemIcon>
+              <StoreIcon
+                style={{
+                  height: 25,
+                  width: "auto",
+                  color: globalStyles.primary,
+                }}
+              />
+            </ListItemIcon>
+            <ListItemText
+              classes={{ primary: classes.text }}
+              primary={"Produkter"}
+            />
+          </ListItem>,
+          <ListItem
+            button
+            onClick={() => {
+              history.push("/dashboard");
+              toggleDrawer(anchor, false);
+            }}
+            key={"Mitt konto"}
+          >
+            <ListItemIcon>
+              <AccountCircleIcon
+                style={{
+                  height: 25,
+                  width: "auto",
+                  color: globalStyles.primary,
+                }}
+              />
+            </ListItemIcon>
+            <ListItemText
+              classes={{ primary: classes.text }}
+              primary={"Mitt konto"}
+            />
+          </ListItem>,
+          <ListItem
+            button
+            onClick={() => {
+              history.push("/about");
+              toggleDrawer(anchor, false);
+            }}
+            key={"Om oss"}
+          >
+            <ListItemIcon>
+              <InfoIcon
+                style={{
+                  height: 25,
+                  width: "auto",
+                  color: globalStyles.primary,
+                }}
+              />
+            </ListItemIcon>
+            <ListItemText
+              classes={{ primary: classes.text }}
+              primary={"Om oss"}
+            />
+          </ListItem>,
+        ]}
+
+        {!currentUser && [
+          <ListItem
+            button
+            onClick={() => {
+              history.push("/products");
+              toggleDrawer(anchor, false);
+            }}
+            key={"Produkter"}
+          >
+            <ListItemIcon>
+              <StoreIcon
+                style={{
+                  height: 25,
+                  width: "auto",
+                  color: globalStyles.primary,
+                }}
+              />
+            </ListItemIcon>
+            <ListItemText
+              classes={{ primary: classes.text }}
+              primary={"Produkter"}
+            />
+          </ListItem>,
+          <ListItem
+            button
+            onClick={() => {
+              history.push("/login");
+              toggleDrawer(anchor, false);
+            }}
+            key={"Logga in"}
+          >
+            <ListItemIcon>
+              <AccountCircleIcon
+                style={{
+                  height: 25,
+                  width: "auto",
+                  color: globalStyles.primary,
+                }}
+              />
+            </ListItemIcon>
+            <ListItemText
+              classes={{ primary: classes.text }}
+              primary={"Logga in"}
+            />
+          </ListItem>,
+          <ListItem
+            button
+            onClick={() => {
+              history.push("/about");
+              toggleDrawer(anchor, false);
+            }}
+            key={"Om oss"}
+          >
+            <ListItemIcon>
+              <InfoIcon
+                style={{
+                  height: 25,
+                  width: "auto",
+                  color: globalStyles.primary,
+                }}
+              />
+            </ListItemIcon>
+            <ListItemText
+              classes={{ primary: classes.text }}
+              primary={"Om oss"}
+            />
+          </ListItem>,
+        ]}
       </List>
     </div>
   );

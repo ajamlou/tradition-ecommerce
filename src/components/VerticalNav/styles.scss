@@ -5,37 +5,46 @@
   .menu {
     margin: 3rem auto 0;
 
-    ul, li {
+    ul,
+    li {
       margin: 0;
       padding: 0;
       list-style-type: none;
     }
 
     ul {
-
       li {
         width: 100%;
         border-bottom: 1px solid #d3d3d3;
+        text-align: center;
 
         &:first-child {
           border-top: 1px solid #d3d3d3;
         }
 
-        a, span {
-          display: block;
+        a,
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
           width: 100%;
           padding: 2rem;
           font-size: 1.6rem;
           line-height: 1;
           color: black;
           cursor: pointer;
+
+          @media screen and (max-width: 600px) {
+            height: auto;
+            font-size: 1.5rem;
+          }
         }
 
         &:hover {
           background-color: #d3d3d3;
         }
       }
-
     }
   }
 }

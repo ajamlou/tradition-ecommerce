@@ -43,6 +43,21 @@ const Admin = (props) => {
     toggleModal,
   };
 
+  const categories = [
+    {
+      name: "Bestick",
+      value: "bestick",
+    },
+    {
+      name: "Smycken",
+      value: "smycken",
+    },
+    {
+      name: "Lådor",
+      value: "lådor",
+    },
+  ];
+
   const resetForm = () => {
     setHideModal(true);
     setProductCategory("bestick");
@@ -99,20 +114,7 @@ const Admin = (props) => {
 
             <FormSelect
               label="Kategori"
-              options={[
-                {
-                  name: "Bestick",
-                  value: "bestick",
-                },
-                {
-                  name: "Smycken",
-                  value: "smycken",
-                },
-                {
-                  name: "Lådor",
-                  value: "lådor",
-                },
-              ]}
+              options={categories}
               handleChange={(e) => setProductCategory(e.target.value)}
             />
 
@@ -141,6 +143,7 @@ const Admin = (props) => {
             />
 
             <CKEditor
+              className="ckeditor"
               onChange={(evt) => setProductDesc(evt.editor.getData())}
             />
 

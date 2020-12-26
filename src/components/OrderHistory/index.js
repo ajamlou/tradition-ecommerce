@@ -54,7 +54,7 @@ const OrderHistory = ({ orders }) => {
               const { label } = column;
 
               return (
-                <TableCell key={pos} style={styles}>
+                <TableCell className="tableCell" key={pos} style={styles}>
                   {label}
                 </TableCell>
               );

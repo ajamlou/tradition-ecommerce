@@ -35,6 +35,10 @@
         line-height: 1;
         text-transform: uppercase;
         border-radius: 5px;
+
+        @media screen and (max-width: 600px) {
+          font-size: 1.2rem;
+        }
       }
     }
   }

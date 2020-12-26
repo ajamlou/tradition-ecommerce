@@ -19,7 +19,7 @@ const Dashboard = (props) => {
 
   return (
     <div>
-      <h1>Orderhistorik</h1>
+      <h1 className="orderHistoryTitel">Orderhistorik</h1>
 
       <OrderHistory orders={orderHistory} />
     </div>
