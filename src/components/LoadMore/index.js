@@ -5,7 +5,14 @@ import Button from "./../forms/Button";
 const LoadMore = ({ onLoadMoreEvt = () => {} }) => {
   return (
     <Button
-      style={{ backgroundColor: "white", color: globalStyles.secondary }}
+      style={{
+        backgroundColor: "white",
+        borderRadius: 0,
+        borderWidth: 10,
+        borderColor: "red",
+        color: globalStyles.secondary,
+        width: 250,
+      }}
       onClick={() => onLoadMoreEvt()}
     >
       Ladda fler produkter

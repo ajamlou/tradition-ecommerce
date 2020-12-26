@@ -30,6 +30,7 @@ const useStyles = makeStyles({
   text: {
     color: globalStyles.primary,
     fontSize: 22,
+    fontFamily: "Josefin Sans",
   },
 });
 

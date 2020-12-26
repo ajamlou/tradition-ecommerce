@@ -33,6 +33,8 @@ const ProductResults = (props) => {
   if (data.length < 1) {
     return (
       <div className="products">
+        <Subheader title={"PRODUKTER"} />
+
         <p>Inga produkter</p>
       </div>
     );
