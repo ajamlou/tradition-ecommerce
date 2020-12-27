@@ -5,6 +5,7 @@ import {
   addProductStart,
   fetchProductsStart,
   deleteProductStart,
+  // editProductStart,
 } from "./../../redux/Products/products.actions";
 import Modal from "./../../components/Modal";
 import FormInput from "./../../components/forms/FormInput";
@@ -15,6 +16,7 @@ import LoadMore from "./../../components/LoadMore";
 import CKEditor from "ckeditor4-react";
 import "./styles.scss";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 const mapState = ({ productsData }) => ({
   products: productsData.products,
@@ -29,6 +31,8 @@ const Admin = (props) => {
   const [productThumbnail, setProductThumbnail] = useState("");
   const [productPrice, setProductPrice] = useState(0);
   const [productDesc, setProductDesc] = useState("");
+  // const [editing, setEditing] = useState(false);
+  // const [productID, setProductID] = useState("");
 
   const { data, queryDoc, isLastPage } = products;
 
@@ -36,7 +40,15 @@ const Admin = (props) => {
     dispatch(fetchProductsStart());
   }, [dispatch]);
 
-  const toggleModal = () => setHideModal(!hideModal);
+  const toggleModal = () => {
+    setProductCategory("bestick");
+    setProductName("");
+    setProductThumbnail("");
+    setProductPrice(0);
+    setProductDesc("");
+    // setEditing(false);
+    setHideModal(!hideModal);
+  };
 
   const configModal = {
     hideModal,
@@ -58,6 +70,22 @@ const Admin = (props) => {
     },
   ];
 
+  const editProduct = (documentID) => {
+    console.log("TODO: Edit product");
+    // setHideModal(!hideModal);
+    // setProductID(documentID);
+    // setEditing(true);
+
+    // const product = data.filter((prod) => prod.documentID === documentID)[0];
+
+    // console.log(product);
+    // setProductCategory(product.productCategory);
+    // setProductThumbnail(product.productThumbnail);
+    // setProductName(product.productName);
+    // setProductPrice(product.productPrice);
+    // setProductDesc(product.productDesc);
+  };
+
   const resetForm = () => {
     setHideModal(true);
     setProductCategory("bestick");
@@ -65,9 +93,12 @@ const Admin = (props) => {
     setProductThumbnail("");
     setProductPrice(0);
     setProductDesc("");
+    // setEditing(false);
+    // setProductID("");
   };
 
   const handleSubmit = (e) => {
+    console.log("IN HANDLESUBMIT");
     e.preventDefault();
 
     dispatch(
@@ -79,6 +110,7 @@ const Admin = (props) => {
         productDesc,
       })
     );
+
     resetForm();
   };
 
@@ -100,8 +132,8 @@ const Admin = (props) => {
       <div className="callToActions">
         <ul>
           <li>
-            <Button onClick={() => toggleModal()}>
-              Lägg till en ny produkt
+            <Button style={{ width: 250 }} onClick={() => toggleModal()}>
+              Lägg till produkt
             </Button>
           </li>
         </ul>
@@ -148,8 +180,27 @@ const Admin = (props) => {
             />
 
             <br />
-
+            {/* 
+            {editing ? (
+              <Button
+                onClick={() =>
+                  dispatch(
+                    editProductStart(
+                      productID,
+                      productCategory,
+                      productName,
+                      productThumbnail,
+                      productPrice,
+                      productDesc
+                    )
+                  )
+                }
+              >
+                Ändra produkt
+              </Button>
+            ) : ( */}
             <Button type="submit">Lägg till produkt</Button>
+            {/* )} */}
           </form>
         </div>
       </Modal>
@@ -204,6 +255,17 @@ const Admin = (props) => {
                               }}
                             >
                               {productCategory}
+                            </td>
+                            <td>
+                              <EditIcon
+                                style={{
+                                  cursor: "pointer",
+                                  height: 25,
+                                  width: "auto",
+                                  color: globalStyles.secondary,
+                                }}
+                                onClick={() => editProduct(documentID)}
+                              />
                             </td>
                             <td>
                               <DeleteIcon

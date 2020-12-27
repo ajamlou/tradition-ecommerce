@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProductStart,
@@ -8,7 +8,6 @@ import {
 import { addProduct } from "./../../redux/Cart/cart.actions";
 import Button from "./../forms/Button";
 import "./styles.scss";
-import globalStyles from "../../globalStyles";
 
 const mapState = (state) => ({
   product: state.productsData.product,
@@ -20,7 +19,13 @@ const ProductCard = (props) => {
   const { productID } = useParams();
   const { product } = useSelector(mapState);
 
-  const { productThumbnail, productName, productPrice, productDesc } = product;
+  const {
+    productThumbnail,
+    productName,
+    productPrice,
+    productDesc,
+    productCategory,
+  } = product;
 
   useEffect(() => {
     dispatch(fetchProductStart(productID));
@@ -48,10 +53,18 @@ const ProductCard = (props) => {
       <div className="productDetails">
         <ul>
           <li>
-            <h1 style={{ color: globalStyles.secondary }}>{productName}</h1>
+            <h1>{productName}</h1>
           </li>
           <li>
             <span className="price">{productPrice}:-</span>
+          </li>
+          <li>
+            <Link
+              to={`/products/${productCategory}`}
+              style={{ textTransform: "capitalize" }}
+            >
+              Kategori: {productCategory}
+            </Link>
           </li>
           <li>
             <div className="addToCart">

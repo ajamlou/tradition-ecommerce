@@ -11,7 +11,7 @@
       display: block;
       width: 100%;
       margin: 0;
-      border-radius: 10px;
+      border-radius: 5px;
     }
   }
 
@@ -21,6 +21,16 @@
 
   .desc {
     font-weight: 300;
+
+    @media screen and (max-width: 2200px) {
+      p {
+        line-height: 1.4;
+      }
+      img {
+        width: 100% !important;
+        height: auto !important;
+      }
+    }
   }
 
   .productDetails {
@@ -43,5 +53,6 @@
 
   .addToCart {
     max-width: 20rem;
+    padding: 2rem 0 2rem 0;
   }
 }

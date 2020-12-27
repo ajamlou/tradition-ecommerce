@@ -74,6 +74,24 @@ export const handleDeleteProduct = (documentID) => {
   });
 };
 
+// TODO: Implement edit-function for product
+export const handleEditProduct = (documentID, product) => {
+  console.log("documentID: ", documentID);
+  console.log("PRODUCT: ", product);
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection("products")
+      .doc(documentID)
+      .update(product)
+      .then(() => {
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 export const handleFetchProduct = (productID) => {
   return new Promise((resolve, reject) => {
     firestore
