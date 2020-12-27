@@ -3,11 +3,12 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import MailIcon from "@material-ui/icons/Mail";
 import globalStyles from "./../../globalStyles.js";
 import "./styles.scss";
+import Subheader from "../../components/Subheader/index.js";
 
 const About = (props) => {
   return (
     <div className="about">
-      <h1>Om oss</h1>
+      <Subheader title={"OM OSS"} />
       <h3 className="desc">
         Trädition erbjuder unika och handgjorda föremål helt i trä. Våra
         produkter är tillverkade med hjälp av traditionella slöjdtekniker där

@@ -29,8 +29,12 @@ const useStyles = makeStyles({
   },
   text: {
     color: globalStyles.primary,
-    fontSize: 22,
-    fontFamily: "Josefin Sans",
+    fontSize: 18,
+    fontFamily: globalStyles.fontFamily,
+  },
+  customBadge: {
+    backgroundColor: globalStyles.tertiary,
+    color: "white",
   },
 });
 
@@ -218,7 +222,10 @@ const Header = (props) => {
               <li>
                 <Link to="/cart" style={{ color: globalStyles.primary }}>
                   <div>
-                    <Badge badgeContent={totalNumCartItems} color="secondary">
+                    <Badge
+                      badgeContent={totalNumCartItems}
+                      classes={{ badge: classes.customBadge }}
+                    >
                       <ShoppingCartIcon
                         style={{
                           height: 25,
@@ -266,7 +273,10 @@ const Header = (props) => {
           <div className="mobile-cart">
             <Link to="/cart" style={{ color: globalStyles.primary }}>
               <div>
-                <Badge badgeContent={totalNumCartItems} color="secondary">
+                <Badge
+                  badgeContent={totalNumCartItems}
+                  classes={{ badge: classes.customBadge }}
+                >
                   <ShoppingCartIcon
                     style={{
                       height: 25,

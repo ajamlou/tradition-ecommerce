@@ -3,6 +3,8 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import FormInput from "./../forms/FormInput";
 import Button from "./../forms/Button";
 import { CountryDropdown } from "react-country-region-selector";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Checkbox from "@material-ui/core/Checkbox";
 import { apiInstance } from "./../../Utils";
 import {
   selectCartTotal,
@@ -25,6 +27,8 @@ const initialAddressState = {
   country: "",
 };
 
+const PAY = "Betala nu";
+
 const mapState = createStructuredSelector({
   total: selectCartTotal,
   itemCount: selectCartItemsCount,
@@ -45,10 +49,15 @@ const PaymentDetails = () => {
   });
   const [recipientName, setRecipientName] = useState("");
   const [nameOnCard, setNameOnCard] = useState("");
+  const [checkboxSame, setCheckboxSame] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const shippingCost = 63;
 
   useEffect(() => {
     if (itemCount < 1) {
       history.push("/dashboard");
+      setLoading(false);
     }
   }, [itemCount, history]);
 
@@ -68,10 +77,23 @@ const PaymentDetails = () => {
     });
   };
 
+  const handleCheckboxChange = () => {
+    setCheckboxSame(!checkboxSame);
+    if (checkboxSame) {
+      setNameOnCard(recipientName);
+      setBillingAddress(shippingAddress);
+    } else if (!checkboxSame) {
+      setNameOnCard("");
+      setBillingAddress({ ...initialAddressState });
+    }
+  };
+
   const handleFormSubmit = async (evt) => {
+    console.log("hejjjjjj");
     evt.preventDefault();
     const cardElement = elements.getElement("card");
 
+    setLoading(true);
     if (
       !shippingAddress.line1 ||
       !shippingAddress.city ||
@@ -86,12 +108,13 @@ const PaymentDetails = () => {
       !recipientName ||
       !nameOnCard
     ) {
+      // setLoading(false);
       return;
     }
 
     apiInstance
       .post("/payments/create", {
-        amount: total * 100,
+        amount: (total + shippingCost) * 100,
         shipping: {
           name: recipientName,
           address: {
@@ -139,6 +162,7 @@ const PaymentDetails = () => {
                 };
 
                 dispatch(saveOrderHistory(configOrder));
+                setLoading(false);
               });
           });
       });
@@ -171,7 +195,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Linje 1"
+            placeholder="Gatuadress"
             name="line1"
             handleChange={(evt) => handleShipping(evt)}
             value={shippingAddress.line1}
@@ -179,7 +203,7 @@ const PaymentDetails = () => {
           />
 
           <FormInput
-            placeholder="Linje 2"
+            placeholder=" "
             name="line2"
             handleChange={(evt) => handleShipping(evt)}
             value={shippingAddress.line2}
@@ -215,6 +239,8 @@ const PaymentDetails = () => {
 
           <div className="formRow checkoutInput">
             <CountryDropdown
+              defaultOptionLabel="Välj land"
+              priorityOptions={["SWE"]}
               required
               onChange={(val) =>
                 handleShipping({
@@ -232,6 +258,14 @@ const PaymentDetails = () => {
 
         <div className="group">
           <h2>Fakturadress</h2>
+          <div className="checkbox">
+            <Checkbox
+              checked={!checkboxSame}
+              onChange={handleCheckboxChange}
+              name="checked"
+            />
+            <p>Samma som leveransadress</p>
+          </div>
 
           <FormInput
             required
@@ -244,7 +278,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Linje 1"
+            placeholder="Gatuadress"
             name="line1"
             handleChange={(evt) => handleBilling(evt)}
             value={billingAddress.line1}
@@ -252,7 +286,7 @@ const PaymentDetails = () => {
           />
 
           <FormInput
-            placeholder="Linje 2"
+            placeholder=" "
             name="line2"
             handleChange={(evt) => handleBilling(evt)}
             value={billingAddress.line2}
@@ -289,6 +323,7 @@ const PaymentDetails = () => {
           <div className="formRow checkoutInput">
             <CountryDropdown
               required
+              defaultOptionLabel="Välj land"
               onChange={(val) =>
                 handleBilling({
                   target: {
@@ -302,14 +337,21 @@ const PaymentDetails = () => {
             />
           </div>
         </div>
+        <div></div>
 
         <div className="group">
           <h2>Betalkortsinformation</h2>
-
           <CardElement options={configCardElement} />
+          <h2 className="sum">Summa inkl. frakt: {total + shippingCost}:-</h2>
         </div>
 
-        <Button type="submit">Betala nu</Button>
+        <Button type="submit">
+          {loading ? (
+            <CircularProgress size={20} style={{ color: "white" }} />
+          ) : (
+            PAY
+          )}
+        </Button>
       </form>
     </div>
   );

@@ -175,6 +175,7 @@ const Admin = (props) => {
                       data.length > 0 &&
                       data.map((product, index) => {
                         const {
+                          productCategory,
                           productName,
                           productThumbnail,
                           productPrice,
@@ -192,8 +193,18 @@ const Admin = (props) => {
                                 />
                               </Link>
                             </td>
-                            <td>{productName}</td>
+                            <td style={{ textTransform: "capitalize" }}>
+                              {productName}
+                            </td>
                             <td>{productPrice}:-</td>
+                            <td
+                              style={{
+                                textTransform: "uppercase",
+                                fontWeight: "600",
+                              }}
+                            >
+                              {productCategory}
+                            </td>
                             <td>
                               <DeleteIcon
                                 style={{

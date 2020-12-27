@@ -28,6 +28,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import Payment from "./pages/Payment";
 import Order from "./pages/Order";
+import OrderConfirmed from "./pages/OrderConfirmed";
 import "./default.scss";
 import About from "./pages/About";
 
@@ -144,6 +145,14 @@ const App = (props) => {
                 <Order />
               </DashboardLayout>
             </WithAuth>
+          )}
+        />
+        <Route
+          path="/confirmation"
+          render={() => (
+            <MainLayout>
+              <OrderConfirmed />
+            </MainLayout>
           )}
         />
         <Route

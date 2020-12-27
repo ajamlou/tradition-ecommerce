@@ -1,7 +1,7 @@
 .paymentDetails {
   display: block;
   width: 100%;
-  max-width: 100.0rem;
+  max-width: 100rem;
   padding: 0;
   margin: 2rem auto;
 
@@ -9,4 +9,17 @@
     margin: 0 0 2rem;
   }
 
+  .sum {
+    text-align: center;
+    padding-top: 3rem;
+  }
+
+  .checkbox {
+    display: flex;
+    flex-direction: row;
+
+    p {
+      padding-top: 0.3rem;
+    }
+  }
 }

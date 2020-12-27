@@ -21,6 +21,7 @@ const Checkout = (props) => {
   const { cartItems, total } = useSelector(mapState);
 
   const errMsg = "Din varukorg är tom.";
+  const shippingCost = 63;
 
   return (
     <div className="checkout">
@@ -35,7 +36,7 @@ const Checkout = (props) => {
                   <table
                     className="checkoutHeader"
                     border="0"
-                    cellPadding="10"
+                    // cellPadding="10"
                     cellSpacing="0"
                   >
                     <tbody>
@@ -55,7 +56,6 @@ const Checkout = (props) => {
                   <table border="0" cellSpacing="0" cellPadding="0">
                     <tbody>
                       {cartItems.map((item, pos) => {
-                        console.log("hwjwjwhwhwhwhwh", item);
                         return (
                           <tr key={pos}>
                             <td>
@@ -77,8 +77,10 @@ const Checkout = (props) => {
                           <table border="0" cellPadding="10" cellSpacing="0">
                             <tbody>
                               <tr>
-                                <td>
-                                  <h3>Total: {total}:-</h3>
+                                <td className="total">
+                                  <h5>Leveranstid är ca 7 arbetsdagar.</h5>
+                                  <h3>Fraktkostnad: {shippingCost}:-</h3>
+                                  <h2>Total: {total + shippingCost}:-</h2>
                                 </td>
                               </tr>
                             </tbody>

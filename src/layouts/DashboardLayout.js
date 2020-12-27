@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { signOutUserStart } from "./../redux/User/user.actions";
 
 import Header from "./../components/Header";
+import Subheader from "./../components/Subheader";
 import VerticalNav from "./../components/VerticalNav";
 import Footer from "./../components/Footer";
 
@@ -16,6 +17,8 @@ const DashBoardLayout = (props) => {
   return (
     <div className="dashboardLayout">
       <Header {...props} />
+      <Subheader title={"MITT KONTO"} />
+
       <div className="controlPanel">
         <div className="sidebar">
           <VerticalNav>

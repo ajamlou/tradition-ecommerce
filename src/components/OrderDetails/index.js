@@ -9,6 +9,8 @@ import {
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { setOrderDetails } from "./../../redux/Orders/orders.actions";
+import globalStyles from "./../../globalStyles";
+import "./styles.scss";
 
 const columns = [
   {
@@ -17,21 +19,21 @@ const columns = [
   },
   {
     id: "productName",
-    label: "Name",
+    label: "Namn",
   },
   {
     id: "productPrice",
-    label: "Price",
+    label: "Pris",
   },
   {
     id: "quantity",
-    label: "Quantity",
+    label: "Antal",
   },
 ];
 
 const styles = {
-  fontSize: "16px",
   width: "10%",
+  fontFamily: globalStyles.fontFamily,
 };
 
 const formatText = (columnName, columnValue) => {
@@ -56,42 +58,44 @@ const OrderDetails = ({ order }) => {
   }, [dispatch]);
 
   return (
-    <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {columns.map((col, pos) => {
-              return (
-                <TableCell key={pos} style={styles}>
-                  {col.label}
-                </TableCell>
-              );
-            })}
-          </TableRow>
-        </TableHead>
+    <div className="table">
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {columns.map((col, pos) => {
+                return (
+                  <TableCell key={pos} style={styles}>
+                    {col.label}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          </TableHead>
 
-        <TableBody>
-          {Array.isArray(orderItems) &&
-            orderItems.length > 0 &&
-            orderItems.map((row, pos) => {
-              return (
-                <TableRow key={pos}>
-                  {columns.map((col, pos) => {
-                    const columnName = col.id;
-                    const columnValue = row[columnName];
+          <TableBody>
+            {Array.isArray(orderItems) &&
+              orderItems.length > 0 &&
+              orderItems.map((row, pos) => {
+                return (
+                  <TableRow key={pos}>
+                    {columns.map((col, pos) => {
+                      const columnName = col.id;
+                      const columnValue = row[columnName];
 
-                    return (
-                      <TableCell key={pos} style={styles}>
-                        {formatText(columnName, columnValue)}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                      return (
+                        <TableCell key={pos} style={styles}>
+                          {formatText(columnName, columnValue)}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 };
 

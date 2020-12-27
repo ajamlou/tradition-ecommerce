@@ -1,0 +1,29 @@
+.table {
+  th,
+  td {
+    font-size: 1.6rem;
+  }
+  @media screen and (max-width: 600px) {
+    img {
+      width: 60px;
+    }
+    th,
+    td {
+      font-size: 1.2rem;
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    img {
+      width: 30px;
+    }
+    th,
+    td {
+      font-size: 1rem;
+    }
+  }
+}
+
+img {
+  border-radius: 5px;
+}

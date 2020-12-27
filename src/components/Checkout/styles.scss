@@ -35,6 +35,10 @@
       font-size: 1.6rem;
       width: 22%;
     }
+
+    th {
+      padding-left: 10px;
+    }
   }
 
   .cartItem {
@@ -52,5 +56,58 @@
 
   .cartBtn {
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .checkout {
+    Button {
+      font-size: 1.4rem;
+    }
+
+    .checkoutHeader,
+    .cart {
+      width: 100%;
+      th {
+        padding-right: 15px;
+      }
+
+      th,
+      td {
+        font-size: 1.25rem;
+        width: 20%;
+      }
+
+      td {
+        padding-left: 5px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .checkout {
+    Button {
+      font-size: 1.3rem;
+    }
+    .checkoutHeader,
+    .cart {
+      width: 100%;
+      th {
+        padding-right: 10px;
+      }
+
+      th,
+      td {
+        font-size: 1rem;
+        width: 20%;
+      }
+
+      td {
+        padding-left: 5px;
+        text-align: center;
+      }
+    }
   }
 }

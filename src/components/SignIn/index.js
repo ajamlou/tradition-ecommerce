@@ -31,7 +31,7 @@ const SignIn = (props) => {
 
   useEffect(() => {
     if (currentUser) {
-      history.push("/");
+      history.push("/products");
       resetForm();
     }
   }, [currentUser, history]);
@@ -69,6 +69,7 @@ const SignIn = (props) => {
 
   return (
     <AuthWrapper {...configAuthWrapper}>
+      <p>Du måste vara inloggad för att kunna se dina ordrar.</p>
       {errors.length > 0 && (
         <ul>
           {errors.map((err, index) => {

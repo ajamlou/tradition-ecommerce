@@ -2,14 +2,16 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getOrderDetailsStart } from "./../../redux/Orders/orders.actions";
 import { useDispatch, useSelector } from "react-redux";
-import OrderDetails from "./../../components/OrderDetails";
+// import globalStyles from "./../../globalStyles.js";
 import "./styles.scss";
+import Subheader from "../../components/Subheader/index.js";
+import OrderDetails from "./../../components/OrderDetails";
 
 const mapState = ({ ordersData }) => ({
   orderDetails: ordersData.orderDetails,
 });
 
-const Order = () => {
+const OrderConfirmed = () => {
   const { orderID } = useParams();
   const dispatch = useDispatch();
   const { orderDetails } = useSelector(mapState);
@@ -20,14 +22,14 @@ const Order = () => {
   }, [dispatch, orderID]);
 
   return (
-    <div className="order">
-      <h1>Ordernummer: {orderID}</h1>
+    <div>
+      <Subheader title={"ORDERBEKRÄFTELSE"} />
+      <h1>Ordernummer: #{orderID}</h1>
 
       <OrderDetails order={orderDetails} />
-
-      <h2>Summa: {orderTotal}:-</h2>
+      <h2>Summa: {orderTotal}</h2>
     </div>
   );
 };
 
-export default Order;
+export default OrderConfirmed;

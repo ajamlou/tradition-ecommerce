@@ -1,63 +1,63 @@
-import { firestore } from './../../firebase/utils';
+import { firestore } from "./../../firebase/utils";
 
-export const handleSaveOrder = order => {
+export const handleSaveOrder = (order) => {
   return new Promise((resolve, reject) => {
     firestore
-      .collection('orders')
+      .collection("orders")
       .doc()
       .set(order)
       .then(() => {
         resolve();
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
       });
   });
 };
 
-export const handleGetUserOrderHistory = uid => {
+export const handleGetUserOrderHistory = (uid) => {
   return new Promise((resolve, reject) => {
-    let ref = firestore.collection('orders').orderBy('orderCreatedDate');
-    ref = ref.where('orderUserID', '==', uid);
+    let ref = firestore
+      .collection("orders")
+      .orderBy("orderCreatedDate", "desc");
+    ref = ref.where("orderUserID", "==", uid);
 
     ref
       .get()
-      .then(snap => {
+      .then((snap) => {
         const data = [
-          ...snap.docs.map(doc => {
+          ...snap.docs.map((doc) => {
             return {
               ...doc.data(),
-              documentID: doc.id
-            }
-          })
+              documentID: doc.id,
+            };
+          }),
         ];
 
         resolve({ data });
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
       });
-
-
   });
 };
 
-export const handleGetOrder = orderID => {
+export const handleGetOrder = (orderID) => {
   return new Promise((resolve, reject) => {
     firestore
-      .collection('orders')
+      .collection("orders")
       .doc(orderID)
       .get()
-      .then(snap => {
+      .then((snap) => {
         if (snap.exists) {
           resolve({
             ...snap.data(),
-            documentID: orderID
-          })
+            documentID: orderID,
+          });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
-      })
-  })
-}
+      });
+  });
+};
