@@ -17,6 +17,7 @@ const Item = (product) => {
     productPrice,
     quantity,
     documentID,
+    productSold,
   } = product;
 
   const handleRemoveCartItem = (documentID) => {
@@ -27,13 +28,13 @@ const Item = (product) => {
     );
   };
 
-  const handleAddProduct = (product) => {
-    dispatch(addProduct(product));
-  };
+  // const handleAddProduct = (product) => {
+  //   dispatch(addProduct(product));
+  // };
 
-  const handleReduceItem = (product) => {
-    dispatch(reduceCartItem(product));
-  };
+  // const handleReduceItem = (product) => {
+  //   dispatch(reduceCartItem(product));
+  // };
 
   return (
     <table className="cartItem" border="0" cellSpacing="0" cellPadding="10">
@@ -46,13 +47,13 @@ const Item = (product) => {
           </td>
           <td>{productName}</td>
           <td>
-            <span className="cartBtn" onClick={() => handleReduceItem(product)}>
+            {/* <span className="cartBtn" onClick={() => handleReduceItem(product)}>
               {`– `}
-            </span>
+            </span> */}
             <span>{quantity}</span>
-            <span className="cartBtn" onClick={() => handleAddProduct(product)}>
+            {/* <span className="cartBtn" onClick={() => handleAddProduct(product)}>
               {` +`}
-            </span>
+            </span> */}
           </td>
           <td>{productPrice}:-</td>
           <td align="center">

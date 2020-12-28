@@ -10,6 +10,11 @@ export const editProductStart = (productData) => ({
   payload: productData,
 });
 
+export const markAsSoldStart = (payload) => ({
+  type: productsTypes.MARK_AS_SOLD_START,
+  payload: payload,
+});
+
 export const fetchProductsStart = (filters = {}) => ({
   type: productsTypes.FETCH_PRODUCTS_START,
   payload: filters,

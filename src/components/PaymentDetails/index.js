@@ -11,6 +11,7 @@ import {
   selectCartItemsCount,
   selectCartItems,
 } from "./../../redux/Cart/cart.selectors";
+import { markAsSoldStart } from "./../../redux/Products/products.actions";
 import { saveOrderHistory } from "./../../redux/Orders/orders.actions";
 // import { clearCart } from "./../../redux/Cart/cart.actions";
 import { createStructuredSelector } from "reselect";
@@ -51,6 +52,7 @@ const PaymentDetails = () => {
   const [nameOnCard, setNameOnCard] = useState("");
   const [checkboxSame, setCheckboxSame] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [documentID, setDocumentID] = useState("");
 
   const shippingCost = 63;
 
@@ -150,6 +152,7 @@ const PaymentDetails = () => {
                       productPrice,
                       quantity,
                     } = item;
+                    setDocumentID(item.documentID);
 
                     return {
                       documentID,
@@ -160,6 +163,9 @@ const PaymentDetails = () => {
                     };
                   }),
                 };
+                cartItems.forEach((item) =>
+                  dispatch(markAsSoldStart([item.documentID, item.productSold]))
+                );
 
                 dispatch(saveOrderHistory(configOrder));
                 setLoading(false);

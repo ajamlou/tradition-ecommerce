@@ -74,15 +74,44 @@ export const handleDeleteProduct = (documentID) => {
   });
 };
 
-// TODO: Implement edit-function for product
-export const handleEditProduct = (documentID, product) => {
-  console.log("documentID: ", documentID);
-  console.log("PRODUCT: ", product);
+export const handleEditProduct = (product) => {
+  const productName = product.productName;
+  const productCategory = product.productCategory;
+  const productThumbnail = product.productThumbnail;
+  const productPrice = product.productPrice;
+  const productDesc = product.productDesc;
+
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection("products")
+      .doc(product.productID)
+      .update({
+        productName: productName,
+        productCategory: productCategory,
+        productThumbnail: productThumbnail,
+        productPrice: productPrice,
+        productDesc: productDesc,
+      })
+      .then(() => {
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const handleMarkAsSold = (payload) => {
+  console.log(payload);
+  const documentID = payload[0];
+  const productSold = payload[1];
   return new Promise((resolve, reject) => {
     firestore
       .collection("products")
       .doc(documentID)
-      .update(product)
+      .update({
+        productSold: !productSold,
+      })
       .then(() => {
         resolve();
       })

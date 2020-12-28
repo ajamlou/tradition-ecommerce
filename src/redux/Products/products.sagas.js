@@ -11,6 +11,7 @@ import {
   handleFetchProduct,
   handleDeleteProduct,
   handleEditProduct,
+  handleMarkAsSold,
 } from "./products.helpers";
 import productsTypes from "./products.types";
 
@@ -71,6 +72,19 @@ export function* onDeleteProductStart() {
   yield takeLatest(productsTypes.DELETE_PRODUCT_START, deleteProduct);
 }
 
+export function* markAsSold({ payload }) {
+  try {
+    yield handleMarkAsSold(payload);
+    yield put(fetchProductsStart());
+  } catch (err) {
+    // console.log(err);
+  }
+}
+
+export function* onMarkAsSoldStart() {
+  yield takeLatest(productsTypes.MARK_AS_SOLD_START, markAsSold);
+}
+
 export function* fetchProduct({ payload }) {
   try {
     const product = yield handleFetchProduct(payload);
@@ -91,5 +105,6 @@ export default function* productsSagas() {
     call(onDeleteProductStart),
     call(onFetchProductStart),
     call(onEditProductStart),
+    call(onMarkAsSoldStart),
   ]);
 }

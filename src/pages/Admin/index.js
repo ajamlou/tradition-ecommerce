@@ -5,7 +5,8 @@ import {
   addProductStart,
   fetchProductsStart,
   deleteProductStart,
-  // editProductStart,
+  editProductStart,
+  markAsSoldStart,
 } from "./../../redux/Products/products.actions";
 import Modal from "./../../components/Modal";
 import FormInput from "./../../components/forms/FormInput";
@@ -17,6 +18,7 @@ import CKEditor from "ckeditor4-react";
 import "./styles.scss";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import DoneIcon from "@material-ui/icons/Done";
 
 const mapState = ({ productsData }) => ({
   products: productsData.products,
@@ -34,7 +36,7 @@ const Admin = (props) => {
   const [productSold, setProductSold] = useState(false);
 
   const [editing, setEditing] = useState(false);
-  // const [productID, setProductID] = useState("");
+  const [productID, setProductID] = useState("");
 
   const ADD = "Lägg till produkt";
   const EDIT = "Ändra produkt";
@@ -75,11 +77,11 @@ const Admin = (props) => {
   ];
 
   const editProduct = (documentID) => {
-    setHideModal(!hideModal);
-    // setProductID(documentID);
-    setEditing(true);
-
     const product = data.filter((prod) => prod.documentID === documentID)[0];
+
+    setHideModal(!hideModal);
+    setProductID(documentID);
+    setEditing(true);
     setProductCategory(product.productCategory);
     setProductThumbnail(product.productThumbnail);
     setProductName(product.productName);
@@ -95,7 +97,7 @@ const Admin = (props) => {
     setProductPrice(0);
     setProductDesc("");
     setEditing(false);
-    // setProductID("");
+    setProductID("");
   };
 
   const handleSubmit = (e) => {
@@ -113,7 +115,16 @@ const Admin = (props) => {
         })
       );
     } else if (editing) {
-      console.log("EDIT");
+      dispatch(
+        editProductStart({
+          productID,
+          productCategory,
+          productName,
+          productThumbnail,
+          productPrice,
+          productDesc,
+        })
+      );
     }
 
     resetForm();
@@ -185,27 +196,7 @@ const Admin = (props) => {
             />
 
             <br />
-            {/* 
-            {editing ? (
-              <Button
-                onClick={() =>
-                  dispatch(
-                    editProductStart(
-                      productID,
-                      productCategory,
-                      productName,
-                      productThumbnail,
-                      productPrice,
-                      productDesc
-                    )
-                  )
-                }
-              >
-                Ändra produkt
-              </Button>
-            ) : ( */}
             <Button type="submit">{editing ? EDIT : ADD}</Button>
-            {/* )} */}
           </form>
         </div>
       </Modal>
@@ -236,6 +227,7 @@ const Admin = (props) => {
                           productThumbnail,
                           productPrice,
                           documentID,
+                          productSold,
                         } = product;
 
                         return (
@@ -260,7 +252,17 @@ const Admin = (props) => {
                               }}
                             >
                               {productCategory}
+                              {productSold ? (
+                                <p style={{ color: globalStyles.tertiary }}>
+                                  Slutsåld
+                                </p>
+                              ) : (
+                                <p style={{ color: globalStyles.primary }}>
+                                  I lager
+                                </p>
+                              )}
                             </td>
+
                             <td>
                               <EditIcon
                                 style={{
@@ -270,6 +272,28 @@ const Admin = (props) => {
                                   color: globalStyles.secondary,
                                 }}
                                 onClick={() => editProduct(documentID)}
+                              />
+                            </td>
+                            <td>
+                              {productSold ? (
+                                <p>Sätt åter i lager: </p>
+                              ) : (
+                                <p>Markera som såld: </p>
+                              )}
+                            </td>
+                            <td>
+                              <DoneIcon
+                                style={{
+                                  cursor: "pointer",
+                                  height: 25,
+                                  width: "auto",
+                                  color: globalStyles.primary,
+                                }}
+                                onClick={() =>
+                                  dispatch(
+                                    markAsSoldStart([documentID, productSold])
+                                  )
+                                }
                               />
                             </td>
                             <td>
