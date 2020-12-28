@@ -33,7 +33,7 @@ const SignUp = (props) => {
   useEffect(() => {
     if (currentUser) {
       resetForm();
-      history.push("/");
+      history.push("/products");
     }
   }, [currentUser, history]);
 

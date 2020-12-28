@@ -5,8 +5,17 @@
     margin: 0 auto;
     font-size: 1.8rem;
 
+    .payments {
+      text-align: center;
+    }
+
+    img {
+      height: auto;
+      width: 4.5rem;
+    }
+
     p {
-      color: black;
+      text-align: center;
     }
   }
 }

@@ -31,9 +31,13 @@ const Admin = (props) => {
   const [productThumbnail, setProductThumbnail] = useState("");
   const [productPrice, setProductPrice] = useState(0);
   const [productDesc, setProductDesc] = useState("");
-  // const [editing, setEditing] = useState(false);
+  const [productSold, setProductSold] = useState(false);
+
+  const [editing, setEditing] = useState(false);
   // const [productID, setProductID] = useState("");
 
+  const ADD = "Lägg till produkt";
+  const EDIT = "Ändra produkt";
   const { data, queryDoc, isLastPage } = products;
 
   useEffect(() => {
@@ -46,7 +50,7 @@ const Admin = (props) => {
     setProductThumbnail("");
     setProductPrice(0);
     setProductDesc("");
-    // setEditing(false);
+    setEditing(false);
     setHideModal(!hideModal);
   };
 
@@ -71,19 +75,16 @@ const Admin = (props) => {
   ];
 
   const editProduct = (documentID) => {
-    console.log("TODO: Edit product");
-    // setHideModal(!hideModal);
+    setHideModal(!hideModal);
     // setProductID(documentID);
-    // setEditing(true);
+    setEditing(true);
 
-    // const product = data.filter((prod) => prod.documentID === documentID)[0];
-
-    // console.log(product);
-    // setProductCategory(product.productCategory);
-    // setProductThumbnail(product.productThumbnail);
-    // setProductName(product.productName);
-    // setProductPrice(product.productPrice);
-    // setProductDesc(product.productDesc);
+    const product = data.filter((prod) => prod.documentID === documentID)[0];
+    setProductCategory(product.productCategory);
+    setProductThumbnail(product.productThumbnail);
+    setProductName(product.productName);
+    setProductPrice(product.productPrice);
+    setProductDesc(product.productDesc);
   };
 
   const resetForm = () => {
@@ -93,23 +94,27 @@ const Admin = (props) => {
     setProductThumbnail("");
     setProductPrice(0);
     setProductDesc("");
-    // setEditing(false);
+    setEditing(false);
     // setProductID("");
   };
 
   const handleSubmit = (e) => {
-    console.log("IN HANDLESUBMIT");
     e.preventDefault();
 
-    dispatch(
-      addProductStart({
-        productCategory,
-        productName,
-        productThumbnail,
-        productPrice,
-        productDesc,
-      })
-    );
+    if (!editing) {
+      dispatch(
+        addProductStart({
+          productCategory,
+          productName,
+          productThumbnail,
+          productPrice,
+          productDesc,
+          productSold,
+        })
+      );
+    } else if (editing) {
+      console.log("EDIT");
+    }
 
     resetForm();
   };
@@ -142,7 +147,7 @@ const Admin = (props) => {
       <Modal style={{ zIndex: 1000 }} {...configModal}>
         <div className="addNewProductForm">
           <form onSubmit={handleSubmit}>
-            <h2>Skapa produkt</h2>
+            {editing ? <h2>Ändra produkt</h2> : <h2>Skapa produkt</h2>}
 
             <FormSelect
               label="Kategori"
@@ -199,7 +204,7 @@ const Admin = (props) => {
                 Ändra produkt
               </Button>
             ) : ( */}
-            <Button type="submit">Lägg till produkt</Button>
+            <Button type="submit">{editing ? EDIT : ADD}</Button>
             {/* )} */}
           </form>
         </div>
