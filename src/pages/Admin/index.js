@@ -19,6 +19,7 @@ import "./styles.scss";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import DoneIcon from "@material-ui/icons/Done";
+import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 
 const mapState = ({ productsData }) => ({
   products: productsData.products,
@@ -282,19 +283,35 @@ const Admin = (props) => {
                               )}
                             </td>
                             <td>
-                              <DoneIcon
-                                style={{
-                                  cursor: "pointer",
-                                  height: 25,
-                                  width: "auto",
-                                  color: globalStyles.primary,
-                                }}
-                                onClick={() =>
-                                  dispatch(
-                                    markAsSoldStart([documentID, productSold])
-                                  )
-                                }
-                              />
+                              {productSold ? (
+                                <DoneIcon
+                                  style={{
+                                    cursor: "pointer",
+                                    height: 25,
+                                    width: "auto",
+                                    color: globalStyles.primary,
+                                  }}
+                                  onClick={() =>
+                                    dispatch(
+                                      markAsSoldStart([documentID, productSold])
+                                    )
+                                  }
+                                />
+                              ) : (
+                                <DoneOutlineIcon
+                                  style={{
+                                    cursor: "pointer",
+                                    height: 25,
+                                    width: "auto",
+                                    color: globalStyles.primary,
+                                  }}
+                                  onClick={() =>
+                                    dispatch(
+                                      markAsSoldStart([documentID, productSold])
+                                    )
+                                  }
+                                />
+                              )}
                             </td>
                             <td>
                               <DeleteIcon

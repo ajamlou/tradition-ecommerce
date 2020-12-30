@@ -28,8 +28,9 @@
     padding: 2rem;
     max-width: 60rem;
     height: auto;
-    min-height: 40rem;
+    min-height: 5rem;
     pointer-events: all;
+    border-radius: 5px;
 
     @media screen and (max-width: 600rem) {
       width: calc(100% - 10rem);

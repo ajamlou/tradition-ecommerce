@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Button from "./../../forms/Button";
-import { useDispatch } from "react-redux";
+import Modal from "./../../../components/Modal";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "./../../../redux/Cart/cart.actions";
+import { selectCartItems } from "./../../../redux/Cart/cart.selectors";
+import { createStructuredSelector } from "reselect";
 import globalStyles from "../../../globalStyles";
 import Skeleton from "@material-ui/lab/Skeleton";
 
+const mapState = createStructuredSelector({
+  cartItems: selectCartItems,
+});
+
 const Product = (product) => {
   const dispatch = useDispatch();
+  const [hideModal, setHideModal] = useState(true);
+  const { cartItems } = useSelector(mapState);
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const {
@@ -25,6 +34,13 @@ const Product = (product) => {
   )
     return null;
 
+  const toggleModal = () => setHideModal(!hideModal);
+
+  const configModal = {
+    hideModal,
+    toggleModal,
+  };
+
   setTimeout(function () {
     setLoading(false);
   }, 800);
@@ -35,14 +51,28 @@ const Product = (product) => {
 
   const handleAddToCart = (product) => {
     if (!product) return;
-    dispatch(addProduct(product));
-    history.push("/cart");
+
+    if (cartItems.some((item) => item.documentID === documentID)) {
+      setHideModal(!hideModal);
+    } else {
+      dispatch(addProduct(product));
+      history.push("/cart");
+    }
   };
 
   return (
     <div className="product">
-      {loading ? (
+      <Modal style={{ zIndex: 1000, textAlign: "center" }} {...configModal}>
         <div>
+          <p style={{ textAlign: "center" }}>
+            Tyvärr finns det enbart 1 av detta föremål.
+          </p>
+          <Button onClick={() => toggleModal()}>OK</Button>
+        </div>
+      </Modal>
+
+      {loading ? (
+        <div style={{ marginTop: -70 }}>
           <Skeleton height={300} />
           <Skeleton height={40} style={{ marginTop: -50 }} />
           <Skeleton height={40} />

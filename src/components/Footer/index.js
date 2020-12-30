@@ -32,7 +32,7 @@ const Footer = (props) => {
           </a>
         </div>
         <div className="payments">
-          <p>Vi utför säkra kortbetalningar tillsammans med Stripe.</p>
+          <p>Vi erbjuder säkra kortbetalningar tillsammans med Stripe.</p>
           <a href="https://stripe.com/en-gb-se">
             <img src={StripeLogo} alt="Stripe LOGO" />
           </a>

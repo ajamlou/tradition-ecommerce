@@ -148,7 +148,7 @@ const App = (props) => {
           )}
         />
         <Route
-          path="/confirmation"
+          path="/orderConfirmed"
           render={() => (
             <MainLayout>
               <OrderConfirmed />

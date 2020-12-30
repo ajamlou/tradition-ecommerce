@@ -129,6 +129,7 @@ const PaymentDetails = () => {
           .createPaymentMethod({
             type: "card",
             card: cardElement,
+            // receipt_email: "ajamlou.kevin@gmail.com",
             billing_details: {
               name: nameOnCard,
               address: {
@@ -346,7 +347,7 @@ const PaymentDetails = () => {
         <div></div>
 
         <div className="group">
-          <h2>Betalkortsinformation</h2>
+          <h2>Betalningsinformation</h2>
           <CardElement options={configCardElement} />
           <h2 className="sum">Summa inkl. frakt: {total + shippingCost}:-</h2>
         </div>

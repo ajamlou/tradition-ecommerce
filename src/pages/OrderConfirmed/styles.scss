@@ -1,0 +1,16 @@
+.confirmationContainer {
+  .orderWrap {
+    padding: 4rem 0 0 0;
+
+    h2 {
+      padding-top: 2rem;
+    }
+
+    @media screen and (max-width: 550px) {
+      h1,
+      h2 {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}

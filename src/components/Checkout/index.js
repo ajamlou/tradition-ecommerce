@@ -116,7 +116,9 @@ const Checkout = (props) => {
             </tbody>
           </table>
         ) : (
-          <p>{errMsg}</p>
+          <p style={{ paddingTop: 100, paddingBottom: 100, fontSize: 20 }}>
+            {errMsg}
+          </p>
         )}
       </div>
     </div>

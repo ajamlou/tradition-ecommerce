@@ -14,14 +14,25 @@ const Directory = (props) => {
             backgroundImage: `url(${Wallpaper})`,
           }}
         >
-          <h1
-            style={{
-              color: "white",
-              zIndex: 5,
-            }}
-          >
-            Välkommen till Trädition
-          </h1>
+          <div className="text">
+            <h1
+              style={{
+                color: "white",
+                zIndex: 5,
+              }}
+            >
+              Traditionella slöjdtekniker bevarade i modern tid.
+            </h1>
+            <h1
+              style={{
+                color: "white",
+                zIndex: 5,
+              }}
+            >
+              Välkommen till Trädition
+            </h1>
+          </div>
+
           <Link to="/products" style={{ color: globalStyles.primary }}>
             Våra produkter
           </Link>
