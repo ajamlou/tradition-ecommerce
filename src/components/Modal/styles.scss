@@ -16,6 +16,10 @@
   pointer-events: none;
   z-index: 1000;
 
+  // @media screen and (max-width: 600rem) {
+  //   height: auto;
+  // }
+
   .modal {
     position: absolute;
     top: 50%;
@@ -33,11 +37,9 @@
     border-radius: 5px;
 
     @media screen and (max-width: 600rem) {
-      width: calc(100% - 10rem);
+      width: calc(100% - 5rem);
+      max-height: calc(100vh - 10rem);
+      overflow-y: auto;
     }
-
-    // @media screen and (max-width: 600rem) {
-    //   width: 40rem;
-    // }
   }
 }

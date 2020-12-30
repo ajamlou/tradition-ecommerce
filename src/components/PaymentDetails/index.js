@@ -129,12 +129,13 @@ const PaymentDetails = () => {
           .createPaymentMethod({
             type: "card",
             card: cardElement,
-            // receipt_email: "ajamlou.kevin@gmail.com",
+            //receipt_email: "ajamlou.kevin@gmail.com",
             billing_details: {
               name: nameOnCard,
               address: {
                 ...billingAddress,
               },
+              // receipt_email: "ajamlou.kevin@gmail.com",
             },
           })
           .then(({ paymentMethod }) => {

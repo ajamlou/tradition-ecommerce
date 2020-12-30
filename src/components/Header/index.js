@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCartItemsCount } from "./../../redux/Cart/cart.selectors";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import CookieConsent from "react-cookie-consent";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -308,6 +309,23 @@ const Header = (props) => {
           </div>
         </div>
       </div>
+      <CookieConsent
+        buttonText="Jag förstår"
+        style={{ fontSize: 14, backgroundColor: globalStyles.secondary }}
+        buttonStyle={{
+          color: globalStyles.secondary,
+          borderRadius: 5,
+          width: 120,
+          height: 40,
+          fontSize: 16,
+          fontWeight: 600,
+          fontFamily: globalStyles.fontFamily,
+        }}
+        expires={31}
+      >
+        Denna hemsida använder cookies för att förbättra användarupplevelsen.
+        Genom att fortsätta använda denna hemsida godkänner du detta.
+      </CookieConsent>
     </header>
   );
 };

@@ -1,21 +1,38 @@
 .footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   .wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
     max-width: 1450px;
-    padding: 20px 10px;
+    padding: 5rem 0 0 0;
     margin: 0 auto;
     font-size: 1.8rem;
+    float: left;
+  }
 
-    .payments {
-      text-align: center;
+  .payments {
+    text-align: justify;
+    max-width: 60rem;
+    line-height: 1.5;
+    padding: 0 2rem 0 2rem;
+
+    .stripe {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
     }
 
     img {
+      padding: 0.5rem 0 0 0.5rem;
       height: auto;
       width: 4.5rem;
-    }
-
-    p {
-      text-align: center;
     }
   }
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import MailIcon from "@material-ui/icons/Mail";
 import StripeLogo from "./../../assets/stripe.png";
@@ -14,6 +15,7 @@ const Footer = (props) => {
           <a href="https://instagram.com/ereewoodcraft">
             <InstagramIcon
               style={{
+                paddingLeft: 30,
                 height: 35,
                 width: "auto",
                 marginRight: 15,
@@ -31,16 +33,24 @@ const Footer = (props) => {
             />
           </a>
         </div>
-        <div className="payments">
-          <p>Vi erbjuder säkra kortbetalningar tillsammans med Stripe.</p>
+      </div>
+
+      <div className="payments">
+        <div className="stripe">
+          <p style={{ fontSize: 16 }}>Säkra kortbetalningar med </p>
           <a href="https://stripe.com/en-gb-se">
             <img src={StripeLogo} alt="Stripe LOGO" />
           </a>
         </div>
-
         <p>
           Innehållet på denna webbplats är upphovsrättsskyddat och tillhör
-          Trädition.
+          Trädition. Vi använder cookies för att förbättra användarupplevelsen
+          och genom att använda hemsidan godkänner du detta. Vill du veta mer
+          våra cookies klicka{" "}
+          <Link style={{ fontWeight: 600 }} to="/cookies">
+            här
+          </Link>
+          .
         </p>
       </div>
     </footer>

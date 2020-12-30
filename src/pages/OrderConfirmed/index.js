@@ -18,6 +18,7 @@ const OrderConfirmed = (props) => {
   const { orderTotal } = orderDetails;
 
   useEffect(() => {
+    console.log(orderDetails);
     dispatch(getOrderDetailsStart(orderID));
   }, [dispatch, orderID]);
 
