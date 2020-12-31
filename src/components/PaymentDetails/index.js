@@ -5,6 +5,7 @@ import Button from "./../forms/Button";
 import { CountryDropdown } from "react-country-region-selector";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Checkbox from "@material-ui/core/Checkbox";
+import Item from "./../Checkout/Item";
 import { apiInstance } from "./../../Utils";
 import {
   selectCartTotal,
@@ -12,8 +13,10 @@ import {
   selectCartItems,
 } from "./../../redux/Cart/cart.selectors";
 import { markAsSoldStart } from "./../../redux/Products/products.actions";
-import { saveOrderHistory } from "./../../redux/Orders/orders.actions";
-// import { clearCart } from "./../../redux/Cart/cart.actions";
+import {
+  saveOrderHistory,
+  getUserOrderHistory,
+} from "./../../redux/Orders/orders.actions";
 import { createStructuredSelector } from "reselect";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -36,11 +39,17 @@ const mapState = createStructuredSelector({
   cartItems: selectCartItems,
 });
 
+const mapUserState = ({ user, ordersData }) => ({
+  currentUser: user.currentUser,
+  orderHistory: ordersData.orderHistory.data,
+});
+
 const PaymentDetails = () => {
   const stripe = useStripe();
   const elements = useElements();
   const history = useHistory();
   const { total, itemCount, cartItems } = useSelector(mapState);
+  const { currentUser, orderHistory } = useSelector(mapUserState);
   const dispatch = useDispatch();
   const [billingAddress, setBillingAddress] = useState({
     ...initialAddressState,
@@ -50,6 +59,7 @@ const PaymentDetails = () => {
   });
   const [recipientName, setRecipientName] = useState("");
   const [nameOnCard, setNameOnCard] = useState("");
+  const [email, setEmail] = useState("");
   const [checkboxSame, setCheckboxSame] = useState(true);
   const [loading, setLoading] = useState(false);
   const [documentID, setDocumentID] = useState("");
@@ -58,10 +68,10 @@ const PaymentDetails = () => {
 
   useEffect(() => {
     if (itemCount < 1) {
-      history.push("/dashboard");
+      history.push(`/orderConfirmed/${orderHistory[0].documentID}`);
       setLoading(false);
     }
-  }, [itemCount, history]);
+  }, [itemCount, currentUser, history]);
 
   const handleShipping = (evt) => {
     const { name, value } = evt.target;
@@ -91,7 +101,6 @@ const PaymentDetails = () => {
   };
 
   const handleFormSubmit = async (evt) => {
-    console.log("hejjjjjj");
     evt.preventDefault();
     const cardElement = elements.getElement("card");
 
@@ -108,6 +117,7 @@ const PaymentDetails = () => {
       !billingAddress.postal_code ||
       !billingAddress.country ||
       !recipientName ||
+      !email ||
       !nameOnCard
     ) {
       // setLoading(false);
@@ -129,13 +139,11 @@ const PaymentDetails = () => {
           .createPaymentMethod({
             type: "card",
             card: cardElement,
-            //receipt_email: "ajamlou.kevin@gmail.com",
             billing_details: {
               name: nameOnCard,
               address: {
                 ...billingAddress,
               },
-              // receipt_email: "ajamlou.kevin@gmail.com",
             },
           })
           .then(({ paymentMethod }) => {
@@ -145,6 +153,7 @@ const PaymentDetails = () => {
               })
               .then(({ paymentIntent }) => {
                 const configOrder = {
+                  email: email,
                   orderTotal: total,
                   orderItems: cartItems.map((item) => {
                     const {
@@ -168,8 +177,8 @@ const PaymentDetails = () => {
                 cartItems.forEach((item) =>
                   dispatch(markAsSoldStart([item.documentID, item.productSold]))
                 );
-
                 dispatch(saveOrderHistory(configOrder));
+                dispatch(getUserOrderHistory(email));
                 setLoading(false);
               });
           });
@@ -194,7 +203,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="För- och efternamn"
+            placeholder="För- och efternamn (obligatorisk)"
             name="recipientName"
             handleChange={(evt) => setRecipientName(evt.target.value)}
             value={recipientName}
@@ -203,7 +212,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Gatuadress"
+            placeholder="Gatuadress (obligatorisk)"
             name="line1"
             handleChange={(evt) => handleShipping(evt)}
             value={shippingAddress.line1}
@@ -220,7 +229,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Stad"
+            placeholder="Stad (obligatorisk)"
             name="city"
             handleChange={(evt) => handleShipping(evt)}
             value={shippingAddress.city}
@@ -229,7 +238,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Län"
+            placeholder="Län (obligatorisk)"
             name="state"
             handleChange={(evt) => handleShipping(evt)}
             value={shippingAddress.state}
@@ -238,7 +247,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Postadress"
+            placeholder="Postadress (obligatorisk)"
             name="postal_code"
             handleChange={(evt) => handleShipping(evt)}
             value={shippingAddress.postal_code}
@@ -247,7 +256,7 @@ const PaymentDetails = () => {
 
           <div className="formRow checkoutInput">
             <CountryDropdown
-              defaultOptionLabel="Välj land"
+              defaultOptionLabel="Välj land (obligatorisk)"
               priorityOptions={["SWE"]}
               required
               onChange={(val) =>
@@ -277,7 +286,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Namn på betalkort"
+            placeholder="Namn på betalkort (obligatorisk)"
             name="nameOnCard"
             handleChange={(evt) => setNameOnCard(evt.target.value)}
             value={nameOnCard}
@@ -286,7 +295,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Gatuadress"
+            placeholder="Gatuadress (obligatorisk)"
             name="line1"
             handleChange={(evt) => handleBilling(evt)}
             value={billingAddress.line1}
@@ -303,7 +312,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Stad"
+            placeholder="Stad (obligatorisk)"
             name="city"
             handleChange={(evt) => handleBilling(evt)}
             value={billingAddress.city}
@@ -312,7 +321,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Län"
+            placeholder="Län (obligatorisk)"
             name="state"
             handleChange={(evt) => handleBilling(evt)}
             value={billingAddress.state}
@@ -321,7 +330,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Postadress"
+            placeholder="Postadress (obligatorisk)"
             name="postal_code"
             handleChange={(evt) => handleBilling(evt)}
             value={billingAddress.postal_code}
@@ -331,7 +340,7 @@ const PaymentDetails = () => {
           <div className="formRow checkoutInput">
             <CountryDropdown
               required
-              defaultOptionLabel="Välj land"
+              defaultOptionLabel="Välj land (obligatorisk)"
               onChange={(val) =>
                 handleBilling({
                   target: {
@@ -344,8 +353,53 @@ const PaymentDetails = () => {
               valueType="short"
             />
           </div>
+
+          <FormInput
+            required
+            placeholder="Emailadress för orderbekräftelse (obligatorisk)"
+            name="email_adress"
+            handleChange={(evt) => setEmail(evt.target.value)}
+            value={email}
+            type="email"
+          />
         </div>
-        <div></div>
+        <div className="cart">
+          <table border="0" cellPadding="0" cellSpacing="0">
+            <tbody>
+              <tr>
+                <td>
+                  <table className="checkoutHeader" border="0" cellSpacing="0">
+                    <tbody>
+                      <tr>
+                        <th>Produkt</th>
+                        <th>Beskrivning</th>
+                        <th>Antal</th>
+                        <th>Pris</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <table border="0" cellSpacing="0" cellPadding="0">
+                    <tbody>
+                      {cartItems.map((item, pos) => {
+                        return (
+                          <tr key={pos}>
+                            <td>
+                              <Item {...item} />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div className="group">
           <h2>Betalningsinformation</h2>

@@ -5,6 +5,42 @@
   padding: 0;
   margin: 2rem auto;
 
+  .cart {
+    max-width: 100rem;
+    margin: 0 auto;
+    width: 100%;
+    text-align: left;
+    padding: 1.5rem 0 1.5rem 0;
+
+    table {
+      width: 100%;
+    }
+  }
+
+  .cart {
+    th,
+    td {
+      font-size: 1.6rem;
+      width: 22%;
+
+      @media screen and (max-width: 400px) {
+        font-size: 1.4rem;
+      }
+    }
+
+    th {
+      padding-left: 10px;
+    }
+  }
+
+  .cartItem {
+    td img {
+      border-radius: 5px;
+      display: block;
+      width: 100%;
+    }
+  }
+
   .group {
     margin: 0 0 2rem;
   }

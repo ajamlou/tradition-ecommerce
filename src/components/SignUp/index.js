@@ -73,7 +73,6 @@ const SignUp = (props) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(accept);
     if (accept) {
       setAcceptErrMsg(false);
       setLoading(true);

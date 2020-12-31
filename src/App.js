@@ -97,11 +97,9 @@ const App = (props) => {
         <Route
           path="/payment"
           render={() => (
-            <WithAuth>
-              <MainLayout>
-                <Payment />
-              </MainLayout>
-            </WithAuth>
+            <MainLayout>
+              <Payment />
+            </MainLayout>
           )}
         />
         <Route
@@ -149,7 +147,7 @@ const App = (props) => {
           )}
         />
         <Route
-          path="/orderConfirmed"
+          path="/orderConfirmed/:orderID"
           render={() => (
             <MainLayout>
               <OrderConfirmed />

@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   removeCartItem,
-  addProduct,
-  reduceCartItem,
+  // addProduct,
+  // reduceCartItem,
 } from "./../../../redux/Cart/cart.actions";
 import DeleteIcon from "@material-ui/icons/Delete";
 import globalStyles from "./../../../globalStyles.js";
@@ -17,7 +17,6 @@ const Item = (product) => {
     productPrice,
     quantity,
     documentID,
-    productSold,
   } = product;
 
   const handleRemoveCartItem = (documentID) => {
@@ -56,20 +55,22 @@ const Item = (product) => {
             </span> */}
           </td>
           <td>{productPrice}:-</td>
-          <td align="center">
-            <span
-              className="cartBtn"
-              onClick={() => handleRemoveCartItem(documentID)}
-            >
-              <DeleteIcon
-                style={{
-                  height: 25,
-                  width: "auto",
-                  color: globalStyles.tertiary,
-                }}
-              />
-            </span>
-          </td>
+          {window.location.pathname === "/cart" ? (
+            <td align="center">
+              <span
+                className="cartBtn"
+                onClick={() => handleRemoveCartItem(documentID)}
+              >
+                <DeleteIcon
+                  style={{
+                    height: 25,
+                    width: "auto",
+                    color: globalStyles.tertiary,
+                  }}
+                />
+              </span>
+            </td>
+          ) : null}
         </tr>
       </tbody>
     </table>
