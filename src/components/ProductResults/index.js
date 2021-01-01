@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Link } from "react-router-dom";
 import { fetchProductsStart } from "./../../redux/Products/products.actions";
 import Product from "./Product";
 import FormSelect from "./../forms/FormSelect";
 import LoadMore from "./../LoadMore";
 import Subheader from "./../Subheader";
+import Typography from "@material-ui/core/Typography";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import "./styles.scss";
 
 const mapState = ({ productsData }) => ({
@@ -14,6 +16,7 @@ const mapState = ({ productsData }) => ({
 
 const ProductResults = (props) => {
   const dispatch = useDispatch();
+  const { category } = useParams();
   const history = useHistory();
   const { filterType } = useParams();
   const { products } = useSelector(mapState);
@@ -28,17 +31,6 @@ const ProductResults = (props) => {
     const nextFilter = e.target.value;
     history.push(`/products/${nextFilter}`);
   };
-
-  if (!Array.isArray(data)) return null;
-  if (data.length < 1) {
-    return (
-      <div className="products">
-        <Subheader title={"PRODUKTER"} />
-
-        <p>Inga produkter</p>
-      </div>
-    );
-  }
 
   const configFilters = {
     defaultValue: filterType,
@@ -62,6 +54,19 @@ const ProductResults = (props) => {
     ],
     handleChange: handleFilter,
   };
+
+  if (!Array.isArray(data)) return null;
+  if (data.length < 1) {
+    return (
+      <div className="products">
+        <Subheader title={"PRODUKTER"} />
+        <FormSelect {...configFilters} />
+        <p className="noProducts">
+          Det finns tyvärr inga produkter för närvarande i denna kategori.
+        </p>
+      </div>
+    );
+  }
 
   const handleLoadMore = () => {
     dispatch(

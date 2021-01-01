@@ -11,6 +11,8 @@ import { createStructuredSelector } from "reselect";
 import Button from "./../forms/Button";
 import Modal from "./../../components/Modal";
 import Skeleton from "@material-ui/lab/Skeleton";
+import Typography from "@material-ui/core/Typography";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import { makeStyles } from "@material-ui/core/styles";
 import "./styles.scss";
 import globalStyles from "../../globalStyles";
@@ -83,6 +85,19 @@ const ProductCard = (props) => {
 
   return (
     <div className="productCard">
+      <div className="breadcrumbs">
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link color="inherit" to="/products">
+            Produkter
+          </Link>
+          <Typography
+            style={{ textTransform: "capitalize" }}
+            color="textPrimary"
+          >
+            {productCategory}
+          </Typography>
+        </Breadcrumbs>
+      </div>
       <Modal style={{ zIndex: 1000, textAlign: "center" }} {...configModal}>
         <div>
           <p style={{ textAlign: "center" }}>

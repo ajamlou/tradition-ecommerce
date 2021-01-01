@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import FormInput from "./../forms/FormInput";
 import Button from "./../forms/Button";
@@ -6,6 +7,7 @@ import { CountryDropdown } from "react-country-region-selector";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Checkbox from "@material-ui/core/Checkbox";
 import Item from "./../Checkout/Item";
+import Modal from "./../../components/Modal";
 import { apiInstance } from "./../../Utils";
 import {
   selectCartTotal,
@@ -21,6 +23,7 @@ import { createStructuredSelector } from "reselect";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./styles.scss";
+import globalStyles from "../../globalStyles";
 
 const initialAddressState = {
   line1: "",
@@ -58,11 +61,13 @@ const PaymentDetails = () => {
     ...initialAddressState,
   });
   const [recipientName, setRecipientName] = useState("");
+  const [accept, setAccept] = useState(false);
   const [nameOnCard, setNameOnCard] = useState("");
   const [email, setEmail] = useState("");
   const [checkboxSame, setCheckboxSame] = useState(true);
   const [loading, setLoading] = useState(false);
   const [documentID, setDocumentID] = useState("");
+  const [hideModal, setHideModal] = useState(true);
 
   const shippingCost = 63;
 
@@ -80,6 +85,8 @@ const PaymentDetails = () => {
       [name]: value,
     });
   };
+
+  const toggleModal = () => setHideModal(!hideModal);
 
   const handleBilling = (evt) => {
     const { name, value } = evt.target;
@@ -103,8 +110,8 @@ const PaymentDetails = () => {
   const handleFormSubmit = async (evt) => {
     evt.preventDefault();
     const cardElement = elements.getElement("card");
-
     setLoading(true);
+
     if (
       !shippingAddress.line1 ||
       !shippingAddress.city ||
@@ -118,11 +125,20 @@ const PaymentDetails = () => {
       !billingAddress.country ||
       !recipientName ||
       !email ||
-      !nameOnCard
+      !nameOnCard ||
+      !accept
     ) {
-      // setLoading(false);
+      if (!accept) {
+        toggleModal();
+        setLoading(false);
+      }
       return;
     }
+
+    // if (currentUser) {
+    //   setEmail(currentUser.email);
+    //   console.log(email);
+    // }
 
     apiInstance
       .post("/payments/create", {
@@ -178,11 +194,21 @@ const PaymentDetails = () => {
                   dispatch(markAsSoldStart([item.documentID, item.productSold]))
                 );
                 dispatch(saveOrderHistory(configOrder));
-                dispatch(getUserOrderHistory(email));
+                if (currentUser) {
+                  dispatch(getUserOrderHistory(currentUser.email));
+                } else if (!currentUser) {
+                  dispatch(getUserOrderHistory(email));
+                }
+
                 setLoading(false);
               });
           });
       });
+  };
+
+  const configModal = {
+    hideModal,
+    toggleModal,
   };
 
   const configCardElement = {
@@ -197,6 +223,15 @@ const PaymentDetails = () => {
 
   return (
     <div className="paymentDetails">
+      <Modal {...configModal}>
+        <div>
+          <p style={{ textAlign: "justify" }}>
+            Du måste acceptera hur Trädition hanterar dina perosnuppgifter för
+            att kunna handla.
+          </p>
+          <Button onClick={() => toggleModal()}>Stäng</Button>
+        </div>
+      </Modal>
       <form onSubmit={handleFormSubmit}>
         <div className="group">
           <h2>Leveransadress</h2>
@@ -354,6 +389,7 @@ const PaymentDetails = () => {
             />
           </div>
 
+          {/* {currentUser ? null : ( */}
           <FormInput
             required
             placeholder="Emailadress för orderbekräftelse (obligatorisk)"
@@ -362,6 +398,7 @@ const PaymentDetails = () => {
             value={email}
             type="email"
           />
+          {/* )} */}
         </div>
         <div className="cart">
           <table border="0" cellPadding="0" cellSpacing="0">
@@ -405,6 +442,17 @@ const PaymentDetails = () => {
           <h2>Betalningsinformation</h2>
           <CardElement options={configCardElement} />
           <h2 className="sum">Summa inkl. frakt: {total + shippingCost}:-</h2>
+        </div>
+
+        <div className="checkbox">
+          <Checkbox checked={accept} onChange={() => setAccept(!accept)} />
+          <p>
+            Jag accepterar{" "}
+            <Link to="/cookies" style={{ color: globalStyles.primary }}>
+              Träditions hantering av mina personuppgifter
+            </Link>
+            .
+          </p>
         </div>
 
         <Button type="submit">
