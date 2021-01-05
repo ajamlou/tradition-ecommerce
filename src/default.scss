@@ -25,12 +25,13 @@ body,
 }
 
 body {
-  font-family: "Josefin Sans", sans-serif;
+  font-family: "Karla", sans-serif;
   font-weight: 400;
   line-height: 1;
 }
 
 h1 {
+  font-family: "Vollkorn", serif !important;
   display: block;
   width: 100%;
   padding: 0;
@@ -44,6 +45,7 @@ h1 {
 }
 
 h2 {
+  font-family: "Vollkorn", serif !important;
   display: block;
   width: 100%;
   padding: 0;
@@ -60,6 +62,10 @@ h3 {
   color: #474747;
 }
 
+th {
+  font-family: "Vollkorn", serif !important;
+}
+
 th,
 td,
 span {
@@ -67,6 +73,7 @@ span {
 }
 
 a {
+  font-family: "Vollkorn", serif !important;
   color: #186355;
   text-decoration: none;
   cursor: pointer;

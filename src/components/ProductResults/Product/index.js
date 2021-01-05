@@ -105,7 +105,7 @@ const Product = (product) => {
                 <div className="addToCart">
                   {productSold ? (
                     <Button
-                      style={{ backgroundColor: globalStyles.tertiary }}
+                      style={{ backgroundColor: globalStyles.secondary }}
                       disabled
                     >
                       Slutsåld

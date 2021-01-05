@@ -4,7 +4,7 @@ const globalStyles = {
   tertiary: "#d52a42",
   hover: "#24947f",
   hoverSecondary: "#686868",
-  fontFamily: "Josefin Sans",
+  fontFamily: "Vollkorn",
 };
 
 export default globalStyles;

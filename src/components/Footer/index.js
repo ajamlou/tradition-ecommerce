@@ -45,8 +45,8 @@ const Footer = (props) => {
         <p>
           Innehållet på denna webbplats är upphovsrättsskyddat och tillhör
           Trädition. Vi använder cookies för att förbättra användarupplevelsen
-          och genom att använda hemsidan godkänner du detta. Vill du veta mer
-          våra cookies och vår integritetspolicy klicka{" "}
+          och om du vill veta mer om våra cookies och vår integritetspolicy
+          klicka{" "}
           <Link style={{ fontWeight: 600 }} to="/cookies">
             här
           </Link>

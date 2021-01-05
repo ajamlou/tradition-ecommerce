@@ -310,13 +310,13 @@ const Header = (props) => {
         </div>
       </div>
       <CookieConsent
-        buttonText="Jag förstår"
+        buttonText="Jag accepterar cookies"
         style={{ fontSize: 14, backgroundColor: globalStyles.secondary }}
         buttonStyle={{
           color: globalStyles.secondary,
           borderRadius: 5,
-          width: 120,
-          height: 40,
+          width: 200,
+          height: 30,
           fontSize: 16,
           fontWeight: 600,
           fontFamily: globalStyles.fontFamily,
@@ -324,7 +324,6 @@ const Header = (props) => {
         expires={31}
       >
         Denna hemsida använder cookies för att förbättra användarupplevelsen.
-        Genom att fortsätta använda denna hemsida godkänner du detta.
       </CookieConsent>
     </header>
   );
