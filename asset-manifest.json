@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/tradition-ecommerce/static/css/main.5f78d33b.chunk.css",
-    "main.js": "/tradition-ecommerce/static/js/main.e20bfbc0.chunk.js",
-    "main.js.map": "/tradition-ecommerce/static/js/main.e20bfbc0.chunk.js.map",
+    "main.js": "/tradition-ecommerce/static/js/main.749703fc.chunk.js",
+    "main.js.map": "/tradition-ecommerce/static/js/main.749703fc.chunk.js.map",
     "runtime-main.js": "/tradition-ecommerce/static/js/runtime-main.a1a8dc0c.js",
     "runtime-main.js.map": "/tradition-ecommerce/static/js/runtime-main.a1a8dc0c.js.map",
     "static/js/2.332338f8.chunk.js": "/tradition-ecommerce/static/js/2.332338f8.chunk.js",
     "static/js/2.332338f8.chunk.js.map": "/tradition-ecommerce/static/js/2.332338f8.chunk.js.map",
     "index.html": "/tradition-ecommerce/index.html",
-    "precache-manifest.f715f4d9b2ccdeb4126451eddeeadcb6.js": "/tradition-ecommerce/precache-manifest.f715f4d9b2ccdeb4126451eddeeadcb6.js",
+    "precache-manifest.891418da72d3b8a80c54b831509c1339.js": "/tradition-ecommerce/precache-manifest.891418da72d3b8a80c54b831509c1339.js",
     "service-worker.js": "/tradition-ecommerce/service-worker.js",
     "static/css/main.5f78d33b.chunk.css.map": "/tradition-ecommerce/static/css/main.5f78d33b.chunk.css.map",
     "static/js/2.332338f8.chunk.js.LICENSE.txt": "/tradition-ecommerce/static/js/2.332338f8.chunk.js.LICENSE.txt",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.a1a8dc0c.js",
     "static/js/2.332338f8.chunk.js",
     "static/css/main.5f78d33b.chunk.css",
-    "static/js/main.e20bfbc0.chunk.js"
+    "static/js/main.749703fc.chunk.js"
   ]
 }
