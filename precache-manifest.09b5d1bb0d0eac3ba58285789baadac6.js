@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "177ab391cc8380d015c3aa9d492dd5bd",
+    "revision": "ef9dc79c3079642f187f60ffd556e59e",
     "url": "/tradition-ecommerce/index.html"
   },
   {
-    "revision": "155f18808988a2f87b96",
+    "revision": "3b4546764fef83ada92c",
     "url": "/tradition-ecommerce/static/css/main.5f78d33b.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/tradition-ecommerce/static/js/2.332338f8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "155f18808988a2f87b96",
-    "url": "/tradition-ecommerce/static/js/main.749703fc.chunk.js"
+    "revision": "3b4546764fef83ada92c",
+    "url": "/tradition-ecommerce/static/js/main.d72da130.chunk.js"
   },
   {
     "revision": "15192291bbd00ba57da3",
