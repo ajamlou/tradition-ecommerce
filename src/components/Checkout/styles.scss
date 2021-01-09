@@ -67,6 +67,9 @@
 
     .checkoutHeader,
     .cart {
+      h2 {
+        text-align: center;
+      }
       width: 100%;
       th {
         padding-right: 15px;
@@ -96,6 +99,10 @@
       width: 100%;
       th {
         padding-right: 10px;
+      }
+
+      h2 {
+        text-align: center;
       }
 
       th,
