@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { fetchProductsStart } from "./../../redux/Products/products.actions";
 import Product from "./Product";
 import FormSelect from "./../forms/FormSelect";
 import LoadMore from "./../LoadMore";
 import Subheader from "./../Subheader";
-import Typography from "@material-ui/core/Typography";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import "./styles.scss";
 
 const mapState = ({ productsData }) => ({
@@ -16,7 +14,7 @@ const mapState = ({ productsData }) => ({
 
 const ProductResults = (props) => {
   const dispatch = useDispatch();
-  const { category } = useParams();
+  // const { category } = useParams();
   const history = useHistory();
   const { filterType } = useParams();
   const { products } = useSelector(mapState);

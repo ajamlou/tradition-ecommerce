@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import FormInput from "./../forms/FormInput";
 import Button from "./../forms/Button";
@@ -24,6 +23,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./styles.scss";
 import globalStyles from "../../globalStyles";
+import TermsAndConditions from "../TermsAndConditions";
 
 const initialAddressState = {
   line1: "",
@@ -68,6 +68,7 @@ const PaymentDetails = () => {
   const [loading, setLoading] = useState(false);
   const [documentID, setDocumentID] = useState("");
   const [hideModal, setHideModal] = useState(true);
+  const [showErrorMsg, setShowErrorMsg] = useState(false);
 
   const shippingCost = 63;
 
@@ -129,7 +130,7 @@ const PaymentDetails = () => {
       !accept
     ) {
       if (!accept) {
-        toggleModal();
+        setShowErrorMsg(true);
         setLoading(false);
       }
       return;
@@ -223,15 +224,6 @@ const PaymentDetails = () => {
 
   return (
     <div className="paymentDetails">
-      <Modal {...configModal}>
-        <div>
-          <p style={{ textAlign: "justify" }}>
-            Du måste acceptera hur Trädition hanterar dina perosnuppgifter för
-            att kunna handla.
-          </p>
-          <Button onClick={() => toggleModal()}>Stäng</Button>
-        </div>
-      </Modal>
       <form onSubmit={handleFormSubmit}>
         <div className="group">
           <h2>Leveransadress</h2>
@@ -247,7 +239,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Gatuadress (obligatorisk)"
+            placeholder="Adresslinje 1 (obligatorisk)"
             name="line1"
             handleChange={(evt) => handleShipping(evt)}
             value={shippingAddress.line1}
@@ -255,7 +247,7 @@ const PaymentDetails = () => {
           />
 
           <FormInput
-            placeholder=" "
+            placeholder="Adresslinje 2 (valfri)"
             name="line2"
             handleChange={(evt) => handleShipping(evt)}
             value={shippingAddress.line2}
@@ -310,7 +302,7 @@ const PaymentDetails = () => {
 
         <div className="group">
           <h2>Fakturadress</h2>
-          <div className="checkbox">
+          <div className="sameDetails">
             <Checkbox
               checked={!checkboxSame}
               onChange={handleCheckboxChange}
@@ -445,14 +437,26 @@ const PaymentDetails = () => {
         </div>
 
         <div className="checkbox">
-          <Checkbox checked={accept} onChange={() => setAccept(!accept)} />
-          <p>
-            Jag accepterar{" "}
-            <Link to="/cookies" style={{ color: globalStyles.primary }}>
-              Träditions hantering av mina personuppgifter
-            </Link>
-            .
-          </p>
+          {showErrorMsg ? (
+            <p style={{ color: globalStyles.tertiary }}>
+              Du måste acceptera villkoren för att bli medlem.
+            </p>
+          ) : null}
+          <div class="accept">
+            <Checkbox checked={accept} onChange={() => setAccept(!accept)} />
+
+            <p>
+              Jag accepterar{" "}
+              <span
+                class="link"
+                onClick={toggleModal}
+                style={{ color: globalStyles.primary }}
+              >
+                Träditions hantering av mina personuppgifter
+              </span>
+              .
+            </p>
+          </div>
         </div>
 
         <Button type="submit">
@@ -463,6 +467,12 @@ const PaymentDetails = () => {
           )}
         </Button>
       </form>
+      <Modal {...configModal}>
+        <div style={{ textAlign: "justify" }}>
+          <TermsAndConditions />
+          <Button onClick={() => toggleModal()}>Stäng</Button>
+        </div>
+      </Modal>
     </div>
   );
 };

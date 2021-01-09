@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   selectCartItems,
@@ -116,9 +116,15 @@ const Checkout = (props) => {
             </tbody>
           </table>
         ) : (
-          <p style={{ paddingTop: 100, paddingBottom: 100, fontSize: 20 }}>
-            {errMsg}
-          </p>
+          <div style={{ paddingTop: 100, paddingBottom: 100 }}>
+            <p>{errMsg}</p>
+            <p>
+              Fortsätt att handla{" "}
+              <Link style={{ fontWeight: 600 }} to="/products">
+                här
+              </Link>
+            </p>
+          </div>
         )}
       </div>
     </div>

@@ -141,7 +141,7 @@ const ProductCard = (props) => {
                   to={`/products/${productCategory}`}
                   style={{ textTransform: "capitalize" }}
                 >
-                  Kategori: {productCategory}
+                  {productCategory}
                 </Link>
               </li>
               <li>

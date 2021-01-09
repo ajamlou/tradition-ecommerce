@@ -37,6 +37,9 @@
   }
 
   .productDetails {
+    display: flex !important;
+    flex-direction: row !important;
+
     ul,
     ul li {
       padding: 0;

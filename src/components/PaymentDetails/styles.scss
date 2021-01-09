@@ -50,11 +50,27 @@
     padding-top: 3rem;
   }
 
-  .checkbox {
+  .sameDetails {
     display: flex;
     flex-direction: row;
+  }
+
+  .checkbox {
+    display: flex;
+    flex-direction: column;
+
+    .accept {
+      display: flex;
+      flex-direction: row;
+
+      .link {
+        cursor: pointer;
+      }
+    }
+
     p {
       padding-top: 0.3rem;
+      line-height: 1.5;
     }
   }
 }
