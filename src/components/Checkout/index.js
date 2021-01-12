@@ -78,7 +78,10 @@ const Checkout = (props) => {
                             <tbody>
                               <tr>
                                 <td className="total">
-                                  <h5>Leveranstid är ca 7 arbetsdagar.</h5>
+                                  <h5>
+                                    Leveranstid är 3-10 arbetsdagar och sker
+                                    till närmaste PostNord-ombud.
+                                  </h5>
                                   <h3>Fraktkostnad: {shippingCost}:-</h3>
                                   <h2>Total: {total + shippingCost}:-</h2>
                                 </td>

@@ -113,6 +113,12 @@ const PaymentDetails = () => {
     const cardElement = elements.getElement("card");
     setLoading(true);
 
+    // if (currentUser) {
+    //   setEmail(currentUser.email);
+    //   setAccept(true);
+    //   console.log('"HEEEEEEEEEj', email);
+    // }
+
     if (
       !shippingAddress.line1 ||
       !shippingAddress.city ||
@@ -135,11 +141,6 @@ const PaymentDetails = () => {
       }
       return;
     }
-
-    // if (currentUser) {
-    //   setEmail(currentUser.email);
-    //   console.log(email);
-    // }
 
     apiInstance
       .post("/payments/create", {
@@ -436,28 +437,30 @@ const PaymentDetails = () => {
           <h2 className="sum">Summa inkl. frakt: {total + shippingCost}:-</h2>
         </div>
 
+        {/* {currentUser ? null : ( */}
         <div className="checkbox">
           {showErrorMsg ? (
             <p style={{ color: globalStyles.tertiary }}>
               Du måste acceptera villkoren för att bli medlem.
             </p>
           ) : null}
-          <div class="accept">
+          <div className="accept">
             <Checkbox checked={accept} onChange={() => setAccept(!accept)} />
 
             <p>
-              Jag accepterar{" "}
+              Jag accepterar Träditions{" "}
               <span
-                class="link"
+                className="link"
                 onClick={toggleModal}
                 style={{ color: globalStyles.primary }}
               >
-                Träditions hantering av mina personuppgifter
+                användar- och köpvillkor
               </span>
               .
             </p>
           </div>
         </div>
+        {/* )} */}
 
         <Button type="submit">
           {loading ? (
