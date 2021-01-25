@@ -13,8 +13,6 @@ const Dashboard = (props) => {
   const dispatch = useDispatch();
   const { currentUser, orderHistory } = useSelector(mapState);
 
-  console.log("HISTORY!:", orderHistory);
-
   useEffect(() => {
     dispatch(getUserOrderHistory(currentUser.email));
   }, [currentUser, dispatch]);

@@ -203,7 +203,7 @@ const Admin = (props) => {
       </Modal>
 
       <div className="manageProducts">
-        <table border="0" cellPadding="0" cellSpacing="0">
+        <table className="mainTable" border="0" cellPadding="0" cellSpacing="0">
           <tbody>
             <tr>
               <th>
@@ -212,12 +212,7 @@ const Admin = (props) => {
             </tr>
             <tr>
               <td>
-                <table
-                  className="results"
-                  border="0"
-                  cellPadding="10"
-                  cellSpacing="0"
-                >
+                <table className="results" cellPadding="10" cellSpacing="0">
                   <tbody>
                     {Array.isArray(data) &&
                       data.length > 0 &&
@@ -344,7 +339,12 @@ const Admin = (props) => {
             </tr>
             <tr>
               <td>
-                <table border="0" cellPadding="10" cellSpacing="0">
+                <table
+                  className="loadMore"
+                  border="0"
+                  cellPadding="10"
+                  cellSpacing="0"
+                >
                   <tbody>
                     <tr>
                       <td>{!isLastPage && <LoadMore {...configLoadMore} />}</td>

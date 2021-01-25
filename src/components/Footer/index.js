@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import MailIcon from "@material-ui/icons/Mail";
-import StripeLogo from "./../../assets/stripe.png";
+import StripeLogo from "./../../assets/stripe.svg";
+import Mastercard from "./../../assets/mastercard.svg";
+import Visa from "./../../assets/visa.png";
 import globalStyles from "./../../globalStyles.js";
 import "./styles.scss";
 
@@ -37,9 +39,14 @@ const Footer = (props) => {
 
       <div className="payments">
         <div className="stripe">
-          <p style={{ fontSize: 16 }}>Säkra kortbetalningar med </p>
           <a href="https://stripe.com/en-gb-se">
             <img src={StripeLogo} alt="Stripe LOGO" />
+          </a>
+          <a>
+            <img src={Mastercard} alt="mastercard" />
+          </a>
+          <a>
+            <img src={Visa} alt="visa" />
           </a>
         </div>
         <p>

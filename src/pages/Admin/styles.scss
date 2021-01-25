@@ -27,26 +27,42 @@ label {
 }
 
 .manageProducts {
-  h1 {
-    margin-top: 1.5rem;
-  }
+  .mainTable {
+    width: 100%;
 
-  table.results {
-    tr {
-      td {
-        font-size: 1.5rem;
-      }
-      &:nth-child(even) {
-        background-color: #e4e4e4;
-      }
+    h1 {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
 
-      .thumb {
-        width: 15rem;
-        margin: 0 auto;
-        border-radius: 5px;
-      }
-      .delete {
-        cursor: pointer;
+    table.loadMore {
+      text-align: center;
+      width: 100%;
+    }
+
+    table.results {
+      width: 100%;
+
+      tr {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        padding-bottom: 1.5rem;
+        td {
+          font-size: 1.5rem;
+        }
+        // &:nth-child(even) {
+        //   background-color: #e4e4e4;
+        // }
+
+        .thumb {
+          width: 15rem;
+          margin: 0 auto;
+          border-radius: 5px;
+        }
+        .delete {
+          cursor: pointer;
+        }
       }
     }
   }
