@@ -1,5 +1,44 @@
 import { firestore } from "./../../firebase/utils";
 
+export const handleFetchOrders = () => {
+  //{ startAfterDoc, persistOrders = [] }
+
+  return new Promise((resolve, reject) => {
+    const pageSize = 9;
+
+    let ref = firestore
+      .collection("orders")
+      .orderBy("orderCreatedDate", "desc");
+    //.limit(pageSize);
+
+    //if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
+
+    ref
+      .get()
+      .then((snapshot) => {
+        const totalCount = snapshot.size;
+        const data = [
+          //...persistOrders,
+          ...snapshot.docs.map((doc) => {
+            return {
+              ...doc.data(),
+              documentID: doc.id,
+            };
+          }),
+        ];
+
+        resolve({
+          data,
+          queryDoc: snapshot.docs[totalCount - 1],
+          isLastPage: totalCount < 1,
+        });
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 export const handleSaveOrder = (order) => {
   return new Promise((resolve, reject) => {
     firestore

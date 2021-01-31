@@ -13,7 +13,14 @@ const Order = () => {
   const { orderID } = useParams();
   const dispatch = useDispatch();
   const { orderDetails } = useSelector(mapState);
-  const { orderTotal } = orderDetails;
+  const {
+    orderTotal,
+    shippingCost,
+    city,
+    postalCode,
+    line1,
+    recipientName,
+  } = orderDetails;
 
   useEffect(() => {
     dispatch(getOrderDetailsStart(orderID));
@@ -25,6 +32,29 @@ const Order = () => {
 
       <OrderDetails order={orderDetails} />
 
+      <h2>Leveransdetaljer:</h2>
+      <table className="deliveryDetails">
+        <tbody>
+          <tr>
+            <td>Namn:</td>
+            <td>{recipientName}</td>
+          </tr>
+          <tr>
+            <td>Gatuadress:</td>
+            <td>{line1}</td>
+          </tr>
+          <tr>
+            <td>Postnummer:</td>
+            <td>{postalCode}</td>
+          </tr>
+          <tr>
+            <td>Postort:</td>
+            <td>{city}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Frakt: {shippingCost}:-</h2>
       <h2>Summa: {orderTotal}:-</h2>
     </div>
   );

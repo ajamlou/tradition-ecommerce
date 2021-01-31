@@ -24,3 +24,12 @@ export const setOrderDetails = (order) => ({
   type: ordersTypes.SET_ORDER_DETAILS,
   payload: order,
 });
+
+export const setOrders = (orders) => ({
+  type: ordersTypes.SET_ORDERS,
+  payload: orders,
+});
+
+export const fetchOrdersStart = () => ({
+  type: ordersTypes.FETCH_ORDERS_START,
+});

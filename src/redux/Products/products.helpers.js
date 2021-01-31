@@ -65,7 +65,6 @@ export const handleDeleteProduct = (documentID) => {
       .doc(documentID)
       .delete()
       .then(() => {
-        console.log(documentID, 2);
         resolve();
       })
       .catch((err) => {
@@ -102,7 +101,6 @@ export const handleEditProduct = (product) => {
 };
 
 export const handleMarkAsSold = (payload) => {
-  console.log(payload);
   const documentID = payload[0];
   const productSold = payload[1];
   return new Promise((resolve, reject) => {

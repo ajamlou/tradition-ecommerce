@@ -8,6 +8,7 @@ import {
   editProductStart,
   markAsSoldStart,
 } from "./../../redux/Products/products.actions";
+import { fetchOrdersStart } from "./../../redux/Orders/orders.actions";
 import Modal from "./../../components/Modal";
 import FormInput from "./../../components/forms/FormInput";
 import FormSelect from "./../../components/forms/FormSelect";
@@ -21,12 +22,18 @@ import EditIcon from "@material-ui/icons/Edit";
 import DoneIcon from "@material-ui/icons/Done";
 import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 
-const mapState = ({ productsData }) => ({
+const mapState = ({ productsData, ordersData }) => ({
   products: productsData.products,
+  orders: ordersData.orders,
 });
 
+// const mapOrdersState = ({ ordersData }) => ({
+//   orders: ordersData.orders,
+// });
+
 const Admin = (props) => {
-  const { products } = useSelector(mapState);
+  const { products, orders } = useSelector(mapState);
+  //const { orders } = useSelector(mapOrdersState);
   const dispatch = useDispatch();
   const [hideModal, setHideModal] = useState(true);
   const [productCategory, setProductCategory] = useState("bestick");
@@ -35,6 +42,7 @@ const Admin = (props) => {
   const [productPrice, setProductPrice] = useState(0);
   const [productDesc, setProductDesc] = useState("");
   const [productSold, setProductSold] = useState(false);
+  const [productWeight, setProductWeight] = useState(0);
 
   const [editing, setEditing] = useState(false);
   const [productID, setProductID] = useState("");
@@ -42,9 +50,14 @@ const Admin = (props) => {
   const ADD = "Lägg till produkt";
   const EDIT = "Ändra produkt";
   const { data, queryDoc, isLastPage } = products;
+  const { ordersData, ordersQueryDoc, ordersIsLastPage } = orders;
 
   useEffect(() => {
     dispatch(fetchProductsStart());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchOrdersStart());
   }, [dispatch]);
 
   const toggleModal = () => {
@@ -79,7 +92,6 @@ const Admin = (props) => {
 
   const editProduct = (documentID) => {
     const product = data.filter((prod) => prod.documentID === documentID)[0];
-
     setHideModal(!hideModal);
     setProductID(documentID);
     setEditing(true);
@@ -88,6 +100,7 @@ const Admin = (props) => {
     setProductName(product.productName);
     setProductPrice(product.productPrice);
     setProductDesc(product.productDesc);
+    setProductWeight(product.productWeight);
   };
 
   const resetForm = () => {
@@ -113,6 +126,7 @@ const Admin = (props) => {
           productPrice,
           productDesc,
           productSold,
+          productWeight,
         })
       );
     } else if (editing) {
@@ -124,6 +138,7 @@ const Admin = (props) => {
           productThumbnail,
           productPrice,
           productDesc,
+          productWeight,
         })
       );
     }
@@ -172,6 +187,16 @@ const Admin = (props) => {
               type="text"
               value={productName}
               handleChange={(e) => setProductName(e.target.value)}
+            />
+
+            <FormInput
+              label="Vikt (i gram)"
+              type="number"
+              min="0.00"
+              max="100000.00"
+              step="0.01"
+              value={productWeight}
+              handleChange={(e) => setProductWeight(e.target.value)}
             />
 
             <FormInput
@@ -224,6 +249,7 @@ const Admin = (props) => {
                           productPrice,
                           documentID,
                           productSold,
+                          productWeight,
                         } = product;
 
                         return (
@@ -241,6 +267,7 @@ const Admin = (props) => {
                               {productName}
                             </td>
                             <td>{productPrice}:-</td>
+                            <td>{productWeight} g</td>
                             <td
                               style={{
                                 textTransform: "uppercase",
@@ -349,6 +376,45 @@ const Admin = (props) => {
                     <tr>
                       <td>{!isLastPage && <LoadMore {...configLoadMore} />}</td>
                     </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div className="manageProducts">
+        <table className="mainTable" border="0" cellPadding="0" cellSpacing="0">
+          <tbody>
+            <tr>
+              <th>
+                <h1>Hantera ordrar</h1>
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <table className="results" cellPadding="10" cellSpacing="0">
+                  <tbody>
+                    {Array.isArray(ordersData) &&
+                      ordersData.length > 0 &&
+                      ordersData.map((order, index) => {
+                        const {
+                          orderItems,
+                          email,
+                          orderCreatedDate,
+                          orderTotal,
+                        } = order;
+
+                        return (
+                          <tr key={index}>
+                            <td style={{ textTransform: "capitalize" }}>
+                              {email}
+                            </td>
+                            <td>{orderTotal}:-</td>
+                          </tr>
+                        );
+                      })}
                   </tbody>
                 </table>
               </td>

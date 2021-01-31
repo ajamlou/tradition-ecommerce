@@ -69,8 +69,18 @@ const PaymentDetails = () => {
   const [documentID, setDocumentID] = useState("");
   const [hideModal, setHideModal] = useState(true);
   const [showErrorMsg, setShowErrorMsg] = useState(false);
+  const [shippingCost, setShippingCost] = useState(0);
 
-  const shippingCost = 63;
+  useEffect(() => {
+    const totalWeight = cartItems.reduce((a, b) => +a + +b.productWeight, 0);
+    console.log(totalWeight);
+    if (totalWeight < 1000) {
+      setShippingCost(66);
+    }
+    if (totalWeight > 1000 && totalWeight < 6000) {
+      setShippingCost(126);
+    }
+  }, []);
 
   useEffect(() => {
     if (itemCount < 1) {
@@ -171,8 +181,15 @@ const PaymentDetails = () => {
               })
               .then(({ paymentIntent }) => {
                 const configOrder = {
+                  line1: shippingAddress.line1,
+                  city: shippingAddress.city,
+                  state: shippingAddress.state,
+                  postalCode: shippingAddress.postal_code,
+                  country: shippingAddress.country,
+                  recipientName: recipientName,
                   email: email,
-                  orderTotal: total,
+                  shippingCost: shippingCost,
+                  orderTotal: total + shippingCost,
                   orderItems: cartItems.map((item) => {
                     const {
                       documentID,
@@ -285,7 +302,8 @@ const PaymentDetails = () => {
           <div className="formRow checkoutInput">
             <CountryDropdown
               defaultOptionLabel="Välj land (obligatorisk)"
-              priorityOptions={["SWE"]}
+              // whitelist={["SE", "NO", "DK", "FI", "GB"]}
+              priorityOptions={["SE", "NO", "DK", "FI", "IS", "DE"]}
               required
               onChange={(val) =>
                 handleShipping({

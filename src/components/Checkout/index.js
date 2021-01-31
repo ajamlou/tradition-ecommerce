@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
@@ -19,9 +19,20 @@ const mapState = createStructuredSelector({
 const Checkout = (props) => {
   const history = useHistory();
   const { cartItems, total } = useSelector(mapState);
+  const [shippingCost, setShippingCost] = useState(0);
 
   const errMsg = "Din varukorg är tom.";
-  const shippingCost = 63;
+
+  useEffect(() => {
+    const totalWeight = cartItems.reduce((a, b) => +a + +b.productWeight, 0);
+    console.log(totalWeight);
+    if (totalWeight < 1000) {
+      setShippingCost(66);
+    }
+    if (totalWeight > 1000 && totalWeight < 6000) {
+      setShippingCost(126);
+    }
+  }, []);
 
   return (
     <div className="checkout">

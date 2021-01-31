@@ -1,12 +1,18 @@
 import ordersTypes from "./orders.types";
 
 const INITIAL_STATE = {
+  orders: [],
   orderHistory: [],
   orderDetails: {},
 };
 
 const ordersReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case ordersTypes.SET_ORDERS:
+      return {
+        ...state,
+        orders: action.payload,
+      };
     case ordersTypes.SET_USER_ORDER_HISTORY:
       return {
         ...state,

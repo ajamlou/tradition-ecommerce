@@ -3,6 +3,16 @@
     font-size: 1.8rem;
     padding-left: 1.5rem;
   }
+
+  .deliveryDetails {
+    padding-left: 1.2rem;
+    font-size: 1.6rem;
+    td {
+      padding-right: 2rem;
+      line-height: 1.2;
+    }
+  }
+
   @media screen and (max-width: 350px) {
     h1 {
       font-size: 1.1rem;
@@ -10,6 +20,9 @@
     }
     h2 {
       font-size: 1.6rem;
+    }
+    .deliveryDetails {
+      font-size: 1.2rem;
     }
   }
 

@@ -121,41 +121,45 @@ const ProductCard = (props) => {
           </div>
           <div className="productDetails">
             <ul>
-              <li>
-                <h1>{productName}</h1>
-              </li>
-              <li>
-                <span className="price">{productPrice}:-</span>
-              </li>
-              <li>
-                {productSold ? (
-                  <p style={{ color: globalStyles.tertiary, fontWeight: 600 }}>
-                    Slutsåld
-                  </p>
-                ) : (
-                  <p></p>
-                )}
-              </li>
-              <li>
-                <Link
-                  to={`/products/${productCategory}`}
-                  style={{ textTransform: "capitalize" }}
-                >
-                  {productCategory}
-                </Link>
-              </li>
-              <li>
-                <div className="addToCart">
-                  {productSold ? null : (
-                    <Button
-                      {...configAddToCartBtn}
-                      onClick={() => handleAddToCart(product)}
+              <div className="shortInfo">
+                <li>
+                  <h1 className="name">{productName}</h1>
+                </li>
+                <li>
+                  <span className="price">{productPrice}:-</span>
+                </li>
+                <li>
+                  {productSold ? (
+                    <p
+                      style={{ color: globalStyles.tertiary, fontWeight: 600 }}
                     >
-                      Köp
-                    </Button>
+                      Slutsåld
+                    </p>
+                  ) : (
+                    <p></p>
                   )}
-                </div>
-              </li>
+                </li>
+                <li>
+                  <Link
+                    to={`/products/${productCategory}`}
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    {productCategory}
+                  </Link>
+                </li>
+                <li>
+                  <div className="addToCart">
+                    {productSold ? null : (
+                      <Button
+                        {...configAddToCartBtn}
+                        onClick={() => handleAddToCart(product)}
+                      >
+                        Köp
+                      </Button>
+                    )}
+                  </div>
+                </li>
+              </div>
               <li>
                 <span
                   className="desc"
