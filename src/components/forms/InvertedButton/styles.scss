@@ -1,9 +1,13 @@
-.btn {
-  display: block;
+.invBtn {
+  // display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 100%;
-  background: #186355;
+  background: white;
   font-size: 1.8rem;
-  color: white;
+  color: #186355;
   line-height: 1;
   padding: 1rem;
   margin: 0 auto;
@@ -17,14 +21,15 @@
   cursor: pointer;
 
   &:hover {
-    background-color: #24947f;
     border: 3px solid #24947f;
-  }
-  @media screen and (max-width: 370px) {
-    font-size: 1rem !important;
+    color: #24947f;
   }
 
   @media screen and (max-width: 480px) {
-    font-size: 1.2rem !important;
+    font-size: 1rem !important;
+  }
+
+  @media screen and (max-width: 370px) {
+    font-size: 1rem !important;
   }
 }

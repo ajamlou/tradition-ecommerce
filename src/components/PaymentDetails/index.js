@@ -72,15 +72,34 @@ const PaymentDetails = () => {
   const [shippingCost, setShippingCost] = useState(0);
 
   useEffect(() => {
+    getShippingCost();
+  }, [cartItems]);
+
+  const getShippingCost = () => {
     const totalWeight = cartItems.reduce((a, b) => +a + +b.productWeight, 0);
-    console.log(totalWeight);
+
     if (totalWeight < 1000) {
       setShippingCost(66);
     }
-    if (totalWeight > 1000 && totalWeight < 6000) {
-      setShippingCost(126);
+    if (totalWeight > 1000 && totalWeight < 2000) {
+      setShippingCost(99);
     }
-  }, []);
+    if (totalWeight > 2000 && totalWeight < 3000) {
+      setShippingCost(122);
+    }
+    if (totalWeight > 3000 && totalWeight < 5000) {
+      setShippingCost(149);
+    }
+    if (totalWeight > 5000 && totalWeight < 10000) {
+      setShippingCost(199);
+    }
+    if (totalWeight > 10000 && totalWeight < 15000) {
+      setShippingCost(240);
+    }
+    if (totalWeight > 15000 && totalWeight < 20000) {
+      setShippingCost(285);
+    }
+  };
 
   useEffect(() => {
     if (itemCount < 1) {
@@ -411,48 +430,71 @@ const PaymentDetails = () => {
           />
           {/* )} */}
         </div>
-        <div className="cart">
-          <table border="0" cellPadding="0" cellSpacing="0">
-            <tbody>
-              <tr>
-                <td>
-                  <table className="checkoutHeader" border="0" cellSpacing="0">
-                    <tbody>
-                      <tr>
-                        <th>Produkt</th>
-                        <th>Beskrivning</th>
-                        <th>Antal</th>
-                        <th>Pris</th>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <table border="0" cellSpacing="0" cellPadding="0">
-                    <tbody>
-                      {cartItems.map((item, pos) => {
-                        return (
-                          <tr key={pos}>
-                            <td>
-                              <Item {...item} />
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
 
         <div className="group">
-          <h2>Betalningsinformation</h2>
-          <CardElement options={configCardElement} />
-          <h2 className="sum">Summa inkl. frakt: {total + shippingCost}:-</h2>
+          <div className="cart">
+            <h2>Produkter</h2>
+            <table border="0" cellPadding="0" cellSpacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                    <table border="0" cellSpacing="0" cellPadding="0">
+                      <tbody>
+                        {cartItems.map((item, pos) => {
+                          return (
+                            <tr key={pos}>
+                              <td>
+                                <Item {...item} />
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="sum">
+            <div
+              style={{
+                fontSize: 13,
+              }}
+              className="amountRow"
+            >
+              <h3>Subtotal:</h3>
+              <h3 style={{ color: globalStyles.secondary, fontWeight: 600 }}>
+                {total} SEK
+              </h3>
+            </div>
+            <div
+              style={{
+                fontSize: 14,
+              }}
+              className="amountRow"
+            >
+              <h3>Leveranskostnad:</h3>
+              <h3 style={{ color: globalStyles.secondary, fontWeight: 600 }}>
+                {shippingCost} SEK
+              </h3>
+            </div>
+            <div
+              style={{
+                fontSize: 18,
+                fontWeight: 600,
+                paddingBottom: 20,
+              }}
+              className="amountRow"
+            >
+              <h3>Total:</h3>
+              <h3>{total + shippingCost} SEK</h3>
+            </div>
+            <h2 style={{ paddingBottom: 20, paddingTop: 50 }}>
+              Betalningsinformation
+            </h2>
+            <CardElement options={configCardElement} />
+          </div>
         </div>
 
         {/* {currentUser ? null : ( */}

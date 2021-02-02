@@ -87,8 +87,8 @@ const OrderConfirmed = (props) => {
           </tbody>
         </table>
 
-        <h2>Fraktkostnad: {shippingCost}:-</h2>
-        <h1>Summa: {orderTotal}:-</h1>
+        <h2>Fraktkostnad: {shippingCost} SEK</h2>
+        <h1>Summa: {orderTotal} SEK</h1>
       </div>
     </div>
   );

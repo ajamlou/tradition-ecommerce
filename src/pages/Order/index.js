@@ -54,8 +54,8 @@ const Order = () => {
         </tbody>
       </table>
 
-      <h2>Frakt: {shippingCost}:-</h2>
-      <h2>Summa: {orderTotal}:-</h2>
+      <h2>Frakt: {shippingCost} SEK</h2>
+      <h2>Summa: {orderTotal} SEK</h2>
     </div>
   );
 };

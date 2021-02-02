@@ -266,7 +266,7 @@ const Admin = (props) => {
                             <td style={{ textTransform: "capitalize" }}>
                               {productName}
                             </td>
-                            <td>{productPrice}:-</td>
+                            <td>{productPrice} SEK</td>
                             <td>{productWeight} g</td>
                             <td
                               style={{
@@ -411,7 +411,7 @@ const Admin = (props) => {
                             <td style={{ textTransform: "capitalize" }}>
                               {email}
                             </td>
-                            <td>{orderTotal}:-</td>
+                            <td>{orderTotal} SEK</td>
                           </tr>
                         );
                       })}

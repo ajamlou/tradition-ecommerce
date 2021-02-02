@@ -36,7 +36,7 @@ const styles = {
 const formatText = (columnName, columnValue) => {
   switch (columnName) {
     case "orderTotal":
-      return `${columnValue}:-`;
+      return `${columnValue} SEK`;
     case "orderCreatedDate":
       return moment.unix(columnValue.seconds).format("DD/MM/YYYY");
 

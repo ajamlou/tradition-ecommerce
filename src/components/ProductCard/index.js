@@ -16,6 +16,12 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import { makeStyles } from "@material-ui/core/styles";
 import "./styles.scss";
 import globalStyles from "../../globalStyles";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const mapState = (state) => ({
   product: state.productsData.product,
@@ -33,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductCard = (props) => {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const history = useHistory();
   const [hideModal, setHideModal] = useState(true);
   const { productID } = useParams();
@@ -51,6 +58,13 @@ const ProductCard = (props) => {
   } = product;
 
   const toggleModal = () => setHideModal(!hideModal);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const configModal = {
     hideModal,
@@ -75,7 +89,7 @@ const ProductCard = (props) => {
       setHideModal(!hideModal);
     } else {
       dispatch(addProduct(product));
-      history.push("/cart");
+      setOpen(true);
     }
   };
 
@@ -85,17 +99,32 @@ const ProductCard = (props) => {
 
   return (
     <div className="productCard">
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert
+          style={{
+            backgroundColor: globalStyles.snackBar,
+            color: "white",
+            fontSize: 16,
+          }}
+          onClose={handleClose}
+          severity="success"
+        >
+          {productName} tillagd i varukorgen
+        </Alert>
+      </Snackbar>
       <div className="breadcrumbs">
         <Breadcrumbs aria-label="breadcrumb">
           <Link color="inherit" to="/products">
             Produkter
           </Link>
-          <Typography
+          <Link
             style={{ textTransform: "capitalize" }}
-            color="textPrimary"
+            color="inherit"
+            to={`/products/${productCategory}`}
           >
             {productCategory}
-          </Typography>
+          </Link>
+          <Typography color="textPrimary">{productName}</Typography>
         </Breadcrumbs>
       </div>
       <Modal style={{ zIndex: 1000, textAlign: "center" }} {...configModal}>
@@ -126,37 +155,35 @@ const ProductCard = (props) => {
                   <h1 className="name">{productName}</h1>
                 </li>
                 <li>
-                  <span className="price">{productPrice}:-</span>
+                  <span className="price">{productPrice} SEK</span>
                 </li>
-                <li>
-                  {productSold ? (
-                    <p
-                      style={{ color: globalStyles.tertiary, fontWeight: 600 }}
-                    >
-                      Slutsåld
-                    </p>
-                  ) : (
-                    <p></p>
-                  )}
-                </li>
-                <li>
+                {/* <li>
                   <Link
                     to={`/products/${productCategory}`}
                     style={{ textTransform: "capitalize" }}
                   >
                     {productCategory}
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <div className="addToCart">
-                    {productSold ? null : (
-                      <Button
-                        {...configAddToCartBtn}
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        Köp
-                      </Button>
-                    )}
+                    <div className="addToCart">
+                      {productSold ? (
+                        <Button
+                          style={{ backgroundColor: globalStyles.secondary }}
+                          disabled
+                        >
+                          Slutsåld
+                        </Button>
+                      ) : (
+                        <Button
+                          {...configAddToCartBtn}
+                          onClick={() => handleAddToCart(product)}
+                        >
+                          Lägg till
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </li>
               </div>

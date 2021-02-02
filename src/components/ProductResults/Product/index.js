@@ -8,16 +8,33 @@ import { selectCartItems } from "./../../../redux/Cart/cart.selectors";
 import { createStructuredSelector } from "reselect";
 import globalStyles from "../../../globalStyles";
 import Skeleton from "@material-ui/lab/Skeleton";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { makeStyles } from "@material-ui/core/styles";
 
 const mapState = createStructuredSelector({
   cartItems: selectCartItems,
 });
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(1),
+    },
+  },
+}));
+
 const Product = (product) => {
   const dispatch = useDispatch();
   const [hideModal, setHideModal] = useState(true);
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
   const { cartItems } = useSelector(mapState);
-  const history = useHistory();
   const [loading, setLoading] = useState(true);
   const {
     documentID,
@@ -49,19 +66,46 @@ const Product = (product) => {
     type: "button",
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   const handleAddToCart = (product) => {
     if (!product) return;
 
     if (cartItems.some((item) => item.documentID === documentID)) {
       setHideModal(!hideModal);
     } else {
+      setOpen(true);
       dispatch(addProduct(product));
-      history.push("/cart");
     }
   };
 
   return (
     <div className="product">
+      <Snackbar
+        className={classes.root}
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert
+          style={{
+            backgroundColor: globalStyles.snackBar,
+            fontFamily: globalStyles.fontFamily,
+            color: "white",
+            fontSize: 16,
+            maxWidth: 320,
+          }}
+          onClose={handleClose}
+          severity="success"
+        >
+          {productName} tillagd i varukorgen
+        </Alert>
+      </Snackbar>
       <Modal style={{ zIndex: 1000, textAlign: "center" }} {...configModal}>
         <div>
           <p style={{ textAlign: "center" }}>
@@ -70,7 +114,6 @@ const Product = (product) => {
           <Button onClick={() => toggleModal()}>OK</Button>
         </div>
       </Modal>
-
       {loading ? (
         <div style={{ marginTop: -70 }}>
           <Skeleton height={300} />
@@ -99,13 +142,16 @@ const Product = (product) => {
                 </span>
               </li>
               <li>
-                <span className="price">{productPrice}:-</span>
+                <span className="price">{productPrice} SEK</span>
               </li>
               <li>
                 <div className="addToCart">
                   {productSold ? (
                     <Button
-                      style={{ backgroundColor: globalStyles.secondary }}
+                      style={{
+                        backgroundColor: globalStyles.secondary,
+                        borderColor: globalStyles.secondary,
+                      }}
                       disabled
                     >
                       Slutsåld
@@ -115,7 +161,7 @@ const Product = (product) => {
                       {...configAddToCartBtn}
                       onClick={() => handleAddToCart(product)}
                     >
-                      Köp
+                      Lägg till
                     </Button>
                   )}
                 </div>

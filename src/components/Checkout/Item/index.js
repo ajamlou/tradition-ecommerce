@@ -49,28 +49,26 @@ const Item = (product) => {
             {/* <span className="cartBtn" onClick={() => handleReduceItem(product)}>
               {`– `}
             </span> */}
-            <span>{quantity}</span>
+            <span>{quantity} st</span>
             {/* <span className="cartBtn" onClick={() => handleAddProduct(product)}>
               {` +`}
             </span> */}
           </td>
-          <td>{productPrice}:-</td>
-          {window.location.pathname === "/cart" ? (
-            <td align="center">
-              <span
-                className="cartBtn"
-                onClick={() => handleRemoveCartItem(documentID)}
-              >
-                <DeleteIcon
-                  style={{
-                    height: 25,
-                    width: "auto",
-                    color: globalStyles.tertiary,
-                  }}
-                />
-              </span>
-            </td>
-          ) : null}
+          <td>{productPrice} SEK</td>
+          <td align="center">
+            <span
+              className="cartBtn"
+              onClick={() => handleRemoveCartItem(documentID)}
+            >
+              <DeleteIcon
+                style={{
+                  height: 25,
+                  width: "auto",
+                  color: globalStyles.tertiary,
+                }}
+              />
+            </span>
+          </td>
         </tr>
       </tbody>
     </table>

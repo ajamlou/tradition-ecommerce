@@ -25,13 +25,13 @@ body,
 }
 
 body {
-  font-family: "Karla", sans-serif;
+  font-family: "PT Sans", sans-serif;
   font-weight: 400;
   line-height: 1;
 }
 
 h1 {
-  font-family: "Vollkorn", serif !important;
+  font-family: "PT Sans Caption", sans-serif;
   display: block;
   width: 100%;
   padding: 0;
@@ -40,12 +40,12 @@ h1 {
   line-height: 3.2rem;
   color: #186355;
   text-align: left;
-  font-weight: 400;
+  font-weight: 600;
   border-bottom: #d3d3d3;
 }
 
 h2 {
-  font-family: "Vollkorn", serif !important;
+  font-family: "PT Sans", sans-serif;
   display: block;
   width: 100%;
   padding: 0;
@@ -62,8 +62,13 @@ h3 {
   color: #474747;
 }
 
+h5,
+h6 {
+  font-family: "PT Sans", sans-serif !important;
+}
+
 th {
-  font-family: "Vollkorn", serif !important;
+  font-family: "PT Sans Caption", sans-serif;
 }
 
 th,
@@ -73,7 +78,7 @@ span {
 }
 
 a {
-  font-family: "Vollkorn", serif !important;
+  font-family: "PT Sans Caption", sans-serif;
   color: #186355;
   text-decoration: none;
   cursor: pointer;

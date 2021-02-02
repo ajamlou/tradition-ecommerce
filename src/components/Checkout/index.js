@@ -8,8 +8,10 @@ import {
 import { createStructuredSelector } from "reselect";
 import "./styles.scss";
 import Button from "./../forms/Button";
+import InvertedButton from "./../forms/InvertedButton";
 import Item from "./Item";
 import Subheader from "../Subheader";
+import globalStyles from "../../globalStyles";
 
 const mapState = createStructuredSelector({
   cartItems: selectCartItems,
@@ -24,15 +26,34 @@ const Checkout = (props) => {
   const errMsg = "Din varukorg är tom.";
 
   useEffect(() => {
+    getShippingCost();
+  }, [cartItems]);
+
+  const getShippingCost = () => {
     const totalWeight = cartItems.reduce((a, b) => +a + +b.productWeight, 0);
-    console.log(totalWeight);
+
     if (totalWeight < 1000) {
       setShippingCost(66);
     }
-    if (totalWeight > 1000 && totalWeight < 6000) {
-      setShippingCost(126);
+    if (totalWeight > 1000 && totalWeight < 2000) {
+      setShippingCost(99);
     }
-  }, []);
+    if (totalWeight > 2000 && totalWeight < 3000) {
+      setShippingCost(122);
+    }
+    if (totalWeight > 3000 && totalWeight < 5000) {
+      setShippingCost(149);
+    }
+    if (totalWeight > 5000 && totalWeight < 10000) {
+      setShippingCost(199);
+    }
+    if (totalWeight > 10000 && totalWeight < 15000) {
+      setShippingCost(240);
+    }
+    if (totalWeight > 15000 && totalWeight < 20000) {
+      setShippingCost(285);
+    }
+  };
 
   return (
     <div className="checkout">
@@ -42,7 +63,7 @@ const Checkout = (props) => {
         {cartItems.length > 0 ? (
           <table border="0" cellPadding="0" cellSpacing="0">
             <tbody>
-              <tr>
+              {/* <tr>
                 <td>
                   <table
                     className="checkoutHeader"
@@ -61,7 +82,7 @@ const Checkout = (props) => {
                     </tbody>
                   </table>
                 </td>
-              </tr>
+              </tr> */}
               <tr>
                 <td>
                   <table border="0" cellSpacing="0" cellPadding="0">
@@ -85,37 +106,74 @@ const Checkout = (props) => {
                     <tbody>
                       <tr>
                         <td>
-                          <table border="0" cellPadding="10" cellSpacing="0">
-                            <tbody>
-                              <tr>
-                                <td className="total">
-                                  <h5>
-                                    Leveranstid är 3-10 arbetsdagar och sker
-                                    till närmaste PostNord-ombud.
-                                  </h5>
-                                  <h3>Fraktkostnad: {shippingCost}:-</h3>
-                                  <h2>Total: {total + shippingCost}:-</h2>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                          <div className="sum">
+                            <div
+                              style={{
+                                fontSize: 13,
+                              }}
+                              className="amountRow"
+                            >
+                              <h3>Subtotal:</h3>
+                              <h3
+                                style={{
+                                  color: globalStyles.secondary,
+                                  fontWeight: 600,
+                                }}
+                              >
+                                {total} SEK
+                              </h3>
+                            </div>
+                            <div
+                              style={{
+                                fontSize: 14,
+                              }}
+                              className="amountRow"
+                            >
+                              <h3>Leveranskostnad:</h3>
+                              <h3
+                                style={{
+                                  color: globalStyles.secondary,
+                                  fontWeight: 600,
+                                }}
+                              >
+                                {shippingCost} SEK
+                              </h3>
+                            </div>
+                            <div
+                              style={{
+                                fontSize: 18,
+                                fontWeight: 600,
+                                paddingBottom: 20,
+                              }}
+                              className="amountRow"
+                            >
+                              <h3>Total:</h3>
+                              <h3>{total + shippingCost} SEK</h3>
+                            </div>
+                          </div>
+                          <h5 style={{ paddingTop: 20 }}>
+                            Leveranstid är 3-10 arbetsdagar och sker till
+                            närmaste PostNord-ombud.
+                          </h5>
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td style={{ paddingTop: 30 }}>
                           <table border="0" cellPadding="10" cellSpacing="0">
                             <tbody>
                               <tr>
                                 <td>
-                                  <Button onClick={() => history.goBack()}>
-                                    Fortsätt handla
-                                  </Button>
+                                  <InvertedButton
+                                    onClick={() => history.goBack()}
+                                  >
+                                    Tillbaka
+                                  </InvertedButton>
                                 </td>
                                 <td>
                                   <Button
                                     onClick={() => history.push("/payment")}
                                   >
-                                    Gå till kassan
+                                    Betala
                                   </Button>
                                 </td>
                               </tr>

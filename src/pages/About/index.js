@@ -38,7 +38,7 @@ const About = (props) => {
                 color: globalStyles.secondary,
               }}
             />
-            <p>info@tradition.com</p>
+            <p>info@tradition.nu</p>
           </a>
         </div>
       </div>

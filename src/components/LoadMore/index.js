@@ -1,22 +1,22 @@
+import { PlayCircleFilledWhite } from "@material-ui/icons";
 import React from "react";
 import globalStyles from "../../globalStyles";
-import Button from "./../forms/Button";
+import InvertedButton from "./../forms/InvertedButton";
 
 const LoadMore = ({ onLoadMoreEvt = () => {} }) => {
   return (
-    <Button
+    <InvertedButton
+      // className="loadMoreBtn"
       style={{
-        backgroundColor: "white",
-        borderRadius: 0,
-        borderWidth: 10,
-        borderColor: "red",
         color: globalStyles.secondary,
-        width: 250,
+        width: 300,
+        borderColor: "white",
+        borderBottom: "3px solid #474747",
       }}
       onClick={() => onLoadMoreEvt()}
     >
       Ladda fler produkter
-    </Button>
+    </InvertedButton>
   );
 };
 
