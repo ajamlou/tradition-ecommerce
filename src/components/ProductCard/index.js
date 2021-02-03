@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProductStart,
@@ -17,11 +17,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import "./styles.scss";
 import globalStyles from "../../globalStyles";
 import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+import SnackbarContent from "@material-ui/core/SnackbarContent";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 const mapState = (state) => ({
   product: state.productsData.product,
@@ -40,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 const ProductCard = (props) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const history = useHistory();
   const [hideModal, setHideModal] = useState(true);
   const { productID } = useParams();
   const { cartItems } = useSelector(mapCartState);
@@ -99,18 +96,28 @@ const ProductCard = (props) => {
 
   return (
     <div className="productCard">
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert
+      <Snackbar
+        className={classes.root}
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <SnackbarContent
           style={{
             backgroundColor: globalStyles.snackBar,
-            color: "white",
-            fontSize: 16,
+            fontSize: 14,
           }}
-          onClose={handleClose}
-          severity="success"
-        >
-          {productName} tillagd i varukorgen
-        </Alert>
+          message={"Tillagd i varukorgen!"}
+          action={
+            <IconButton
+              aria-label="close"
+              className={classes.close}
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="large" style={{ color: "white" }} />
+            </IconButton>
+          }
+        />
       </Snackbar>
       <div className="breadcrumbs">
         <Breadcrumbs aria-label="breadcrumb">
@@ -130,7 +137,7 @@ const ProductCard = (props) => {
       <Modal style={{ zIndex: 1000, textAlign: "center" }} {...configModal}>
         <div>
           <p style={{ textAlign: "center" }}>
-            Tyvärr finns det enbart 1 av detta föremål.
+            Denna vara är redan tillagd i varukorgen
           </p>
           <Button onClick={() => toggleModal()}>OK</Button>
         </div>
@@ -157,20 +164,15 @@ const ProductCard = (props) => {
                 <li>
                   <span className="price">{productPrice} SEK</span>
                 </li>
-                {/* <li>
-                  <Link
-                    to={`/products/${productCategory}`}
-                    style={{ textTransform: "capitalize" }}
-                  >
-                    {productCategory}
-                  </Link>
-                </li> */}
                 <li>
                   <div className="addToCart">
                     <div className="addToCart">
                       {productSold ? (
                         <Button
-                          style={{ backgroundColor: globalStyles.secondary }}
+                          style={{
+                            backgroundColor: globalStyles.secondary,
+                            borderColor: globalStyles.secondary,
+                          }}
                           disabled
                         >
                           Slutsåld
@@ -180,7 +182,7 @@ const ProductCard = (props) => {
                           {...configAddToCartBtn}
                           onClick={() => handleAddToCart(product)}
                         >
-                          Lägg till
+                          Lägg i varukorg
                         </Button>
                       )}
                     </div>

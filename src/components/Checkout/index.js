@@ -107,43 +107,18 @@ const Checkout = (props) => {
                       <tr>
                         <td>
                           <div className="sum">
-                            <div
-                              style={{
-                                fontSize: 13,
-                              }}
-                              className="amountRow"
-                            >
+                            <div className="amountRow">
                               <h3>Subtotal:</h3>
-                              <h3
-                                style={{
-                                  color: globalStyles.secondary,
-                                  fontWeight: 600,
-                                }}
-                              >
-                                {total} SEK
-                              </h3>
+                              <h3>{total} SEK</h3>
                             </div>
-                            <div
-                              style={{
-                                fontSize: 14,
-                              }}
-                              className="amountRow"
-                            >
+                            <div className="amountRow">
                               <h3>Leveranskostnad:</h3>
-                              <h3
-                                style={{
-                                  color: globalStyles.secondary,
-                                  fontWeight: 600,
-                                }}
-                              >
-                                {shippingCost} SEK
-                              </h3>
+                              <h3>{shippingCost} SEK</h3>
                             </div>
                             <div
                               style={{
+                                paddingBottom: 50,
                                 fontSize: 18,
-                                fontWeight: 600,
-                                paddingBottom: 20,
                               }}
                               className="amountRow"
                             >
@@ -151,10 +126,6 @@ const Checkout = (props) => {
                               <h3>{total + shippingCost} SEK</h3>
                             </div>
                           </div>
-                          <h5 style={{ paddingTop: 20 }}>
-                            Leveranstid är 3-10 arbetsdagar och sker till
-                            närmaste PostNord-ombud.
-                          </h5>
                         </td>
                       </tr>
                       <tr>

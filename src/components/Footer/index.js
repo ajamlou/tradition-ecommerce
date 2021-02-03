@@ -11,30 +11,26 @@ import "./styles.scss";
 const Footer = (props) => {
   return (
     <footer className="footer">
+      <hr />
       <div className="wrap">
-        <h3>© Trädition 2021</h3>
-        <div>
-          <a href="https://instagram.com/ereewoodcraft">
-            <InstagramIcon
-              style={{
-                paddingLeft: 30,
-                height: 35,
-                width: "auto",
-                marginRight: 15,
-                color: globalStyles.secondary,
-              }}
-            />
-          </a>
-          <a href="mailto:info@tradition.nu">
-            <MailIcon
-              style={{
-                height: 35,
-                width: "auto",
-                color: globalStyles.secondary,
-              }}
-            />
-          </a>
-        </div>
+        <a href="https://instagram.com/ereewoodcraft">
+          <InstagramIcon
+            style={{
+              height: 35,
+              width: "auto",
+              color: globalStyles.secondary,
+            }}
+          />
+        </a>
+        <a href="mailto:info@tradition.nu">
+          <MailIcon
+            style={{
+              height: 35,
+              width: "auto",
+              color: globalStyles.secondary,
+            }}
+          />
+        </a>
       </div>
 
       <div className="payments">
@@ -59,6 +55,7 @@ const Footer = (props) => {
           </Link>
           .
         </p>
+        <p>© Trädition 2021</p>
       </div>
     </footer>
   );

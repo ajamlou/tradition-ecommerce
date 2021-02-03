@@ -36,9 +36,14 @@
     }
   }
 
+  h3 {
+    font-weight: 300;
+  }
+
   .cartItem {
     tr {
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+      border: 0.8px solid rgb(241, 241, 241);
     }
     td img {
       border-radius: 5px;
@@ -51,19 +56,68 @@
     margin: 2.5rem 0 2rem;
 
     @media screen and (max-width: 700px) {
-      h2 {
+      h2,
+      h3 {
         text-align: center;
+      }
+      p {
+        font-size: 1.2rem;
       }
     }
   }
 
   .sum {
     line-height: 1.5;
+    padding-bottom: 3rem;
     .amountRow {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       height: 3rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  .shippingBox {
+    height: 10rem;
+    width: 100%;
+    border: 0.8px solid rgb(241, 241, 241);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+
+    h3 {
+      font-size: 1.6rem;
+      padding-left: 1rem;
+    }
+
+    .delivery {
+      height: 50%;
+      background-color: rgb(241, 241, 241);
+      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 5px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+
+      .postnord {
+        .radio {
+          padding-top: 0.5rem;
+          height: 1.8rem;
+        }
+        span {
+          font-size: 1.4rem;
+        }
+        h4 {
+          font-size: 1.2rem;
+          padding-left: 2.2rem;
+        }
+      }
     }
   }
 
@@ -75,6 +129,7 @@
   .checkbox {
     display: flex;
     flex-direction: column;
+    // padding-bottom: 3rem;
 
     .accept {
       display: flex;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "./../../forms/Button";
 import Modal from "./../../../components/Modal";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,23 +9,25 @@ import { createStructuredSelector } from "reselect";
 import globalStyles from "../../../globalStyles";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
+import SnackbarContent from "@material-ui/core/SnackbarContent";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 
 const mapState = createStructuredSelector({
   cartItems: selectCartItems,
 });
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    maxWidth: 600,
+    fontSize: 20,
     "& > * + *": {
-      marginTop: theme.spacing(1),
+      marginTop: theme.spacing(2),
     },
+  },
+  close: {
+    padding: theme.spacing(0.5),
   },
 }));
 
@@ -92,24 +94,27 @@ const Product = (product) => {
         autoHideDuration={3000}
         onClose={handleClose}
       >
-        <Alert
+        <SnackbarContent
           style={{
             backgroundColor: globalStyles.snackBar,
-            fontFamily: globalStyles.fontFamily,
-            color: "white",
-            fontSize: 16,
-            maxWidth: 320,
+            fontSize: 14,
           }}
-          onClose={handleClose}
-          severity="success"
-        >
-          {productName} tillagd i varukorgen
-        </Alert>
+          message={"Tillagd i varukorgen!"}
+          action={
+            <IconButton
+              aria-label="close"
+              className={classes.close}
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="large" style={{ color: "white" }} />
+            </IconButton>
+          }
+        />
       </Snackbar>
       <Modal style={{ zIndex: 1000, textAlign: "center" }} {...configModal}>
         <div>
           <p style={{ textAlign: "center" }}>
-            Tyvärr finns det enbart 1 av detta föremål.
+            Denna vara är redan tillagd i varukorgen
           </p>
           <Button onClick={() => toggleModal()}>OK</Button>
         </div>
@@ -161,7 +166,7 @@ const Product = (product) => {
                       {...configAddToCartBtn}
                       onClick={() => handleAddToCart(product)}
                     >
-                      Lägg till
+                      Lägg i varukorg
                     </Button>
                   )}
                 </div>

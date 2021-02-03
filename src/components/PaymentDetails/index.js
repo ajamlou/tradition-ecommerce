@@ -4,6 +4,9 @@ import FormInput from "./../forms/FormInput";
 import Button from "./../forms/Button";
 import { CountryDropdown } from "react-country-region-selector";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Radio from "@material-ui/core/Radio";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
 import Checkbox from "@material-ui/core/Checkbox";
 import Item from "./../Checkout/Item";
 import Modal from "./../../components/Modal";
@@ -24,6 +27,7 @@ import { useHistory } from "react-router-dom";
 import "./styles.scss";
 import globalStyles from "../../globalStyles";
 import TermsAndConditions from "../TermsAndConditions";
+import Subheader from "../Subheader";
 
 const initialAddressState = {
   line1: "",
@@ -261,10 +265,76 @@ const PaymentDetails = () => {
 
   return (
     <div className="paymentDetails">
+      <Subheader title={"KASSA"} />
       <form onSubmit={handleFormSubmit}>
         <div className="group">
-          <h2>Leveransadress</h2>
+          <div className="group">
+            <div className="cart">
+              <table border="0" cellPadding="0" cellSpacing="0">
+                <tbody>
+                  <tr>
+                    <td>
+                      <table border="0" cellSpacing="0" cellPadding="0">
+                        <tbody className="items">
+                          {cartItems.map((item, pos) => {
+                            return (
+                              <tr key={pos}>
+                                <td>
+                                  <Item {...item} />
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="sum">
+              <div className="amountRow">
+                <h3>Subtotal:</h3>
+                <h3>{total} SEK</h3>
+              </div>
+              <div className="amountRow">
+                <h3>Leveranskostnad:</h3>
+                <h3>{shippingCost} SEK</h3>
+              </div>
+              <div
+                style={{
+                  fontSize: 18,
+                }}
+                className="amountRow"
+              >
+                <h3>Total:</h3>
+                <h3>{total + shippingCost} SEK</h3>
+              </div>
+            </div>
+          </div>
 
+          <h2>Leverans</h2>
+          <div className="shippingBox">
+            <h3>PostNord</h3>
+            <div className="delivery">
+              <div className="postnord">
+                <div className="radio">
+                  <FormControl component="fieldset">
+                    <FormControlLabel
+                      value="radio"
+                      control={<Radio />}
+                      checked={true}
+                      label="PostNord Ombud"
+                    />
+                  </FormControl>
+                </div>
+                <h4>Leveranstid ca 3-10 arbetsdagar</h4>
+              </div>
+              <h3>{shippingCost} SEK</h3>
+            </div>
+          </div>
+
+          <h2>Leveransadress</h2>
           <FormInput
             required
             placeholder="För- och efternamn (obligatorisk)"
@@ -321,8 +391,8 @@ const PaymentDetails = () => {
           <div className="formRow checkoutInput">
             <CountryDropdown
               defaultOptionLabel="Välj land (obligatorisk)"
-              // whitelist={["SE", "NO", "DK", "FI", "GB"]}
-              priorityOptions={["SE", "NO", "DK", "FI", "IS", "DE"]}
+              whitelist={["SE", "NO", "DK", "FI", "IS"]}
+              priorityOptions={["SE"]}
               required
               onChange={(val) =>
                 handleShipping({
@@ -406,6 +476,8 @@ const PaymentDetails = () => {
             <CountryDropdown
               required
               defaultOptionLabel="Välj land (obligatorisk)"
+              whitelist={["SE", "NO", "DK", "FI", "IS"]}
+              priorityOptions={["SE"]}
               onChange={(val) =>
                 handleBilling({
                   target: {
@@ -432,95 +504,37 @@ const PaymentDetails = () => {
         </div>
 
         <div className="group">
-          <div className="cart">
-            <h2>Produkter</h2>
-            <table border="0" cellPadding="0" cellSpacing="0">
-              <tbody>
-                <tr>
-                  <td>
-                    <table border="0" cellSpacing="0" cellPadding="0">
-                      <tbody>
-                        {cartItems.map((item, pos) => {
-                          return (
-                            <tr key={pos}>
-                              <td>
-                                <Item {...item} />
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="sum">
-            <div
-              style={{
-                fontSize: 13,
-              }}
-              className="amountRow"
-            >
-              <h3>Subtotal:</h3>
-              <h3 style={{ color: globalStyles.secondary, fontWeight: 600 }}>
-                {total} SEK
-              </h3>
+          <h2 style={{ paddingBottom: 10, paddingTop: 10 }}>Betalning</h2>
+          <CardElement options={configCardElement} />
+
+          <h3 style={{ fontSize: 18, paddingTop: 20 }}>
+            Att betala: {total + shippingCost} SEK
+          </h3>
+
+          {/* {currentUser ? null : ( */}
+          <div className="checkbox">
+            {showErrorMsg ? (
+              <p style={{ color: globalStyles.tertiary }}>
+                Du måste acceptera villkoren för att bli medlem.
+              </p>
+            ) : null}
+
+            <div className="accept">
+              <Checkbox checked={accept} onChange={() => setAccept(!accept)} />
+              <p>
+                Jag accepterar Träditions{" "}
+                <span
+                  className="link"
+                  onClick={toggleModal}
+                  style={{ color: globalStyles.primary }}
+                >
+                  användar- och köpvillkor
+                </span>
+                .
+              </p>
             </div>
-            <div
-              style={{
-                fontSize: 14,
-              }}
-              className="amountRow"
-            >
-              <h3>Leveranskostnad:</h3>
-              <h3 style={{ color: globalStyles.secondary, fontWeight: 600 }}>
-                {shippingCost} SEK
-              </h3>
-            </div>
-            <div
-              style={{
-                fontSize: 18,
-                fontWeight: 600,
-                paddingBottom: 20,
-              }}
-              className="amountRow"
-            >
-              <h3>Total:</h3>
-              <h3>{total + shippingCost} SEK</h3>
-            </div>
-            <h2 style={{ paddingBottom: 20, paddingTop: 50 }}>
-              Betalningsinformation
-            </h2>
-            <CardElement options={configCardElement} />
           </div>
         </div>
-
-        {/* {currentUser ? null : ( */}
-        <div className="checkbox">
-          {showErrorMsg ? (
-            <p style={{ color: globalStyles.tertiary }}>
-              Du måste acceptera villkoren för att bli medlem.
-            </p>
-          ) : null}
-          <div className="accept">
-            <Checkbox checked={accept} onChange={() => setAccept(!accept)} />
-
-            <p>
-              Jag accepterar Träditions{" "}
-              <span
-                className="link"
-                onClick={toggleModal}
-                style={{ color: globalStyles.primary }}
-              >
-                användar- och köpvillkor
-              </span>
-              .
-            </p>
-          </div>
-        </div>
-        {/* )} */}
 
         <Button type="submit">
           {loading ? (

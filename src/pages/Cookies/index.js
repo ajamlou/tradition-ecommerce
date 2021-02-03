@@ -8,7 +8,7 @@ const Cookies = (props) => {
     <div className="cookiesWrapper">
       <Subheader title={"INTEGRITETSPOLICY & COOKIES"} />
       <div className="information">
-        <h1>Information om cookies</h1>
+        <h2>Cookies</h2>
         <p>
           Den här webbplatsen använder cookies för att den ska fungera normalt
           och för att kunna förbättra upplevelsen för dig som användare. Både så
@@ -16,8 +16,6 @@ const Cookies = (props) => {
           andra cookies lagrade på den här domänen, som inte används i det här
           forumet.
         </p>
-
-        <h2>Vad är cookies?</h2>
         <p>
           Cookies är små textfiler som innehåller data. De lagras på besökarens
           dator och skapas av de webbplatser som besökts. Syftet är att ge
