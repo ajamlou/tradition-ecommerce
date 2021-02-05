@@ -20,17 +20,9 @@ const DashBoardLayout = (props) => {
       <Subheader title={"MITT KONTO"} />
 
       <div className="controlPanel">
-        <div className="sidebar">
-          <VerticalNav>
-            <ul>
-              <li>
-                <span className="signOut" onClick={() => signOut()}>
-                  Logga ut
-                </span>
-              </li>
-            </ul>
-          </VerticalNav>
-        </div>
+        <span className="signOut" onClick={() => signOut()}>
+          Logga ut
+        </span>
         <div className="content">{props.children}</div>
       </div>
       <Footer />

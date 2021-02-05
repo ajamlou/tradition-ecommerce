@@ -61,18 +61,6 @@ const OrderDetails = ({ order }) => {
     <div className="table">
       <TableContainer>
         <Table>
-          <TableHead>
-            <TableRow>
-              {columns.map((col, pos) => {
-                return (
-                  <TableCell key={pos} style={styles}>
-                    {col.label}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </TableHead>
-
           <TableBody>
             {Array.isArray(orderItems) &&
               orderItems.length > 0 &&

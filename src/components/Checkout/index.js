@@ -58,31 +58,10 @@ const Checkout = (props) => {
   return (
     <div className="checkout">
       <Subheader title={"VARUKORG"} />
-
       <div className="cart">
         {cartItems.length > 0 ? (
           <table border="0" cellPadding="0" cellSpacing="0">
             <tbody>
-              {/* <tr>
-                <td>
-                  <table
-                    className="checkoutHeader"
-                    border="0"
-                    // cellPadding="10"
-                    cellSpacing="0"
-                  >
-                    <tbody>
-                      <tr>
-                        <th>Produkt</th>
-                        <th>Beskrivning</th>
-                        <th>Antal</th>
-                        <th>Pris</th>
-                        <th>Ta bort</th>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-              </tr> */}
               <tr>
                 <td>
                   <table border="0" cellSpacing="0" cellPadding="0">

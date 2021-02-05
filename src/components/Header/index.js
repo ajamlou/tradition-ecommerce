@@ -92,7 +92,7 @@ const Header = (props) => {
               history.push("/dashboard");
               toggleDrawer(anchor, false);
             }}
-            key={"Mitt konto"}
+            key={"Mina ordrar"}
           >
             <ListItemIcon>
               <AccountCircleIcon
@@ -105,7 +105,7 @@ const Header = (props) => {
             </ListItemIcon>
             <ListItemText
               classes={{ primary: classes.text }}
-              primary={"Mitt konto"}
+              primary={"Mina ordrar"}
             />
           </ListItem>,
           <ListItem
@@ -250,7 +250,7 @@ const Header = (props) => {
                 </li>,
                 <li key={2}>
                   <Link to="/dashboard" style={{ color: globalStyles.primary }}>
-                    Mitt konto
+                    Mina ordrar
                   </Link>
                 </li>,
               ]}
@@ -310,7 +310,7 @@ const Header = (props) => {
         </div>
       </div>
       <CookieConsent
-        buttonText="Jag accepterar cookies"
+        buttonText="OK"
         style={{ fontSize: 14, backgroundColor: globalStyles.secondary }}
         buttonStyle={{
           color: globalStyles.secondary,
@@ -324,6 +324,7 @@ const Header = (props) => {
         expires={31}
       >
         Denna hemsida använder cookies för att förbättra användarupplevelsen.
+        Genom att använda sidan godkänner du användandet av cookies.
       </CookieConsent>
     </header>
   );

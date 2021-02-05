@@ -1,11 +1,17 @@
 .confirmationContainer {
   .orderWrap {
-    padding: 4rem 0 0 0;
+    padding: 2rem 0 0 0;
 
+    h1,
+    h2 {
+      padding-left: 1.5rem;
+    }
     .deliveryDetails {
+      padding-left: 1.5rem;
       font-size: 1.6rem;
+
       td {
-        padding-right: 2rem;
+        padding-right: 4rem;
         line-height: 1.2;
       }
     }
@@ -15,6 +21,9 @@
     }
 
     @media screen and (max-width: 550px) {
+      p {
+        font-size: 1.2rem !important;
+      }
       h1,
       h2 {
         font-size: 1.4rem;

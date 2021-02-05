@@ -8,6 +8,7 @@ import {
 } from "./../../../redux/Cart/cart.actions";
 import DeleteIcon from "@material-ui/icons/Delete";
 import globalStyles from "./../../../globalStyles.js";
+import "./styles.scss";
 
 const Item = (product) => {
   const dispatch = useDispatch();
@@ -36,42 +37,30 @@ const Item = (product) => {
   // };
 
   return (
-    <table className="cartItem" border="0" cellSpacing="0" cellPadding="10">
-      <tbody>
-        <tr>
-          <td>
-            <Link to={`/product/${documentID}`}>
-              <img src={productThumbnail} alt={productName} />
-            </Link>
-          </td>
-          <td>{productName}</td>
-          <td>
-            {/* <span className="cartBtn" onClick={() => handleReduceItem(product)}>
-              {`– `}
-            </span> */}
-            <span>{quantity} st</span>
-            {/* <span className="cartBtn" onClick={() => handleAddProduct(product)}>
-              {` +`}
-            </span> */}
-          </td>
-          <td>{productPrice} SEK</td>
-          <td align="center">
-            <span
-              className="cartBtn"
-              onClick={() => handleRemoveCartItem(documentID)}
-            >
-              <DeleteIcon
-                style={{
-                  height: 25,
-                  width: "auto",
-                  color: globalStyles.tertiary,
-                }}
-              />
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div className="cartItem">
+      <div className="productItem">
+        <Link to={`/product/${documentID}`}>
+          <img src={productThumbnail} alt={productName} />
+        </Link>
+        <div className="descInfo">
+          <h2>{productName}</h2>
+          <h3>{quantity} st</h3>
+          <h3>{productPrice} SEK</h3>
+        </div>
+      </div>
+      <span
+        className="cartBtn"
+        onClick={() => handleRemoveCartItem(documentID)}
+      >
+        <DeleteIcon
+          style={{
+            height: 25,
+            width: "auto",
+            color: globalStyles.tertiary,
+          }}
+        />
+      </span>
+    </div>
   );
 };
 

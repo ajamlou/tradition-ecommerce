@@ -132,9 +132,9 @@ const App = (props) => {
             path="/dashboard"
             render={() => (
               <WithAuth>
-                <DashboardLayout>
+                <MainLayout>
                   <Dashboard />
-                </DashboardLayout>
+                </MainLayout>
               </WithAuth>
             )}
           />
@@ -142,9 +142,9 @@ const App = (props) => {
             path="/order/:orderID"
             render={() => (
               <WithAuth>
-                <DashboardLayout>
+                <MainLayout>
                   <Order />
-                </DashboardLayout>
+                </MainLayout>
               </WithAuth>
             )}
           />

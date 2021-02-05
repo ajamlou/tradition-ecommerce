@@ -20,6 +20,7 @@ const Order = () => {
     postalCode,
     line1,
     recipientName,
+    phoneNumber,
   } = orderDetails;
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const Order = () => {
 
       <OrderDetails order={orderDetails} />
 
-      <h2>Leveransdetaljer:</h2>
+      <h2 style={{ paddingTop: 20 }}>Leveransdetaljer:</h2>
       <table className="deliveryDetails">
         <tbody>
           <tr>
@@ -51,11 +52,17 @@ const Order = () => {
             <td>Postort:</td>
             <td>{city}</td>
           </tr>
+          <tr>
+            <td>Telefonnummer:</td>
+            <td>{phoneNumber}</td>
+          </tr>
         </tbody>
       </table>
 
-      <h2>Frakt: {shippingCost} SEK</h2>
-      <h2>Summa: {orderTotal} SEK</h2>
+      <div className="shippingDetails">
+        <h2>Frakt: {shippingCost} SEK</h2>
+        <h2>Summa: {orderTotal} SEK</h2>
+      </div>
     </div>
   );
 };

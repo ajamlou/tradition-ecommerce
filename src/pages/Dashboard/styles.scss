@@ -1,6 +1,23 @@
-.orderHistoryTitel {
-  @media screen and (max-width: 700px) {
-    font-size: 1.8rem;
+.orderHistory {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .history {
+    padding-top: 3rem;
   }
-  padding-bottom: 3rem;
+  h1 {
+    @media screen and (max-width: 700px) {
+      font-size: 1.8rem;
+    }
+  }
+
+  .signOut {
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    padding-top: 3rem;
+    font-weight: 600;
+  }
 }

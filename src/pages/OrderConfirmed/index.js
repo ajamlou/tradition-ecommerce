@@ -13,7 +13,6 @@ const mapState = ({ ordersData }) => ({
 
 const OrderConfirmed = (props) => {
   const { orderID } = useParams();
-  // const shippingCost = 66;
   const dispatch = useDispatch();
   const { orderDetails } = useSelector(mapState);
   const {
@@ -23,6 +22,7 @@ const OrderConfirmed = (props) => {
     postalCode,
     line1,
     recipientName,
+    phoneNumber,
   } = orderDetails;
 
   useEffect(() => {
@@ -32,36 +32,26 @@ const OrderConfirmed = (props) => {
   return (
     <div className="confirmationContainer">
       <Subheader title={"ORDERBEKRÄFTELSE"} />
-      <p
+      <div
         style={{
           textAlign: "center",
           lineHeight: 2,
         }}
       >
-        Tack för din beställning!
-      </p>
-      <p
-        style={{
-          textAlign: "center",
-          lineHeight: 2,
-        }}
-      >
-        Du kommer att få ett bekräftelsemail inom kort. Leverans görs till
-        närmaste postombud inom ca 7 arbetsdagar.
-      </p>
-      <p
-        style={{
-          textAlign: "center",
-          lineHeight: 2,
-        }}
-      >
-        Har du ett konto hos oss kan du också se dina beställningar under{" "}
-        <Link to="/dashboard" style={{ color: globalStyles.primary }}>
-          Mitt konto
-        </Link>
-        . Har du frågor om din order kan du skicka ett mail till oss på
-        info@tradition.nu.
-      </p>
+        <p>Tack för din beställning!</p>
+        <p>
+          Du kommer att få ett bekräftelsemail inom kort. Leverans görs till
+          närmaste postombud inom ca 7 arbetsdagar.
+        </p>
+        <p>
+          Har du ett konto hos oss kan du också se dina beställningar under{" "}
+          <Link to="/dashboard" style={{ color: globalStyles.primary }}>
+            Mina ordrar
+          </Link>
+          . Har du frågor om din order kan du skicka ett mail till oss på
+          info@tradition.nu.
+        </p>
+      </div>
       <div className="orderWrap">
         <h1>Ordernummer: #{orderID}</h1>
         <OrderDetails order={orderDetails} />
@@ -83,6 +73,10 @@ const OrderConfirmed = (props) => {
             <tr>
               <td>Postort:</td>
               <td>{city}</td>
+            </tr>
+            <tr>
+              <td>Telefonnummer:</td>
+              <td>{phoneNumber}</td>
             </tr>
           </tbody>
         </table>

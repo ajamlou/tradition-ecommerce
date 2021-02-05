@@ -68,6 +68,7 @@ const PaymentDetails = () => {
   const [accept, setAccept] = useState(false);
   const [nameOnCard, setNameOnCard] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [checkboxSame, setCheckboxSame] = useState(true);
   const [loading, setLoading] = useState(false);
   const [documentID, setDocumentID] = useState("");
@@ -165,6 +166,7 @@ const PaymentDetails = () => {
       !billingAddress.country ||
       !recipientName ||
       !email ||
+      !phoneNumber ||
       !nameOnCard ||
       !accept
     ) {
@@ -211,6 +213,7 @@ const PaymentDetails = () => {
                   country: shippingAddress.country,
                   recipientName: recipientName,
                   email: email,
+                  phoneNumber: phoneNumber,
                   shippingCost: shippingCost,
                   orderTotal: total + shippingCost,
                   orderItems: cartItems.map((item) => {
@@ -315,7 +318,7 @@ const PaymentDetails = () => {
 
           <h2>Leverans</h2>
           <div className="shippingBox">
-            <h3>PostNord</h3>
+            <h3 style={{ textAlign: "left" }}>PostNord</h3>
             <div className="delivery">
               <div className="postnord">
                 <div className="radio">
@@ -406,6 +409,14 @@ const PaymentDetails = () => {
               valueType="short"
             />
           </div>
+          <FormInput
+            required
+            placeholder="Telefonnummer för SMS-avi (obligatorisk)"
+            name="phone_number"
+            handleChange={(evt) => setPhoneNumber(evt.target.value)}
+            value={phoneNumber}
+            type="text"
+          />
         </div>
 
         <div className="group">
@@ -543,13 +554,13 @@ const PaymentDetails = () => {
             PAY
           )}
         </Button>
+        <Modal {...configModal}>
+          <div style={{ textAlign: "justify" }}>
+            <TermsAndConditions />
+            <Button onClick={() => toggleModal()}>Stäng</Button>
+          </div>
+        </Modal>
       </form>
-      <Modal {...configModal}>
-        <div style={{ textAlign: "justify" }}>
-          <TermsAndConditions />
-          <Button onClick={() => toggleModal()}>Stäng</Button>
-        </div>
-      </Modal>
     </div>
   );
 };

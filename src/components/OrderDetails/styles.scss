@@ -4,8 +4,13 @@
     font-size: 1.6rem;
   }
   @media screen and (max-width: 600px) {
+    td {
+      height: 7rem;
+    }
+
     img {
-      width: 60px;
+      height: 8rem;
+      width: auto;
     }
     th,
     td {
@@ -15,7 +20,8 @@
 
   @media screen and (max-width: 350px) {
     img {
-      width: 30px;
+      height: auto;
+      width: 5rem;
     }
     th,
     td {

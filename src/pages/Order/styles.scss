@@ -1,33 +1,41 @@
 .order {
+  padding-top: 3rem;
+
   h1 {
     font-size: 1.8rem;
-    padding-left: 1.5rem;
+    padding-left: 2rem;
+  }
+  .shippingDetails {
+    padding-top: 2rem;
+    font-size: 1.6rem !important;
   }
 
   .deliveryDetails {
     padding-left: 1.2rem;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     td {
       padding-right: 2rem;
       line-height: 1.2;
     }
   }
 
-  @media screen and (max-width: 350px) {
+  @media screen and (max-width: 450px) {
     h1 {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       padding-left: 0;
     }
     h2 {
-      font-size: 1.6rem;
+      font-size: 1.2rem;
     }
     .deliveryDetails {
       font-size: 1.2rem;
     }
+    .shippingDetails {
+      padding-top: 1rem;
+    }
   }
 
   h2 {
-    padding-top: 2rem;
     padding-left: 1.5rem;
   }
 }
