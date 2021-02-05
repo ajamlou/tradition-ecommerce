@@ -33,10 +33,11 @@ const OrderConfirmed = (props) => {
     <div className="confirmationContainer">
       <Subheader title={"ORDERBEKRÄFTELSE"} />
       <div
-        style={{
-          textAlign: "center",
-          lineHeight: 2,
-        }}
+        className="description"
+        // style={{
+        //   textAlign: "center",
+        //   lineHeight: 2,
+        // }}
       >
         <p>Tack för din beställning!</p>
         <p>

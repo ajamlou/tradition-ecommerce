@@ -79,6 +79,7 @@ export const handleEditProduct = (product) => {
   const productThumbnail = product.productThumbnail;
   const productPrice = product.productPrice;
   const productDesc = product.productDesc;
+  const productWeight = product.productWeight;
 
   return new Promise((resolve, reject) => {
     firestore
@@ -90,6 +91,7 @@ export const handleEditProduct = (product) => {
         productThumbnail: productThumbnail,
         productPrice: productPrice,
         productDesc: productDesc,
+        productWeight: productWeight,
       })
       .then(() => {
         resolve();

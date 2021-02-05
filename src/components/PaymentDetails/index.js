@@ -349,7 +349,7 @@ const PaymentDetails = () => {
 
           <FormInput
             required
-            placeholder="Adresslinje 1 (obligatorisk)"
+            placeholder="Gatuadress (obligatorisk)"
             name="line1"
             handleChange={(evt) => handleShipping(evt)}
             value={shippingAddress.line1}
@@ -357,7 +357,7 @@ const PaymentDetails = () => {
           />
 
           <FormInput
-            placeholder="Adresslinje 2 (valfri)"
+            placeholder=""
             name="line2"
             handleChange={(evt) => handleShipping(evt)}
             value={shippingAddress.line2}

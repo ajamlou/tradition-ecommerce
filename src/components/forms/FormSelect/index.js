@@ -24,7 +24,6 @@ const FormSelect = ({
       >
         {options.map((option, index) => {
           const { value, name } = option;
-
           return (
             <option key={index} value={value}>
               {name}

@@ -32,6 +32,7 @@ import Order from "./pages/Order";
 import OrderConfirmed from "./pages/OrderConfirmed";
 import "./default.scss";
 import About from "./pages/About";
+import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
 const App = (props) => {
@@ -174,6 +175,9 @@ const App = (props) => {
               </WithAdminAuth>
             )}
           />
+          <MainLayout>
+            <Route component={NotFound} />
+          </MainLayout>
         </Switch>
       </ScrollToTop>
     </div>
