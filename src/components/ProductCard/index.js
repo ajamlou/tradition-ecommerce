@@ -9,7 +9,6 @@ import { addProduct } from "./../../redux/Cart/cart.actions";
 import { selectCartItems } from "./../../redux/Cart/cart.selectors";
 import { createStructuredSelector } from "reselect";
 import Button from "./../forms/Button";
-import Modal from "./../../components/Modal";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Typography from "@material-ui/core/Typography";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
@@ -38,11 +37,11 @@ const useStyles = makeStyles((theme) => ({
 const ProductCard = (props) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [hideModal, setHideModal] = useState(true);
   const { productID } = useParams();
   const { cartItems } = useSelector(mapCartState);
   const { product, loading } = useSelector(mapState);
   const [isLoading, setLoading] = useState(true);
+  const [isInCart, setIsInCart] = useState(false);
   const classes = useStyles();
 
   const {
@@ -54,8 +53,6 @@ const ProductCard = (props) => {
     productSold,
   } = product;
 
-  const toggleModal = () => setHideModal(!hideModal);
-
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -63,13 +60,9 @@ const ProductCard = (props) => {
     setOpen(false);
   };
 
-  const configModal = {
-    hideModal,
-    toggleModal,
-  };
-
   useEffect(() => {
     dispatch(fetchProductStart(productID));
+    setIsInCart(cartItems.some((item) => item.documentID === productID));
     setTimeout(function () {
       setLoading(false);
     }, 850);
@@ -81,13 +74,9 @@ const ProductCard = (props) => {
 
   const handleAddToCart = (product) => {
     if (!product) return;
-
-    if (cartItems.some((item) => item.documentID === productID)) {
-      setHideModal(!hideModal);
-    } else {
-      dispatch(addProduct(product));
-      setOpen(true);
-    }
+    dispatch(addProduct(product));
+    setIsInCart(true);
+    setOpen(true);
   };
 
   const configAddToCartBtn = {
@@ -134,14 +123,6 @@ const ProductCard = (props) => {
           <Typography color="textPrimary">{productName}</Typography>
         </Breadcrumbs>
       </div>
-      <Modal style={{ zIndex: 1000, textAlign: "center" }} {...configModal}>
-        <div>
-          <p style={{ textAlign: "center" }}>
-            Denna vara är redan tillagd i varukorgen
-          </p>
-          <Button onClick={() => toggleModal()}>OK</Button>
-        </div>
-      </Modal>
       {isLoading ? (
         <div style={{ marginTop: -100 }}>
           <Skeleton height={500} className={classes.media} />
@@ -178,12 +159,26 @@ const ProductCard = (props) => {
                           Slutsåld
                         </Button>
                       ) : (
-                        <Button
-                          {...configAddToCartBtn}
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          Lägg i varukorg
-                        </Button>
+                        <div>
+                          {isInCart ? (
+                            <Button
+                              style={{
+                                backgroundColor: globalStyles.hover,
+                                borderColor: globalStyles.hover,
+                              }}
+                              disabled
+                            >
+                              Tillagd i varukorg
+                            </Button>
+                          ) : (
+                            <Button
+                              {...configAddToCartBtn}
+                              onClick={() => handleAddToCart(product)}
+                            >
+                              Lägg i varukorg
+                            </Button>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>

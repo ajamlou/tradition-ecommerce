@@ -3,6 +3,7 @@ import Wallpaper from "./../../assets/wallpaper.jpg";
 import { Link } from "react-router-dom";
 import "./styles.scss";
 import globalStyles from "../../globalStyles";
+import Button from "./../forms/Button";
 
 const Directory = (props) => {
   return (
@@ -34,7 +35,7 @@ const Directory = (props) => {
           </div>
 
           <Link to="/products" style={{ color: globalStyles.primary }}>
-            Våra produkter
+            <Button>Till våra produkter</Button>
           </Link>
         </div>
       </div>

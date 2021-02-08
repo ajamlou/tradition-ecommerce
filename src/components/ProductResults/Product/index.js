@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "./../../forms/Button";
-import Modal from "./../../../components/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "./../../../redux/Cart/cart.actions";
 import { selectCartItems } from "./../../../redux/Cart/cart.selectors";
@@ -33,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Product = (product) => {
   const dispatch = useDispatch();
-  const [hideModal, setHideModal] = useState(true);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const { cartItems } = useSelector(mapState);
   const [loading, setLoading] = useState(true);
+  const [isInCart, setIsInCart] = useState(false);
   const {
     documentID,
     productThumbnail,
@@ -45,6 +44,11 @@ const Product = (product) => {
     productPrice,
     productSold,
   } = product;
+
+  useEffect(() => {
+    setIsInCart(cartItems.some((item) => item.documentID === documentID));
+  }, [cartItems]);
+
   if (
     !documentID ||
     !productThumbnail ||
@@ -52,13 +56,6 @@ const Product = (product) => {
     typeof productPrice === "undefined"
   )
     return null;
-
-  const toggleModal = () => setHideModal(!hideModal);
-
-  const configModal = {
-    hideModal,
-    toggleModal,
-  };
 
   setTimeout(function () {
     setLoading(false);
@@ -77,13 +74,9 @@ const Product = (product) => {
 
   const handleAddToCart = (product) => {
     if (!product) return;
-
-    if (cartItems.some((item) => item.documentID === documentID)) {
-      setHideModal(!hideModal);
-    } else {
-      setOpen(true);
-      dispatch(addProduct(product));
-    }
+    setOpen(true);
+    setIsInCart(true);
+    dispatch(addProduct(product));
   };
 
   return (
@@ -111,14 +104,6 @@ const Product = (product) => {
           }
         />
       </Snackbar>
-      <Modal style={{ zIndex: 1000, textAlign: "center" }} {...configModal}>
-        <div>
-          <p style={{ textAlign: "center" }}>
-            Denna vara är redan tillagd i varukorgen
-          </p>
-          <Button onClick={() => toggleModal()}>OK</Button>
-        </div>
-      </Modal>
       {loading ? (
         <div style={{ marginTop: -70 }}>
           <Skeleton height={300} />
@@ -130,7 +115,7 @@ const Product = (product) => {
           <div className="thumb">
             <Link to={`/product/${documentID}`}>
               <img src={productThumbnail} alt={productName} />
-              <div className="showProduct">Visa produkt</div>
+              <h3>VISA PRODUKT</h3>
             </Link>
           </div>
 
@@ -162,12 +147,26 @@ const Product = (product) => {
                       Slutsåld
                     </Button>
                   ) : (
-                    <Button
-                      {...configAddToCartBtn}
-                      onClick={() => handleAddToCart(product)}
-                    >
-                      Lägg i varukorg
-                    </Button>
+                    <div>
+                      {isInCart ? (
+                        <Button
+                          style={{
+                            backgroundColor: globalStyles.hover,
+                            borderColor: globalStyles.hover,
+                          }}
+                          disabled
+                        >
+                          Tillagd i varukorg
+                        </Button>
+                      ) : (
+                        <Button
+                          {...configAddToCartBtn}
+                          onClick={() => handleAddToCart(product)}
+                        >
+                          Lägg i varukorg
+                        </Button>
+                      )}
+                    </div>
                   )}
                 </div>
               </li>

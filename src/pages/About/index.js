@@ -23,7 +23,7 @@ const About = (props) => {
               style={{
                 height: 35,
                 width: "auto",
-                color: globalStyles.secondary,
+                color: globalStyles.primary,
               }}
             />
             <p>@tradition</p>
@@ -35,7 +35,7 @@ const About = (props) => {
               style={{
                 height: 35,
                 width: "auto",
-                color: globalStyles.secondary,
+                color: globalStyles.primary,
               }}
             />
             <p>info@tradition.nu</p>

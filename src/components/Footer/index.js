@@ -18,7 +18,7 @@ const Footer = (props) => {
             style={{
               height: 35,
               width: "auto",
-              color: globalStyles.secondary,
+              color: globalStyles.primary,
             }}
           />
         </a>
@@ -27,7 +27,7 @@ const Footer = (props) => {
             style={{
               height: 35,
               width: "auto",
-              color: globalStyles.secondary,
+              color: globalStyles.primary,
             }}
           />
         </a>
