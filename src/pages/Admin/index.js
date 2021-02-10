@@ -39,6 +39,8 @@ const Admin = (props) => {
   const [productCategory, setProductCategory] = useState("bestick");
   const [productName, setProductName] = useState("");
   const [productThumbnail, setProductThumbnail] = useState("");
+  const [productThumbnail2, setProductThumbnail2] = useState("");
+  const [productThumbnail3, setProductThumbnail3] = useState("");
   const [productPrice, setProductPrice] = useState(0);
   const [productDesc, setProductDesc] = useState("");
   const [productSold, setProductSold] = useState(false);
@@ -97,6 +99,8 @@ const Admin = (props) => {
     setEditing(true);
     setProductCategory(product.productCategory);
     setProductThumbnail(product.productThumbnail);
+    setProductThumbnail2(product.productThumbnail2);
+    setProductThumbnail3(product.productThumbnail3);
     setProductName(product.productName);
     setProductPrice(product.productPrice);
     setProductDesc(product.productDesc);
@@ -108,6 +112,8 @@ const Admin = (props) => {
     setProductCategory("bestick");
     setProductName("");
     setProductThumbnail("");
+    setProductThumbnail2("");
+    setProductThumbnail3("");
     setProductPrice(0);
     setProductDesc("");
     setEditing(false);
@@ -123,6 +129,8 @@ const Admin = (props) => {
           productCategory,
           productName,
           productThumbnail,
+          productThumbnail2,
+          productThumbnail3,
           productPrice,
           productDesc,
           productSold,
@@ -136,6 +144,8 @@ const Admin = (props) => {
           productCategory,
           productName,
           productThumbnail,
+          productThumbnail2,
+          productThumbnail3,
           productPrice,
           productDesc,
           productWeight,
@@ -200,10 +210,24 @@ const Admin = (props) => {
             />
 
             <FormInput
-              label="Bildlänk"
+              label="Bildlänk 1"
               type="url"
               value={productThumbnail}
               handleChange={(e) => setProductThumbnail(e.target.value)}
+            />
+
+            <FormInput
+              label="Bildlänk 2"
+              type="url"
+              value={productThumbnail2}
+              handleChange={(e) => setProductThumbnail2(e.target.value)}
+            />
+
+            <FormInput
+              label="Bildlänk3"
+              type="url"
+              value={productThumbnail3}
+              handleChange={(e) => setProductThumbnail3(e.target.value)}
             />
 
             <FormInput

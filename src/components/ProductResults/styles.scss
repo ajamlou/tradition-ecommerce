@@ -19,8 +19,8 @@
 
   .thumb {
     overflow: hidden;
-
     position: relative;
+
     h3 {
       display: none;
     }
@@ -186,6 +186,20 @@
     .thumb {
       display: block;
       width: 100%;
+
+      &:hover {
+        img {
+          opacity: 1;
+          transition: none;
+          -webkit-transform: none; /* Safari and Chrome */
+          -moz-transform: none; /* Firefox */
+          -ms-transform: none; /* IE 9 */
+          -o-transform: none; /* Opera */
+        }
+        h3 {
+          display: none;
+        }
+      }
 
       .showProduct {
         display: none;

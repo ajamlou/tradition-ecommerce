@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCartItemsCount } from "./../../redux/Cart/cart.selectors";
@@ -11,10 +11,7 @@ import Badge from "@material-ui/core/Badge";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import StoreIcon from "@material-ui/icons/Store";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import InfoIcon from "@material-ui/icons/Info";
+import CloseIcon from "@material-ui/icons/Close";
 import "./styles.scss";
 import Logo from "./../../assets/logo.png";
 import globalStyles from "../../globalStyles";
@@ -26,7 +23,7 @@ const mapState = (state) => ({
 
 const useStyles = makeStyles({
   list: {
-    width: 200,
+    width: 250,
   },
   text: {
     color: globalStyles.primary,
@@ -36,14 +33,22 @@ const useStyles = makeStyles({
   customBadge: {
     backgroundColor: globalStyles.tertiary,
     color: "white",
+    fontSize: 10,
   },
 });
 
 const Header = (props) => {
-  const { currentUser, totalNumCartItems } = useSelector(mapState);
+  const { totalNumCartItems } = useSelector(mapState);
   const history = useHistory();
+  const [isFrontPage, setIsFrontPage] = useState(false);
   const classes = useStyles();
   const [state, setState] = useState({ right: false });
+
+  useEffect(() => {
+    if (window.location.pathname == "/") {
+      setIsFrontPage(true);
+    }
+  }, []);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -62,166 +67,118 @@ const Header = (props) => {
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        {currentUser && [
-          <ListItem
-            button
-            onClick={() => {
-              history.push("/products");
-              toggleDrawer(anchor, false);
-            }}
-            key={"Produkter"}
-          >
-            <ListItemIcon>
-              <StoreIcon
-                style={{
-                  height: 25,
-                  width: "auto",
-                  color: globalStyles.primary,
-                }}
-              />
-            </ListItemIcon>
-            <ListItemText
-              classes={{ primary: classes.text }}
-              primary={"Produkter"}
-            />
-          </ListItem>,
-          <ListItem
-            button
-            onClick={() => {
-              history.push("/dashboard");
-              toggleDrawer(anchor, false);
-            }}
-            key={"Mina ordrar"}
-          >
-            <ListItemIcon>
-              <AccountCircleIcon
-                style={{
-                  height: 25,
-                  width: "auto",
-                  color: globalStyles.primary,
-                }}
-              />
-            </ListItemIcon>
-            <ListItemText
-              classes={{ primary: classes.text }}
-              primary={"Mina ordrar"}
-            />
-          </ListItem>,
-          <ListItem
-            button
-            onClick={() => {
-              history.push("/about");
-              toggleDrawer(anchor, false);
-            }}
-            key={"Om oss"}
-          >
-            <ListItemIcon>
-              <InfoIcon
-                style={{
-                  height: 25,
-                  width: "auto",
-                  color: globalStyles.primary,
-                }}
-              />
-            </ListItemIcon>
-            <ListItemText
-              classes={{ primary: classes.text }}
-              primary={"Om oss"}
-            />
-          </ListItem>,
-        ]}
+      <div className="drawerHeader">
+        <h2 style={{ textAlign: "center", paddingTop: 20 }}>Trädition</h2>
 
-        {!currentUser && [
-          <ListItem
-            button
-            onClick={() => {
-              history.push("/products");
-              toggleDrawer(anchor, false);
-            }}
-            key={"Produkter"}
-          >
-            <ListItemIcon>
-              <StoreIcon
-                style={{
-                  height: 25,
-                  width: "auto",
-                  color: globalStyles.primary,
-                }}
-              />
-            </ListItemIcon>
-            <ListItemText
-              classes={{ primary: classes.text }}
-              primary={"Produkter"}
-            />
-          </ListItem>,
-          <ListItem
-            button
-            onClick={() => {
-              history.push("/login");
-              toggleDrawer(anchor, false);
-            }}
-            key={"Logga in"}
-          >
-            <ListItemIcon>
-              <AccountCircleIcon
-                style={{
-                  height: 25,
-                  width: "auto",
-                  color: globalStyles.primary,
-                }}
-              />
-            </ListItemIcon>
-            <ListItemText
-              classes={{ primary: classes.text }}
-              primary={"Logga in"}
-            />
-          </ListItem>,
-          <ListItem
-            button
-            onClick={() => {
-              history.push("/about");
-              toggleDrawer(anchor, false);
-            }}
-            key={"Om oss"}
-          >
-            <ListItemIcon>
-              <InfoIcon
-                style={{
-                  height: 25,
-                  width: "auto",
-                  color: globalStyles.primary,
-                }}
-              />
-            </ListItemIcon>
-            <ListItemText
-              classes={{ primary: classes.text }}
-              primary={"Om oss"}
-            />
-          </ListItem>,
-        ]}
+        {/* <CloseIcon
+          button
+          style={{
+            height: 24,
+            width: "auto",
+            color: globalStyles.primary,
+          }}
+          onClick={() => {
+            toggleDrawer(anchor, false);
+          }}
+        /> */}
+      </div>
+      <List>
+        <ListItem
+          button
+          onClick={() => {
+            history.push("/products");
+            toggleDrawer(anchor, false);
+          }}
+          key={"Produkter"}
+        >
+          <ListItemText
+            classes={{ primary: classes.text }}
+            primary={"Produkter"}
+          />
+        </ListItem>
+        <ListItem
+          button
+          onClick={() => {
+            history.push("/about");
+            toggleDrawer(anchor, false);
+          }}
+          key={"Om oss"}
+        >
+          <ListItemText
+            classes={{ primary: classes.text }}
+            primary={"Om oss"}
+          />
+        </ListItem>
+        <ListItem
+          button
+          onClick={() => {
+            history.push("/dashboard");
+            toggleDrawer(anchor, false);
+          }}
+          key={"Mina ordrar"}
+        >
+          <ListItemText
+            classes={{ primary: classes.text }}
+            primary={"Mina ordrar"}
+          />
+        </ListItem>
       </List>
     </div>
   );
 
   return (
-    <header className="header">
-      <div className="wrap">
-        <div className="logo">
-          <Link to="/">
-            <img src={Logo} alt="Trädition LOGO" />
-          </Link>
-        </div>
-        <div className="desktop">
-          <nav>
-            <ul>
-              <li>
-                <Link to="/products" style={{ color: globalStyles.primary }}>
-                  Produkter
+    <div>
+      {isFrontPage ? null : (
+        <header className="header">
+          <div className="wrap">
+            <div className="desktopHeader">
+              <div className="logo">
+                <Link to="/">
+                  <img src={Logo} alt="Trädition LOGO" />
                 </Link>
-              </li>
-              <li>
-                <Link to="/cart" style={{ color: globalStyles.primary }}>
+              </div>
+              <div className="desktop">
+                <ul>
+                  <li>
+                    <Link to="/products" style={{ fontSize: 22 }}>
+                      Produkter
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/about" style={{ fontSize: 22 }}>
+                      Om oss
+                    </Link>
+                  </li>
+                  <li key={1}>
+                    <Link to="/dashboard" style={{ fontSize: 22 }}>
+                      Mina ordrar
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/cart">
+                      <div>
+                        <Badge
+                          badgeContent={totalNumCartItems}
+                          classes={{ badge: classes.customBadge }}
+                        >
+                          <ShoppingCartIcon
+                            style={{
+                              height: 24,
+                              width: "auto",
+                              color: globalStyles.snackBar,
+                            }}
+                          />
+                        </Badge>
+                      </div>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mobile-menu">
+              <div className="mobile-cart">
+                <Link to="/cart">
                   <div>
                     <Badge
                       badgeContent={totalNumCartItems}
@@ -229,86 +186,38 @@ const Header = (props) => {
                     >
                       <ShoppingCartIcon
                         style={{
-                          height: 25,
+                          height: 24,
                           width: "auto",
-                          color: globalStyles.primary,
+                          color: globalStyles.snackBar,
                         }}
                       />
                     </Badge>
                   </div>
                 </Link>
-              </li>
-            </ul>
-          </nav>
-          <div className="callToActions">
-            <ul>
-              {currentUser && [
-                <li key={1}>
-                  <Link to="/about" style={{ color: globalStyles.primary }}>
-                    Om oss
-                  </Link>
-                </li>,
-                <li key={2}>
-                  <Link to="/dashboard" style={{ color: globalStyles.primary }}>
-                    Mina ordrar
-                  </Link>
-                </li>,
-              ]}
-
-              {!currentUser && [
-                <li key={1}>
-                  <Link to="/about" style={{ color: globalStyles.primary }}>
-                    Om oss
-                  </Link>
-                </li>,
-                <li key={2}>
-                  <Link to="/login" style={{ color: globalStyles.primary }}>
-                    Logga in
-                  </Link>
-                </li>,
-              ]}
-            </ul>
-          </div>
-        </div>
-        <div className="mobile-menu">
-          <div className="mobile-cart">
-            <Link to="/cart" style={{ color: globalStyles.primary }}>
-              <div>
-                <Badge
-                  badgeContent={totalNumCartItems}
-                  classes={{ badge: classes.customBadge }}
-                >
-                  <ShoppingCartIcon
-                    style={{
-                      height: 25,
-                      width: "auto",
-                      color: globalStyles.primary,
-                    }}
-                  />
-                </Badge>
               </div>
-            </Link>
+              <div className="menu">
+                <MenuIcon
+                  className="menu-icon"
+                  onClick={toggleDrawer("right", true)}
+                  style={{
+                    height: 24,
+                    width: "auto",
+                    color: globalStyles.primary,
+                  }}
+                />
+                <Drawer
+                  anchor={"right"}
+                  open={state["right"]}
+                  onClose={toggleDrawer("right", false)}
+                >
+                  {list("right")}
+                </Drawer>
+              </div>
+            </div>
           </div>
-          <div className="menu">
-            <MenuIcon
-              className="menu-icon"
-              onClick={toggleDrawer("right", true)}
-              style={{
-                height: 25,
-                width: "auto",
-                color: globalStyles.primary,
-              }}
-            />
-            <Drawer
-              anchor={"right"}
-              open={state["right"]}
-              onClose={toggleDrawer("right", false)}
-            >
-              {list("right")}
-            </Drawer>
-          </div>
-        </div>
-      </div>
+        </header>
+      )}
+
       <CookieConsent
         buttonText="OK"
         style={{ fontSize: 14, backgroundColor: globalStyles.secondary }}
@@ -326,7 +235,7 @@ const Header = (props) => {
         Denna hemsida använder cookies för att förbättra användarupplevelsen.
         Genom att använda sidan godkänner du användandet av cookies.
       </CookieConsent>
-    </header>
+    </div>
   );
 };
 

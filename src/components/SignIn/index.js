@@ -31,7 +31,7 @@ const SignIn = (props) => {
 
   useEffect(() => {
     if (currentUser) {
-      history.push("/products");
+      history.push("/dashboard");
       resetForm();
     }
   }, [currentUser, history]);

@@ -19,6 +19,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 
 const mapState = (state) => ({
   product: state.productsData.product,
@@ -46,6 +48,8 @@ const ProductCard = (props) => {
 
   const {
     productThumbnail,
+    productThumbnail2,
+    productThumbnail3,
     productName,
     productPrice,
     productDesc,
@@ -94,7 +98,8 @@ const ProductCard = (props) => {
         <SnackbarContent
           style={{
             backgroundColor: globalStyles.snackBar,
-            fontSize: 14,
+            fontSize: 16,
+            fontFamily: globalStyles.fontFamily,
           }}
           message={"Tillagd i varukorgen!"}
           action={
@@ -134,7 +139,11 @@ const ProductCard = (props) => {
       ) : (
         <div>
           <div className="hero">
-            <img alt="thumbnail" src={productThumbnail} />
+            <Carousel>
+              <img alt="thumbnail" src={productThumbnail} />
+              <img alt="thumbnail2" src={productThumbnail2} />
+              <img alt="thumbnail3" src={productThumbnail3} />
+            </Carousel>
           </div>
           <div className="productDetails">
             <ul>

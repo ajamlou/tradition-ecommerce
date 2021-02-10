@@ -1,24 +1,36 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   removeCartItem,
   // addProduct,
   // reduceCartItem,
 } from "./../../../redux/Cart/cart.actions";
+import {
+  fetchProductStart,
+  setProduct,
+} from "./../../../redux/Products/products.actions";
 import DeleteIcon from "@material-ui/icons/Delete";
 import globalStyles from "./../../../globalStyles.js";
 import "./styles.scss";
 
+const mapState = (state) => ({
+  productInDb: state.productsData.product,
+});
+
 const Item = (product) => {
   const dispatch = useDispatch();
+  const { productInDb } = useSelector(mapState);
   const {
     productName,
     productThumbnail,
     productPrice,
     quantity,
     documentID,
+    productSold,
   } = product;
+
+  // const { documentID } = productInDb;
 
   const handleRemoveCartItem = (documentID) => {
     dispatch(
@@ -27,6 +39,19 @@ const Item = (product) => {
       })
     );
   };
+
+  useEffect(() => {
+    dispatch(fetchProductStart(documentID));
+    return () => {
+      dispatch(setProduct({}));
+    };
+  }, [documentID, dispatch]);
+
+  useEffect(() => {
+    if (productInDb.productSold || Object.keys(productInDb).length === 0) {
+      handleRemoveCartItem(documentID);
+    }
+  });
 
   // const handleAddProduct = (product) => {
   //   dispatch(addProduct(product));

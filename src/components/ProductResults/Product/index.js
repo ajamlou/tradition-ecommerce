@@ -90,7 +90,8 @@ const Product = (product) => {
         <SnackbarContent
           style={{
             backgroundColor: globalStyles.snackBar,
-            fontSize: 14,
+            fontSize: 16,
+            fontFamily: globalStyles.fontFamily,
           }}
           message={"Tillagd i varukorgen!"}
           action={
