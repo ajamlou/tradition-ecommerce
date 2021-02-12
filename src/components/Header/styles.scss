@@ -84,36 +84,44 @@
       .desktopHeader {
         padding-bottom: 0;
       }
+
       .desktop {
         display: none;
       }
       .logo {
-        position: absolute;
+        display: none;
+      }
+      .mobileLogo {
         width: 12rem;
         height: auto;
-        top: 50%;
-        left: 10px;
-        -webkit-transform: translateY(-50%);
-        -moz-transform: translateY(-50%);
-        transform: translateY(-50%);
+        width: 33.33333%;
 
         img {
-          display: block;
           width: 100%;
           margin: 0;
-          padding-top: 2rem;
         }
       }
       .mobile-menu {
+        width: 100%;
         display: flex;
-        justify-content: center;
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
         flex-direction: row;
         height: 100%;
         float: right;
+        padding-top: 1rem;
+
+        .mobile-cart {
+          width: 33.33333%;
+          display: flex;
+          justify-content: flex-end;
+          padding-right: 1.5rem;
+        }
 
         .menu {
-          padding: 0 1rem 0 2rem;
+          width: 33.33333%;
+          padding: 0 1rem 0 1rem;
           .drawerHeader {
             display: flex;
             flex-direction: row;
@@ -124,6 +132,13 @@
       }
     }
   }
+}
+div.CookieConsent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
 }
 
 @media (max-width: 650px) {

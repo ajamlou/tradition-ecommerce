@@ -27,7 +27,6 @@ const Item = (product) => {
     productPrice,
     quantity,
     documentID,
-    productSold,
   } = product;
 
   // const { documentID } = productInDb;
@@ -48,7 +47,8 @@ const Item = (product) => {
   }, [documentID, dispatch]);
 
   useEffect(() => {
-    if (productInDb.productSold || Object.keys(productInDb).length === 0) {
+    // || !Object.keys(productInDb)
+    if (productInDb.productSold) {
       handleRemoveCartItem(documentID);
     }
   });

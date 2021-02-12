@@ -177,6 +177,29 @@ const Header = (props) => {
             </div>
 
             <div className="mobile-menu">
+              <div className="menu">
+                <MenuIcon
+                  className="menu-icon"
+                  onClick={toggleDrawer("left", true)}
+                  style={{
+                    height: 24,
+                    width: "auto",
+                    color: globalStyles.primary,
+                  }}
+                />
+                <Drawer
+                  anchor={"left"}
+                  open={state["left"]}
+                  onClose={toggleDrawer("left", false)}
+                >
+                  {list("left")}
+                </Drawer>
+              </div>
+              <div className="mobileLogo">
+                <Link to="/">
+                  <img src={Logo} alt="Trädition LOGO" />
+                </Link>
+              </div>
               <div className="mobile-cart">
                 <Link to="/cart">
                   <div>
@@ -195,24 +218,6 @@ const Header = (props) => {
                   </div>
                 </Link>
               </div>
-              <div className="menu">
-                <MenuIcon
-                  className="menu-icon"
-                  onClick={toggleDrawer("right", true)}
-                  style={{
-                    height: 24,
-                    width: "auto",
-                    color: globalStyles.primary,
-                  }}
-                />
-                <Drawer
-                  anchor={"right"}
-                  open={state["right"]}
-                  onClose={toggleDrawer("right", false)}
-                >
-                  {list("right")}
-                </Drawer>
-              </div>
             </div>
           </div>
         </header>
@@ -220,12 +225,15 @@ const Header = (props) => {
 
       <CookieConsent
         buttonText="OK"
-        style={{ fontSize: 14, backgroundColor: globalStyles.secondary }}
+        style={{
+          fontSize: 14,
+          lineHeight: 1.5,
+        }}
         buttonStyle={{
           color: globalStyles.secondary,
           borderRadius: 5,
           width: 200,
-          height: 30,
+          height: 35,
           fontSize: 16,
           fontWeight: 600,
           fontFamily: globalStyles.fontFamily,
@@ -233,7 +241,13 @@ const Header = (props) => {
         expires={31}
       >
         Denna hemsida använder cookies för att förbättra användarupplevelsen.
-        Genom att använda sidan godkänner du användandet av cookies.
+        Genom att använda sidan godkänner du användandet av cookies. Du kan läsa
+        mer
+        <Link style={{ color: "#FFD24D" }} to="/cookies">
+          {" "}
+          här
+        </Link>
+        .
       </CookieConsent>
     </div>
   );
