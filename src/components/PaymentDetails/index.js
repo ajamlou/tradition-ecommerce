@@ -10,6 +10,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Checkbox from "@material-ui/core/Checkbox";
 import Item from "./../Checkout/Item";
 import Modal from "./../../components/Modal";
+import { firestore } from "./../../firebase/utils";
 import { apiInstance } from "./../../Utils";
 import {
   selectCartTotal,
@@ -74,6 +75,7 @@ const PaymentDetails = () => {
   const [documentID, setDocumentID] = useState("");
   const [hideModal, setHideModal] = useState(true);
   const [showErrorMsg, setShowErrorMsg] = useState(false);
+  const [transactionCompleted, setTransactionCompleted] = useState(false);
   const [shippingCost, setShippingCost] = useState(0);
 
   useEffect(() => {
@@ -107,9 +109,19 @@ const PaymentDetails = () => {
   };
 
   useEffect(() => {
-    if (itemCount < 1) {
-      history.push(`/orderConfirmed/${orderHistory[0].documentID}`);
+    if (!transactionCompleted && itemCount < 1) {
+      history.push("/products");
       setLoading(false);
+    }
+  }, [itemCount, currentUser, history]);
+
+  useEffect(() => {
+    if (transactionCompleted) {
+      const orderID = orderHistory[0].documentID;
+      history.push(`/orderConfirmed/${orderID}`);
+      //triggerEmail(orderID);
+      setLoading(false);
+      setTransactionCompleted(false);
     }
   }, [itemCount, currentUser, history]);
 
@@ -142,16 +154,100 @@ const PaymentDetails = () => {
     }
   };
 
+  const triggerEmail = (orderID) => {
+    const html = `
+
+      <h2>Tack för din beställning!</h2>
+
+      <p>Ditt order-ID är: ${orderID}</p>
+      <h3>Produkter</h3>
+      <table className="deliveryDetails">
+            <tbody>
+              <tr>
+                ${cartItems.map((item, pos) => {
+                  return (
+                    <tr key={pos}>
+                      <td>{item.productName}</td>
+                    </tr>
+                  );
+                })}
+              </tr>
+              <tr>
+                <td>Subtotal:</td>
+                <td>${total}</td>
+              </tr>
+              <tr>
+                <td>Fraktkostnad:</td>
+                <td>${shippingCost}</td>
+              </tr>
+              <tr>
+                <td>Total:</td>
+                <td>${total + shippingCost}</td>
+              </tr>
+            </tbody>
+          </table>
+
+      <h3>Leveransdetaljer</h3>
+      <table className="deliveryDetails">
+            <tbody>
+              <tr>
+                <td>Namn:</td>
+                <td>${recipientName}</td>
+              </tr>
+              <tr>
+                <td>Gatuadress:</td>
+                <td>${shippingAddress.line1}</td>
+                <td>${shippingAddress.line2}</td>
+              </tr>
+              <tr>
+                <td>Postnummer:</td>
+                <td>${shippingAddress.postal_code}</td>
+              </tr>
+              <tr>
+                <td>Postort:</td>
+                <td>${shippingAddress.city}</td>
+              </tr>
+              <tr>
+                <td>Telefonnummer:</td>
+                <td>${phoneNumber}</td>
+              </tr>
+            </tbody>
+          </table>
+      <br />
+      <p>
+      Leverans görs med PostNord till närmaste postombud inom 3-10
+      arbetsdagar.
+      </p>
+      <p>
+        Har du ett konto hos oss kan du också se dina beställningar under
+        "Mina Ordrar".
+      </p>
+      <p>Om du inte har ett konto kan du skapa ett med samma mailadress du använde när du beställde dina varor och därefter se dina ordrar.
+      </p>
+      <p>Har du frågor om din order kan du skicka ett mail till
+      oss på order.tradition@gmail.com.</p>
+      <br />
+      <img src="https://firebasestorage.googleapis.com/v0/b/eree-woodcraft.appspot.com/o/logo.png?alt=media&token=8efa0ff3-31c4-40a4-848d-d835020c0851"/>
+      <p>www.tradition.nu</p>
+    `;
+
+    firestore
+      .collection("mail")
+      .add({
+        to: email,
+        message: {
+          subject: "Orderbekräftelse",
+          text: "Trädition",
+          html: html,
+        },
+      })
+      .then(() => console.log("Queued email for delivery!"));
+  };
+
   const handleFormSubmit = async (evt) => {
     evt.preventDefault();
     const cardElement = elements.getElement("card");
     setLoading(true);
-
-    // if (currentUser) {
-    //   setEmail(currentUser.email);
-    //   setAccept(true);
-    //   console.log('"HEEEEEEEEEj', email);
-    // }
 
     if (
       !shippingAddress.line1 ||
@@ -235,17 +331,21 @@ const PaymentDetails = () => {
                     };
                   }),
                 };
-                cartItems.forEach((item) =>
-                  dispatch(markAsSoldStart([item.documentID, item.productSold]))
-                );
+                cartItems.forEach((item) => {
+                  console.log("sold");
+                  dispatch(
+                    markAsSoldStart([item.documentID, item.productSold])
+                  );
+                });
                 dispatch(saveOrderHistory(configOrder));
                 if (currentUser) {
                   dispatch(getUserOrderHistory(currentUser.email));
                 } else if (!currentUser) {
                   dispatch(getUserOrderHistory(email));
                 }
-
+                setTransactionCompleted(true);
                 setLoading(false);
+                //triggerEmail("okkUIIJKJN87986dZz");
               });
           });
       });
@@ -313,6 +413,16 @@ const PaymentDetails = () => {
                 <h3>Total:</h3>
                 <h3>{total + shippingCost} SEK</h3>
               </div>
+              <h5
+                style={{
+                  fontStyle: "italics",
+                  fontSize: 12,
+                  fontWeight: 300,
+                  paddingTop: 20,
+                }}
+              >
+                *Leveranskostnad beräknas utifrån föremålens vikt
+              </h5>
             </div>
           </div>
 

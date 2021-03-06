@@ -91,7 +91,7 @@ const Checkout = (props) => {
                               <h3>{total} SEK</h3>
                             </div>
                             <div className="amountRow">
-                              <h3>Leveranskostnad:</h3>
+                              <h3>Leveranskostnad*:</h3>
                               <h3>{shippingCost} SEK</h3>
                             </div>
                             <div
@@ -104,6 +104,15 @@ const Checkout = (props) => {
                               <h3>Total:</h3>
                               <h3>{total + shippingCost} SEK</h3>
                             </div>
+                            <h5
+                              style={{
+                                fontStyle: "italics",
+                                fontSize: 12,
+                                fontWeight: 300,
+                              }}
+                            >
+                              *Leveranskostnad beräknas utifrån föremålens vikt
+                            </h5>
                           </div>
                         </td>
                       </tr>

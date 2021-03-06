@@ -132,9 +132,11 @@ const Cookies = (props) => {
           användningen av dina personuppgifter. Om du vill ångra ditt samtycke
           eller veta vilka personuppgifter Hemsidan behandlar samt om du har
           några frågor gällande vår integritetspolicy, kontakta gärna oss på{" "}
-          <a href="mailto:info@tradition.nu">info@tradition.nu</a>. Du behöver
-          inte ladda upp några personuppgifter, men om du inte väljer att göra
-          det går inte alla funktioner på Hemsidan att användas.
+          <a href="mailto:order.tradition@gmail.com">
+            order.tradition@gmail.com
+          </a>
+          . Du behöver inte ladda upp några personuppgifter, men om du inte
+          väljer att göra det går inte alla funktioner på Hemsidan att användas.
         </p>
       </div>
     </div>

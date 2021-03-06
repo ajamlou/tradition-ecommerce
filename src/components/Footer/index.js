@@ -22,7 +22,7 @@ const Footer = (props) => {
             }}
           />
         </a>
-        <a href="mailto:info@tradition.nu">
+        <a href="mailto:order.tradition@gmail.com">
           <MailIcon
             style={{
               height: 35,

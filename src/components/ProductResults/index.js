@@ -38,16 +38,20 @@ const ProductResults = (props) => {
         value: "",
       },
       {
-        name: "Bestick",
-        value: "bestick",
+        name: "Dekorationer",
+        value: "dekorationer",
       },
       {
         name: "Smycken",
         value: "smycken",
       },
       {
-        name: "Lådor",
-        value: "lådor",
+        name: "Till köket",
+        value: "köket",
+      },
+      {
+        name: "Övrigt",
+        value: "övrigt",
       },
     ],
     handleChange: handleFilter,

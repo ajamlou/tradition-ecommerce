@@ -32,17 +32,12 @@ const OrderConfirmed = (props) => {
   return (
     <div className="confirmationContainer">
       <Subheader title={"ORDERBEKRÄFTELSE"} />
-      <div
-        className="description"
-        // style={{
-        //   textAlign: "center",
-        //   lineHeight: 2,
-        // }}
-      >
+      <div className="description">
         <p>Tack för din beställning!</p>
         <p>
-          Du kommer att få ett bekräftelsemail inom kort. Leverans görs till
-          närmaste postombud inom ca 7 arbetsdagar.
+          Du kommer att få ett bekräftelsemail inom kort. Om du inte hittar det
+          kan du behöva kolla i "Skräppost". Leverans görs med PostNord till
+          närmaste postombud inom 3-10 arbetsdagar.
         </p>
         <p>
           Har du ett konto hos oss kan du också se dina beställningar under{" "}
@@ -50,13 +45,13 @@ const OrderConfirmed = (props) => {
             Mina ordrar
           </Link>
           . Har du frågor om din order kan du skicka ett mail till oss på
-          info@tradition.nu.
+          order.tradition@gmail.com.
         </p>
       </div>
       <div className="orderWrap">
         <h1>Ordernummer: #{orderID}</h1>
         <OrderDetails order={orderDetails} />
-        <h2>Leveransdetaljer:</h2>
+        <h1>Leveransdetaljer</h1>
         <table className="deliveryDetails">
           <tbody>
             <tr>
@@ -79,10 +74,13 @@ const OrderConfirmed = (props) => {
               <td>Telefonnummer:</td>
               <td>{phoneNumber}</td>
             </tr>
+            <tr>
+              <td>Fraktkostnad:</td>
+              <td>{shippingCost} SEK</td>
+            </tr>
           </tbody>
         </table>
 
-        <h2>Fraktkostnad: {shippingCost} SEK</h2>
         <h1>Summa: {orderTotal} SEK</h1>
       </div>
     </div>

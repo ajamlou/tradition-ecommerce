@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./styles.scss";
 import globalStyles from "../../globalStyles";
 import Button from "./../forms/Button";
+import ImageFadeIn from "react-image-fade-in";
 
 const Directory = (props) => {
   return (
@@ -11,10 +12,12 @@ const Directory = (props) => {
       <div className="wrap">
         <div
           className="item"
+          style={{ backgroundColor: globalStyles.secondary }}
           style={{
             backgroundImage: `url(${Wallpaper})`,
           }}
         >
+          {/* <ImageFadeIn width={"100%"} height={"auto"} src={Wallpaper} /> */}
           <div className="text">
             <h1
               style={{

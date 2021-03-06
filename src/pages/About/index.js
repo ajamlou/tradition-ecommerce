@@ -8,7 +8,7 @@ import Subheader from "../../components/Subheader/index.js";
 const About = (props) => {
   return (
     <div className="about">
-      <Subheader title={"OM OSS"} />
+      <Subheader title={"OM TRÄDITION"} />
       <h3 className="desc">
         Trädition erbjuder unika och handgjorda föremål helt i trä. Våra
         produkter är tillverkade med hjälp av traditionella slöjdtekniker där
@@ -38,7 +38,7 @@ const About = (props) => {
                 color: globalStyles.primary,
               }}
             />
-            <p>info@tradition.nu</p>
+            <p>order.tradition@gmail.com</p>
           </a>
         </div>
       </div>

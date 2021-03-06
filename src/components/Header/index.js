@@ -102,11 +102,11 @@ const Header = (props) => {
             history.push("/about");
             toggleDrawer(anchor, false);
           }}
-          key={"Om oss"}
+          key={"Om Trädition"}
         >
           <ListItemText
             classes={{ primary: classes.text }}
-            primary={"Om oss"}
+            primary={"Om Trädition"}
           />
         </ListItem>
         <ListItem
@@ -146,7 +146,7 @@ const Header = (props) => {
                   </li>
                   <li>
                     <Link to="/about" style={{ fontSize: 22 }}>
-                      Om oss
+                      Om Trädition
                     </Link>
                   </li>
                   <li key={1}>

@@ -50,6 +50,7 @@ const ProductCard = (props) => {
     productThumbnail,
     productThumbnail2,
     productThumbnail3,
+    productThumbnail4,
     productName,
     productPrice,
     productDesc,
@@ -143,6 +144,7 @@ const ProductCard = (props) => {
               <img alt="thumbnail" src={productThumbnail} />
               <img alt="thumbnail2" src={productThumbnail2} />
               <img alt="thumbnail3" src={productThumbnail3} />
+              <img alt="thumbnail4" src={productThumbnail4} />
             </Carousel>
           </div>
           <div className="productDetails">
